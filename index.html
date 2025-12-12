@@ -1,14 +1,98 @@
-<!doctype html>
+<<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>website</title>
-    <script type="module" crossorigin src="/assets/index-CKR9I6mu.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-COcDBgFa.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caricuangratis</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0c0f14;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .bitcoin {
+            position: fixed;
+            top: -50px;
+            width: 30px;
+            animation: fall linear infinite;
+            opacity: 0.9;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0.3;
+            }
+        }
+
+        .content-box {
+            position: relative;
+            z-index: 10;
+            background: white;
+            width: 85%;
+            margin: 70px auto;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+            font-size: 18px;
+        }
+
+        .btn {
+            background: #f7b500;
+            padding: 12px 25px;
+            border-radius: 8px;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="content-box">
+        <h1>Selamat Datang</h1>
+        <p>Website ini memiliki animasi koin Bitcoin jatuh.</p>
+
+        <a class="btn" href="#">Daftar Honeygain $3</a><br><br>
+        <a class="btn" href="#">Adsterra Direct Link</a>
+    </div>
+
+    <script>
+        const totalCoins = 25;
+
+        for (let i = 0; i < totalCoins; i++) {
+            let coin = document.createElement("img");
+            coin.src = "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg";
+            coin.classList.add("bitcoin");
+
+            coin.style.left = Math.random() * 100 + "vw";
+            coin.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            coin.style.width = (Math.random() * 20 + 20) + "px";
+
+            document.body.appendChild(coin);
+        }
+    </script>
+
+</body>
 </html>
