@@ -28,7 +28,7 @@
       box-sizing: border-box;
       background: rgba(0,0,0,0.3);
       backdrop-filter: blur(4px);
-      z-index: 5;
+      z-index: 10;
     }
 
     .logo {
@@ -49,9 +49,9 @@
       color: gold;
     }
 
-    /* KONTEN DASHBOARD */
+    /* DASHBOARD TEXT */
     .dashboard-content {
-      padding-top: 120px; /* supaya tidak ketutup navbar */
+      padding-top: 120px;
       font-size: 30px;
       font-weight: bold;
     }
@@ -62,7 +62,7 @@
       opacity: 0.9;
     }
 
-    /* VIDEO FULL WIDTH */
+    /* VIDEO WRAPPER */
     .video-wrapper {
       width: 100%;
       margin-top: 40px;
@@ -75,7 +75,66 @@
       border-top: 3px solid gold;
       border-bottom: 3px solid gold;
     }
+
+    /* FORM STYLE */
+    .form-section {
+      margin-top: 70px;
+      padding: 40px 20px;
+      background: #111;
+      border-top: 2px solid gold;
+    }
+
+    .form-section h2 {
+      color: gold;
+      font-size: 28px;
+      margin-bottom: 25px;
+    }
+
+    .form-box {
+      max-width: 350px;
+      margin: auto;
+      text-align: left;
+    }
+
+    .form-box label {
+      font-size: 18px;
+    }
+
+    .form-box input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      margin-bottom: 20px;
+      border: 2px solid gold;
+      border-radius: 5px;
+      background: black;
+      color: white;
+      font-size: 16px;
+    }
+
+    .form-box button {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background: gold;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-box button:hover {
+      background: #ffdd33;
+    }
   </style>
+
+  <script>
+    function goTo(section) {
+      document.getElementById(section).scrollIntoView({ behavior: "smooth" });
+    }
+  </script>
+
 </head>
 
 <body>
@@ -84,25 +143,53 @@
   <div class="navbar">
     <div class="logo">VIRENDRA EL-KARIM</div>
     <div>
-      <a href="#">Dashboard</a>
-      <a href="#">Login</a>
-      <a href="#">Register</a>
+      <a href="#" onclick="goTo('dashboard')">Dashboard</a>
+      <a href="#" onclick="goTo('login')">Login</a>
+      <a href="#" onclick="goTo('register')">Register</a>
     </div>
   </div>
 
-  <!-- TEKS DASHBOARD -->
-  <div class="dashboard-content">
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="dashboard-content">
     Dashboard
     <div class="dashboard-sub">
       Selamat datang di dashboard Virendra EL-Karim.
     </div>
   </div>
 
-  <!-- VIDEO DI BAWAH TEKS -->
+  <!-- VIDEO -->
   <div class="video-wrapper">
     <video autoplay muted loop playsinline>
       <source src="gear5.mp4" type="video/mp4">
     </video>
+  </div>
+
+  <!-- LOGIN FORM -->
+  <div id="login" class="form-section">
+    <h2>Login</h2>
+    <div class="form-box">
+      <label>Username :</label>
+      <input type="text" placeholder="Masukkan username">
+
+      <label>Password :</label>
+      <input type="password" placeholder="Masukkan password">
+
+      <button>Login</button>
+    </div>
+  </div>
+
+  <!-- REGISTER FORM -->
+  <div id="register" class="form-section">
+    <h2>Register</h2>
+    <div class="form-box">
+      <label>Username :</label>
+      <input type="text" placeholder="Buat username">
+
+      <label>Password :</label>
+      <input type="password" placeholder="Buat password">
+
+      <button>Register</button>
+    </div>
   </div>
 
 </body>
