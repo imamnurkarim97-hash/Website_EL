@@ -1,118 +1,206 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>One Piece Elegant</title>
+<title>One Piece Premium Theme</title>
 <style>
     body {
         margin: 0;
         padding: 0;
-        background: #0b0b0b;
+        background: #070707;
         font-family: "Poppins", sans-serif;
         color: white;
         overflow-x: hidden;
-    }
+    }.navbar {
+    width: 100%;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(6px);
+    padding: 18px 35px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
 
-    /* Navbar */
-    .navbar {
-        width: 100%;
-        background: rgba(0,0,0,0.7);
-        backdrop-filter: blur(5px);
-        padding: 15px 30px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 999;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
+.logo {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ffcc00;
+    letter-spacing: 2px;
+}
 
-    .logo {
-        font-size: 24px;
-        font-weight: 700;
-        color: #f7c400;
-        letter-spacing: 1px;
-    }
+.menu a {
+    margin-left: 30px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s;
+}
+.menu a:hover { color: #ffcc00; }
 
-    .menu a {
-        margin-left: 25px;
-        color: white;
-        text-decoration: none;
-        font-size: 16px;
-        transition: 0.3s;
-    }
+.hero {
+    margin-top: 90px;
+    height: 95vh;
+    background: url('https://i.ibb.co/YRt7ynj/one-piece-wallpaper.jpg') no-repeat center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
 
-    .menu a:hover {
-        color: #f7c400;
-    }
+.hero h1 {
+    font-size: 56px;
+    color: #ffcc00;
+    text-shadow: 0 0 25px rgba(0,0,0,0.9);
+}
 
-    /* Hero Section */
-    .hero {
-        margin-top: 80px;
-        height: 100vh;
-        background: url('https://i.ibb.co/YRt7ynj/one-piece-wallpaper.jpg') no-repeat center/cover;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 20px;
-    }
+.hero p {
+    font-size: 20px;
+    margin-top: 20px;
+    max-width: 700px;
+    color: #f1f1f1;
+}
 
-    .hero h1 {
-        font-size: 50px;
-        color: #f7c400;
-        text-shadow: 0 0 20px rgba(0,0,0,0.8);
-    }
+.dashboard {
+    padding: 50px 30px;
+    text-align: center;
+}
 
-    .hero p {
-        font-size: 20px;
-        margin-top: 15px;
-        max-width: 700px;
-    }
+.dashboard h2 {
+    font-size: 38px;
+    margin-bottom: 20px;
+    color: #ffcc00;
+}
 
-    /* Footer */
-    footer {
-        text-align: center;
-        padding: 20px;
-        background: #000;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        margin-top: 30px;
-        color: gray;
-        font-size: 14px;
-    }
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.card {
+    background: #111;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 15px rgba(255,204,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255,204,0,0.25);
+}
+
+.card h3 {
+    color: #ffcc00;
+    margin-bottom: 10px;
+}
+
+.auth-section {
+    padding: 50px 30px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.form-box {
+    width: 320px;
+    margin: auto;
+    padding: 25px;
+    background: #111;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 20px rgba(255,204,0,0.1);
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #222;
+    color: white;
+}
+
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #ffcc00;
+    font-weight: 700;
+    color: black;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #e6b800;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #000;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 40px;
+    color: gray;
+    font-size: 14px;
+}
+
 </style>
 </head>
-
-<body>
-
-<!-- NAVBAR -->
-<div class="navbar">
+<body><div class="navbar">
     <div class="logo">ONE PIECE</div>
     <div class="menu">
-        <a href="#">Dashboard</a>
-        <a href="#">Login</a>
-        <a href="#">Register</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#login">Login</a>
+        <a href="#register">Register</a>
     </div>
-</div>
-
-<!-- HERO SECTION -->
-<div class="hero">
+</div><div class="hero">
     <div>
-        <h1>Welcome to the Grand Line</h1>
-        <p>
-            Jelajahi dunia One Piece dengan tampilan elegan.  
-            Semua menu tertata rapi dan tidak ada iklan kecuali jika Anda perintahkan.
-        </p>
+        <h1>Welcome to the New Era of One Piece</h1>
+        <p>Website premium bertema One Piece dengan tampilan elegan, modern, dan bersih tanpa iklan.</p>
     </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-    © 2025 – One Piece Elegant Theme
-</footer>
-
-</body>
+</div><div id="dashboard" class="dashboard">
+    <h2>Dashboard</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Characters</h3>
+            <p>Lihat karakter utama One Piece.</p>
+        </div>
+        <div class="card">
+            <h3>Bounty List</h3>
+            <p>Daftar buronan terbaru Grand Line.</p>
+        </div>
+        <div class="card">
+            <h3>Straw Hats Crew</h3>
+            <p>Informasi kru Topi Jerami.</p>
+        </div>
+    </div>
+</div><div id="login" class="auth-section">
+    <h2>Login</h2>
+    <div class="form-box">
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <button>Login</button>
+    </div>
+</div><div id="register" class="auth-section">
+    <h2>Register</h2>
+    <div class="form-box">
+        <input type="text" placeholder="Username">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button>Create Account</button>
+    </div>
+</div><footer>
+    © 2025 – One Piece Premium Theme
+</footer></body>
 </html>
