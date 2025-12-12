@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>One Piece Premium Theme</title>
+<title>One Piece Premium Animated</title>
 <style>
     body {
         margin: 0;
@@ -11,10 +11,11 @@
         font-family: "Poppins", sans-serif;
         color: white;
         overflow-x: hidden;
-    }.navbar {
+    }/* NAVBAR */
+.navbar {
     width: 100%;
-    background: rgba(0,0,0,0.75);
-    backdrop-filter: blur(6px);
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
     padding: 18px 35px;
     position: fixed;
     top: 0;
@@ -22,15 +23,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 999;
+    z-index: 9999;
     border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .logo {
     font-size: 26px;
-    font-weight: 800;
+    font-weight: 900;
     color: #ffcc00;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    text-shadow: 0 0 12px rgba(255,204,0,0.5);
 }
 
 .menu a {
@@ -38,49 +40,122 @@
     color: white;
     text-decoration: none;
     font-size: 16px;
+    font-weight: 500;
     transition: 0.3s;
 }
 .menu a:hover { color: #ffcc00; }
 
+/* HERO SECTION */
 .hero {
-    margin-top: 90px;
-    height: 95vh;
-    background: url('https://i.ibb.co/YRt7ynj/one-piece-wallpaper.jpg') no-repeat center/cover;
+    margin-top: 80px;
+    height: 100vh;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+/* Background video */
+.hero video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.45);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
     padding: 20px;
 }
 
 .hero h1 {
-    font-size: 56px;
+    font-size: 60px;
     color: #ffcc00;
-    text-shadow: 0 0 25px rgba(0,0,0,0.9);
+    text-shadow: 0 0 25px black;
+    animation: fadeDown 2s ease-out;
 }
 
 .hero p {
-    font-size: 20px;
-    margin-top: 20px;
+    font-size: 22px;
+    margin-top: 15px;
     max-width: 700px;
     color: #f1f1f1;
+    animation: fadeUp 2s ease-out;
 }
 
+/* ANIMATIONS */
+@keyframes fadeDown {
+    0%{opacity:0; transform:translateY(-30px);}    
+    100%{opacity:1; transform:translateY(0);} 
+}
+@keyframes fadeUp {
+    0%{opacity:0; transform:translateY(30px);}    
+    100%{opacity:1; transform:translateY(0);} 
+}
+
+/* Bounty fire effect */
+.burn-effect {
+    width: 300px;
+    margin: auto;
+    margin-top: 40px;
+    filter: drop-shadow(0 0 25px rgba(255,100,0,0.6));
+    animation: flicker 2s infinite ease-in-out;
+}
+
+@keyframes flicker {
+    0%{filter:drop-shadow(0 0 15px rgba(255,120,0,0.3));}
+    50%{filter:drop-shadow(0 0 35px rgba(255,200,0,0.9));}
+    100%{filter:drop-shadow(0 0 15px rgba(255,120,0,0.3));}
+}
+
+/* HD particles (gold sparkles) */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #ffcc00;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: fall 6s linear infinite;
+}
+
+@keyframes fall {
+    0%{transform:translateY(-20px); opacity:0.5;} 
+    100%{transform:translateY(120vh); opacity:0;} 
+}
+
+/* DASHBOARD */
 .dashboard {
     padding: 50px 30px;
     text-align: center;
+    margin-top: 40px;
 }
 
 .dashboard h2 {
-    font-size: 38px;
-    margin-bottom: 20px;
+    font-size: 40px;
     color: #ffcc00;
+    text-shadow: 0 0 20px black;
 }
 
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
+    gap: 30px;
     margin-top: 30px;
 }
 
@@ -89,34 +164,32 @@
     padding: 25px;
     border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 15px rgba(255,204,0,0.1);
+    box-shadow: 0 0 20px rgba(255,204,0,0.2);
     transition: 0.3s;
+    transform: translateY(0);
 }
 
 .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(255,204,0,0.25);
+    transform: translateY(-10px);
+    box-shadow: 0 0 35px rgba(255,204,0,0.4);
 }
 
-.card h3 {
-    color: #ffcc00;
-    margin-bottom: 10px;
-}
-
+/* LOGIN & REGISTER */
 .auth-section {
     padding: 50px 30px;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .form-box {
-    width: 320px;
+    width: 350px;
     margin: auto;
     padding: 25px;
     background: #111;
     border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 20px rgba(255,204,0,0.1);
+    box-shadow: 0 0 20px rgba(255,204,0,0.2);
+    animation: fadeUp 1.5s ease-out;
 }
 
 input {
@@ -140,11 +213,9 @@ button {
     color: black;
     cursor: pointer;
 }
+button:hover{ background:#e6b800; }
 
-button:hover {
-    background: #e6b800;
-}
-
+/* FOOTER */
 footer {
     text-align: center;
     padding: 20px;
@@ -164,43 +235,31 @@ footer {
         <a href="#login">Login</a>
         <a href="#register">Register</a>
     </div>
-</div><div class="hero">
-    <div>
-        <h1>Welcome to the New Era of One Piece</h1>
-        <p>Website premium bertema One Piece dengan tampilan elegan, modern, dan bersih tanpa iklan.</p>
-    </div>
-</div><div id="dashboard" class="dashboard">
+</div><!-- HERO SECTION WITH HD VIDEO BACKGROUND --><div class="hero">
+    <video autoplay muted loop>
+        <source src="https://cdn.coverr.co/videos/coverr-sailing-on-the-ocean-1080p.mp4" type="video/mp4">
+    </video><!-- HD particles -->
+<div class="particles" id="particles"></div>
+
+<div class="hero-content">
+    <h1>Welcome to the New Era of One Piece</h1>
+    <p>Tampilan premium dengan animasi HD, efek api bounty, cahaya emas, dan partikel berjatuhan — tanpa menghalangi animasi.</p>
+</div>
+
+</div><!-- BOUNTY FIRE ANIMATION --><img class="burn-effect" src="https://i.ibb.co/9qDQ9Rb/bounty-luffy.png" alt="Bounty Luffy HD"><!-- DASHBOARD --><div id="dashboard" class="dashboard">
     <h2>Dashboard</h2>
     <div class="cards">
-        <div class="card">
-            <h3>Characters</h3>
-            <p>Lihat karakter utama One Piece.</p>
-        </div>
-        <div class="card">
-            <h3>Bounty List</h3>
-            <p>Daftar buronan terbaru Grand Line.</p>
-        </div>
-        <div class="card">
-            <h3>Straw Hats Crew</h3>
-            <p>Informasi kru Topi Jerami.</p>
-        </div>
+        <div class="card"><h3>Characters</h3><p>Lihat karakter utama One Piece.</p></div>
+        <div class="card"><h3>Bounty List</h3><p>Daftar buronan terbaru Grand Line.</p></div>
+        <div class="card"><h3>Straw Hats Crew</h3><p>Informasi kru Topi Jerami.</p></div>
     </div>
-</div><div id="login" class="auth-section">
+</div><!-- LOGIN --><div id="login" class="auth-section">
     <h2>Login</h2>
     <div class="form-box">
         <input type="text" placeholder="Username">
         <input type="password" placeholder="Password">
         <button>Login</button>
     </div>
-</div><div id="register" class="auth-section">
+</div><!-- REGISTER --><div id="register" class="auth-section">
     <h2>Register</h2>
-    <div class="form-box">
-        <input type="text" placeholder="Username">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <button>Create Account</button>
-    </div>
-</div><footer>
-    © 2025 – One Piece Premium Theme
-</footer></body>
-</html>
+    <
