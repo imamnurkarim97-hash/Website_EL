@@ -1,98 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caricuangratis</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Piece Elegant</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #0b0b0b;
+        font-family: "Poppins", sans-serif;
+        color: white;
+        overflow-x: hidden;
+    }
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #0c0f14;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
+    /* Navbar */
+    .navbar {
+        width: 100%;
+        background: rgba(0,0,0,0.7);
+        backdrop-filter: blur(5px);
+        padding: 15px 30px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 999;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
 
-        .bitcoin {
-            position: fixed;
-            top: -50px;
-            width: 30px;
-            animation: fall linear infinite;
-            opacity: 0.9;
-        }
+    .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: #f7c400;
+        letter-spacing: 1px;
+    }
 
-        @keyframes fall {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(110vh) rotate(360deg);
-                opacity: 0.3;
-            }
-        }
+    .menu a {
+        margin-left: 25px;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        transition: 0.3s;
+    }
 
-        .content-box {
-            position: relative;
-            z-index: 10;
-            background: white;
-            width: 85%;
-            margin: 70px auto;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-        }
+    .menu a:hover {
+        color: #f7c400;
+    }
 
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
-        }
+    /* Hero Section */
+    .hero {
+        margin-top: 80px;
+        height: 100vh;
+        background: url('https://i.ibb.co/YRt7ynj/one-piece-wallpaper.jpg') no-repeat center/cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
 
-        p {
-            color: #555;
-            font-size: 18px;
-        }
+    .hero h1 {
+        font-size: 50px;
+        color: #f7c400;
+        text-shadow: 0 0 20px rgba(0,0,0,0.8);
+    }
 
-        .btn {
-            background: #f7b500;
-            padding: 12px 25px;
-            border-radius: 8px;
-            color: black;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 15px;
-        }
-    </style>
+    .hero p {
+        font-size: 20px;
+        margin-top: 15px;
+        max-width: 700px;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 20px;
+        background: #000;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        margin-top: 30px;
+        color: gray;
+        font-size: 14px;
+    }
+</style>
 </head>
 
 <body>
 
-    <div class="content-box">
-        <h1>Selamat Datang</h1>
-        <p>Website ini memiliki animasi koin Bitcoin jatuh.</p>
-
-        <a class="btn" href="#">Daftar Honeygain $3</a><br><br>
-        <a class="btn" href="#">Adsterra Direct Link</a>
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">ONE PIECE</div>
+    <div class="menu">
+        <a href="#">Dashboard</a>
+        <a href="#">Login</a>
+        <a href="#">Register</a>
     </div>
+</div>
 
-    <script>
-        const totalCoins = 25;
+<!-- HERO SECTION -->
+<div class="hero">
+    <div>
+        <h1>Welcome to the Grand Line</h1>
+        <p>
+            Jelajahi dunia One Piece dengan tampilan elegan.  
+            Semua menu tertata rapi dan tidak ada iklan kecuali jika Anda perintahkan.
+        </p>
+    </div>
+</div>
 
-        for (let i = 0; i < totalCoins; i++) {
-            let coin = document.createElement("img");
-            coin.src = "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg";
-            coin.classList.add("bitcoin");
-
-            coin.style.left = Math.random() * 100 + "vw";
-            coin.style.animationDuration = (Math.random() * 3 + 3) + "s";
-            coin.style.width = (Math.random() * 20 + 20) + "px";
-
-            document.body.appendChild(coin);
-        }
-    </script>
+<!-- FOOTER -->
+<footer>
+    © 2025 – One Piece Elegant Theme
+</footer>
 
 </body>
 </html>
