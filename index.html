@@ -3,223 +3,129 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Virendra</title>
+  <title>Virendra EL-Karim | Dashboard Resmi</title>
 
   <!-- Google AdSense -->
   <script async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2613355217837386"
     crossorigin="anonymous"></script>
 
+  <meta name="description" content="Virendra EL-Karim adalah website hiburan dan informasi digital dengan konten video, dashboard, dan fitur pengguna.">
+
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: Arial, sans-serif;
       background: black;
       color: white;
       text-align: center;
     }
 
-    /* NAVBAR */
     .navbar {
-      width: 100%;
       position: fixed;
       top: 0;
-      left: 0;
+      width: 100%;
       padding: 15px 25px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      box-sizing: border-box;
-      background: rgba(0,0,0,0.3);
-      backdrop-filter: blur(4px);
+      background: rgba(0,0,0,0.4);
       z-index: 10;
     }
 
     .logo {
-      font-size: 22px;
       color: gold;
       font-weight: bold;
+      font-size: 22px;
     }
 
     .navbar a {
-      margin-left: 20px;
       color: white;
+      margin-left: 15px;
       text-decoration: none;
-      font-size: 18px;
       font-weight: bold;
     }
 
-    .navbar a:hover {
-      color: gold;
-    }
-
-    /* DASHBOARD */
-    .dashboard-content {
+    .content {
       padding-top: 120px;
-      font-size: 30px;
-      font-weight: bold;
-    }
-
-    .dashboard-sub {
-      margin-top: 10px;
-      font-size: 20px;
-      opacity: 0.9;
-    }
-
-    /* VIDEO */
-    .video-wrapper {
-      width: 100%;
-      margin-top: 40px;
+      max-width: 900px;
+      margin: auto;
     }
 
     video {
       width: 100%;
-      height: auto;
-      display: block;
       border-top: 3px solid gold;
       border-bottom: 3px solid gold;
     }
 
-    /* IKLAN */
     .adsense-box {
-      margin: 30px auto;
-      padding: 15px 0;
-      background: #000;
-      text-align: center;
-      max-width: 100%;
+      margin: 30px 0;
     }
 
-    /* FORM */
-    .form-section {
-      margin-top: 70px;
-      padding: 40px 20px;
+    footer {
+      margin-top: 60px;
+      padding: 20px;
       background: #111;
-      border-top: 2px solid gold;
     }
 
-    .form-section h2 {
+    footer a {
       color: gold;
-      font-size: 28px;
-      margin-bottom: 25px;
-    }
-
-    .form-box {
-      max-width: 350px;
-      margin: auto;
-      text-align: left;
-    }
-
-    .form-box label {
-      font-size: 18px;
-    }
-
-    .form-box input {
-      width: 100%;
-      padding: 12px;
-      margin-top: 6px;
-      margin-bottom: 20px;
-      border: 2px solid gold;
-      border-radius: 5px;
-      background: black;
-      color: white;
-      font-size: 16px;
-    }
-
-    .form-box button {
-      width: 100%;
-      padding: 12px;
-      font-size: 18px;
-      background: gold;
-      color: black;
-      font-weight: bold;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .form-box button:hover {
-      background: #ffdd33;
+      margin: 0 10px;
+      text-decoration: none;
     }
   </style>
-
-  <script>
-    function goTo(section) {
-      document.getElementById(section).scrollIntoView({ behavior: "smooth" });
-    }
-  </script>
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
   <div class="navbar">
     <div class="logo">VIRENDRA EL-KARIM</div>
     <div>
-      <a href="#" onclick="goTo('dashboard')">Dashboard</a>
-      <a href="#" onclick="goTo('login')">Login</a>
-      <a href="#" onclick="goTo('register')">Register</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#login">Login</a>
+      <a href="#register">Register</a>
     </div>
   </div>
 
-  <!-- DASHBOARD -->
-  <div id="dashboard" class="dashboard-content">
-    Dashboard
-    <div class="dashboard-sub">
-      Selamat datang di dashboard Virendra EL-Karim.
-    </div>
-  </div>
+  <div class="content" id="dashboard">
+    <h1>Selamat Datang di Virendra EL-Karim</h1>
+    <p>
+      Website ini menyediakan konten hiburan digital, video, dan fitur dashboard
+      untuk pengguna. Kami berkomitmen menghadirkan pengalaman terbaik.
+    </p>
 
-  <!-- VIDEO -->
-  <div class="video-wrapper">
     <video autoplay muted loop playsinline>
       <source src="gear5.mp4" type="video/mp4">
     </video>
-  </div>
 
-  <!-- IKLAN ADSENSE (BAWAH VIDEO - AMAN) -->
-  <div class="adsense-box">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-2613355217837386"
-         data-ad-slot="GANTI_DENGAN_AD_SLOT_KAMU"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </div>
-
-  <!-- LOGIN -->
-  <div id="login" class="form-section">
-    <h2>Login</h2>
-    <div class="form-box">
-      <label>Username :</label>
-      <input type="text" placeholder="Masukkan username">
-
-      <label>Password :</label>
-      <input type="password" placeholder="Masukkan password">
-
-      <button>Login</button>
+    <!-- IKLAN (akan aktif setelah disetujui) -->
+    <div class="adsense-box">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-2613355217837386"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
     </div>
+
+    <section id="login">
+      <h2>Login</h2>
+      <p>Masuk ke akun Anda untuk mengakses fitur lanjutan.</p>
+    </section>
+
+    <section id="register">
+      <h2>Register</h2>
+      <p>Daftar akun baru untuk menikmati layanan kami.</p>
+    </section>
   </div>
 
-  <!-- REGISTER -->
-  <div id="register" class="form-section">
-    <h2>Register</h2>
-    <div class="form-box">
-      <label>Username :</label>
-      <input type="text" placeholder="Buat username">
-
-      <label>Password :</label>
-      <input type="password" placeholder="Buat password">
-
-      <button>Register</button>
-    </div>
-  </div>
+  <footer>
+    <a href="about.html">About</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="contact.html">Contact</a>
+    <p>© 2025 Virendra EL-Karim</p>
+  </footer>
 
 </body>
 </html>
-<a href="about.html">About</a>
-<a href="privacy.html">Privacy</a>
-<a href="contact.html">Contact</a>
