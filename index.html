@@ -3,24 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Virendra EL-Karim | Dashboard Resmi</title>
 
-  <!-- Google AdSense -->
+  <title>Virendra EL-Karim | Website Resmi</title>
+
+  <meta name="description" content="Virendra EL-Karim adalah website hiburan dan informasi digital yang menyajikan konten multimedia dan teknologi web modern.">
+
+  <!-- Google AdSense (WAJIB, IKLAN MANUAL BELUM DIPAKAI) -->
   <script async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2613355217837386"
     crossorigin="anonymous"></script>
-
-  <meta name="description" content="Virendra EL-Karim adalah website hiburan dan informasi digital dengan konten video, dashboard, dan fitur pengguna.">
 
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: black;
-      color: white;
-      text-align: center;
+      background: #000;
+      color: #fff;
+      line-height: 1.7;
     }
 
+    /* NAVBAR */
     .navbar {
       position: fixed;
       top: 0;
@@ -28,14 +30,15 @@
       padding: 15px 25px;
       display: flex;
       justify-content: space-between;
-      background: rgba(0,0,0,0.4);
-      z-index: 10;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      z-index: 100;
     }
 
     .logo {
       color: gold;
-      font-weight: bold;
       font-size: 22px;
+      font-weight: bold;
     }
 
     .navbar a {
@@ -45,86 +48,120 @@
       font-weight: bold;
     }
 
-    .content {
-      padding-top: 120px;
+    /* CONTENT */
+    .container {
       max-width: 900px;
       margin: auto;
+      padding: 130px 20px 40px;
+      text-align: center;
+    }
+
+    h1, h2 {
+      color: gold;
     }
 
     video {
       width: 100%;
+      margin: 30px 0;
       border-top: 3px solid gold;
       border-bottom: 3px solid gold;
     }
 
-    .adsense-box {
-      margin: 30px 0;
+    .text-section {
+      text-align: left;
+      margin-top: 40px;
+      color: #ddd;
+      font-size: 18px;
     }
 
+    /* FOOTER */
     footer {
       margin-top: 60px;
-      padding: 20px;
+      padding: 25px;
       background: #111;
+      text-align: center;
+      border-top: 1px solid gold;
     }
 
     footer a {
       color: gold;
-      margin: 0 10px;
+      margin: 0 12px;
       text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer p {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    /* SEMBUNYIKAN FORM (AMAN UNTUK REVIEW) */
+    .form-section {
+      display: none;
     }
   </style>
 </head>
 
 <body>
 
+  <!-- NAVBAR -->
   <div class="navbar">
     <div class="logo">VIRENDRA EL-KARIM</div>
     <div>
-      <a href="#dashboard">Dashboard</a>
-      <a href="#login">Login</a>
-      <a href="#register">Register</a>
+      <a href="#home">Home</a>
+      <a href="#about">Tentang</a>
     </div>
   </div>
 
-  <div class="content" id="dashboard">
+  <!-- CONTENT -->
+  <div class="container" id="home">
+
     <h1>Selamat Datang di Virendra EL-Karim</h1>
+
     <p>
-      Website ini menyediakan konten hiburan digital, video, dan fitur dashboard
-      untuk pengguna. Kami berkomitmen menghadirkan pengalaman terbaik.
+      Virendra EL-Karim adalah website hiburan dan informasi digital
+      yang dikembangkan untuk memberikan pengalaman pengguna
+      yang cepat, aman, dan nyaman.
     </p>
 
     <video autoplay muted loop playsinline>
       <source src="gear5.mp4" type="video/mp4">
     </video>
 
-    <!-- IKLAN (akan aktif setelah disetujui) -->
-    <div class="adsense-box">
-      <ins class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-2613355217837386"
-        data-ad-format="auto"
-        data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+    <div class="text-section" id="about">
+      <h2>Tentang Website Ini</h2>
+
+      <p>
+        Website ini dibuat sebagai platform digital yang menyajikan
+        konten multimedia, informasi teknologi web, dan eksperimen desain modern.
+        Kami berfokus pada kualitas tampilan, kecepatan akses, serta kepatuhan
+        terhadap kebijakan layanan pihak ketiga seperti Google AdSense.
+      </p>
+
+      <p>
+        Semua konten yang ditampilkan di website ini bersifat aman,
+        tidak melanggar hak cipta, dan tidak mengandung unsur terlarang.
+        Website ini dapat diakses secara gratis oleh semua pengguna
+        tanpa kewajiban pendaftaran.
+      </p>
+
+      <p>
+        Ke depannya, Virendra EL-Karim akan terus dikembangkan
+        dengan fitur tambahan, peningkatan desain, serta konten
+        yang lebih informatif dan bermanfaat.
+      </p>
     </div>
 
-    <section id="login">
-      <h2>Login</h2>
-      <p>Masuk ke akun Anda untuk mengakses fitur lanjutan.</p>
-    </section>
-
-    <section id="register">
-      <h2>Register</h2>
-      <p>Daftar akun baru untuk menikmati layanan kami.</p>
-    </section>
   </div>
 
+  <!-- FOOTER (WAJIB UNTUK ADSENSE) -->
   <footer>
     <a href="about.html">About</a>
     <a href="privacy.html">Privacy Policy</a>
     <a href="contact.html">Contact</a>
-    <p>© 2025 Virendra EL-Karim</p>
+
+    <p>© 2025 Virendra EL-Karim. All rights reserved.</p>
   </footer>
 
 </body>
