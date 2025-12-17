@@ -1,14 +1,21 @@
-document.getElementById("send-btn").addEventListener("click", sendMessage);
-
 async function sendMessage() {
-  const input = document.getElementById("user-input");
+  const input = document.getElementById("userInput");
   const chatBox = document.getElementById("chat-box");
 
   const message = input.value.trim();
   if (!message) return;
 
-  chatBox.innerHTML += `<div><b>Kamu:</b> ${message}</div>`;
+  chatBox.innerHTML += `<div class="user"><b>Kamu:</b> ${message}</div>`;
   input.value = "";
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  // Loading
+  const loading = document.createElement("div");
+  loading.className = "ai loading";
+  loading.id = "loading";
+  loading.innerText = "AI sedang mengetik...";
+  chatBox.appendChild(loading);
+  chatBox.scrollTop = chatBox.scrollHeight;
 
   try {
     const res = await fetch("/api/chat", {
@@ -18,8 +25,13 @@ async function sendMessage() {
     });
 
     const data = await res.json();
-    chatBox.innerHTML += `<div><b>AI:</b> ${data.reply}</div>`;
-  } catch (err) {
-    chatBox.innerHTML += `<div><b>Error:</b> AI tidak merespon</div>`;
+
+    document.getElementById("loading").remove();
+    chatBox.innerHTML += `<div class="ai"><b>AI:</b> ${data.reply}</div>`;
+  } catch {
+    document.getElementById("loading").remove();
+    chatBox.innerHTML += `<div class="ai">❌ AI tidak merespon</div>`;
   }
+
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
