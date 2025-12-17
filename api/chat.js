@@ -18,20 +18,29 @@ export default async function handler(req, res) {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "llama3-8b-8192",
-          messages: [{ role: "user", content: message }]
-        })
+          model: "llama-3.1-8b-instant",
+          messages: [{ role: "user", content: message }],
+        }),
       }
     );
 
     const data = await response.json();
 
+    // 🔒 PROTEKSI ERROR (INI PENTING)
+    if (!data.choices || !data.choices[0]) {
+      return res.status(500).json({
+        error: "Groq API error",
+        detail: data,
+      });
+    }
+
     return res.status(200).json({
-      reply: data.choices[0].message.content
+      reply: data.choices[0].message.content,
     });
+
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
