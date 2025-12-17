@@ -1,41 +1,30 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>EL Assistant</title>
-  <link rel="stylesheet" href="ai.css">
+  <link rel="stylesheet" href="ai.css" />
 </head>
 
 <body>
+  <div class="chat-container">
+    <div class="header">🤖 EL</div>
 
-  <div class="app">
-
-    <!-- Header -->
-    <header class="header">
-      <span class="logo">🤖 EL</span>
-    </header>
-
-    <!-- Chat Area -->
-    <main id="chat-box" class="chat-box">
-      <div class="chat ai">
-        <b>EL:</b><br>
-        Halo 👋 Saya EL.  
-        Ada yang bisa saya bantu?
+    <div id="chat-box" class="chat-box">
+      <div class="bubble ai">
+        Halo 👋 Saya <b>EL</b>. Ada yang bisa saya bantu?
       </div>
-    </main>
+    </div>
 
-    <!-- Input Area -->
-    <footer class="input-area">
-      <input 
-        type="text" 
-        id="user-input" 
-        placeholder="Ketik pesan ke EL..."
-        autocomplete="off"
-      />
+    <div id="typing" class="typing hidden">
+      EL sedang mengetik<span>.</span><span>.</span><span>.</span>
+    </div>
+
+    <div class="input-area">
+      <input id="user-input" placeholder="Ketik pesan ke EL..." />
       <button onclick="sendMessage()">➤</button>
-    </footer>
-
+    </div>
   </div>
 
   <script src="ai.js"></script>
