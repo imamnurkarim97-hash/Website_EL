@@ -1,27 +1,113 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
+  margin: 0;
   background: #0f172a;
-  color: white;
-  font-family: Arial;
-  text-align: center;
+  color: #e5e7eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-#chat {
-  width: 90%;
-  max-width: 500px;
-  height: 350px;
-  margin: auto;
+/* Container */
+.ai-container {
+  width: 100%;
+  max-width: 420px;
+  height: 90vh;
   background: #020617;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+/* Header */
+.ai-container h2 {
+  margin: 0;
+  padding: 14px;
+  text-align: center;
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+}
+
+/* Chat area */
+#chat-box {
+  flex: 1;
+  padding: 14px;
   overflow-y: auto;
+}
+
+/* Messages */
+.user,
+.ai {
+  max-width: 80%;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.user {
+  background: #2563eb;
+  color: white;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+
+.ai {
+  background: #1e293b;
+  color: #e5e7eb;
+  margin-right: auto;
+  border-bottom-left-radius: 4px;
+}
+
+/* Input area */
+.input-area {
+  display: flex;
   padding: 10px;
+  border-top: 1px solid #1e293b;
+  background: #020617;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 10px 12px;
   border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 14px;
 }
 
-input {
-  width: 70%;
-  padding: 10px;
-  margin-top: 10px;
+.input-area button {
+  margin-left: 8px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #22c55e;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-button {
-  padding: 10px;
+.input-area button:hover {
+  background: #16a34a;
+}
+
+/* Scrollbar */
+#chat-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+#chat-box::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
 }
