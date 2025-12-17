@@ -1,90 +1,90 @@
 * {
   box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
   margin: 0;
   background: #0f172a;
-  color: #e5e7eb;
-  display: flex;
-  flex-direction: column;
   height: 100vh;
 }
 
-.topbar {
-  text-align: center;
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 480px;
+  margin: auto;
+  background: #020617;
+}
+
+.header {
   padding: 14px;
-  font-weight: 600;
+  text-align: center;
+  font-weight: bold;
+  color: #e5e7eb;
   background: #020617;
   border-bottom: 1px solid #1e293b;
 }
 
-.chat {
+.chat-box {
   flex: 1;
-  padding: 16px;
+  padding: 12px;
   overflow-y: auto;
 }
 
-.msg {
-  max-width: 92%;
-  padding: 14px;
+.bubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  margin-bottom: 10px;
   border-radius: 12px;
-  margin-bottom: 14px;
-  line-height: 1.75;
+  line-height: 1.5;
+  font-size: 14px;
   word-wrap: break-word;
-}
-
-.user {
-  background: #2563eb;
-  margin-left: auto;
 }
 
 .ai {
   background: #020617;
+  color: #e5e7eb;
   border: 1px solid #1e293b;
 }
 
-/* MARKDOWN POLISH (INI KUNCI RAPINYA) */
-.msg p { margin: 0 0 14px; }
-.msg ul, .msg ol { margin: 8px 0 14px 20px; }
-.msg li { margin-bottom: 6px; }
-.msg h1 { font-size: 1.4em; }
-.msg h2 { font-size: 1.25em; }
-.msg h3 { font-size: 1.1em; }
-.msg pre {
-  background: #020617;
-  padding: 14px;
-  border-radius: 10px;
-  overflow-x: auto;
-}
-.msg code {
-  background: #1e293b;
-  padding: 3px 6px;
-  border-radius: 4px;
+.user {
+  background: #2563eb;
+  color: white;
+  margin-left: auto;
 }
 
-.input-bar {
+.typing {
+  color: #94a3b8;
+  font-size: 13px;
+  padding: 6px 12px;
+}
+
+.hidden {
+  display: none;
+}
+
+.input-area {
   display: flex;
   padding: 10px;
+  gap: 8px;
   border-top: 1px solid #1e293b;
-  background: #020617;
 }
 
 input {
   flex: 1;
-  padding: 12px;
-  border-radius: 10px;
+  padding: 10px;
+  border-radius: 8px;
   border: none;
   outline: none;
 }
 
 button {
-  margin-left: 10px;
-  padding: 0 18px;
-  border-radius: 10px;
-  border: none;
   background: #2563eb;
   color: white;
-  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  padding: 0 16px;
+  font-size: 16px;
 }
