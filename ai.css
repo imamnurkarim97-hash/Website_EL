@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI";
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body {
@@ -12,26 +12,27 @@ body {
   height: 100vh;
 }
 
-.header {
-  padding: 15px;
+.topbar {
   text-align: center;
-  font-weight: bold;
+  padding: 14px;
+  font-weight: 600;
   background: #020617;
   border-bottom: 1px solid #1e293b;
 }
 
 .chat {
   flex: 1;
-  padding: 15px;
+  padding: 16px;
   overflow-y: auto;
 }
 
 .msg {
-  max-width: 90%;
-  margin-bottom: 12px;
-  padding: 12px;
-  border-radius: 10px;
-  line-height: 1.6;
+  max-width: 92%;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  line-height: 1.75;
+  word-wrap: break-word;
 }
 
 .user {
@@ -44,43 +45,44 @@ body {
   border: 1px solid #1e293b;
 }
 
-/* Markdown Style */
-.msg h1, .msg h2, .msg h3 {
-  margin-top: 10px;
-}
-
+/* MARKDOWN POLISH (INI KUNCI RAPINYA) */
+.msg p { margin: 0 0 14px; }
+.msg ul, .msg ol { margin: 8px 0 14px 20px; }
+.msg li { margin-bottom: 6px; }
+.msg h1 { font-size: 1.4em; }
+.msg h2 { font-size: 1.25em; }
+.msg h3 { font-size: 1.1em; }
 .msg pre {
   background: #020617;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 14px;
+  border-radius: 10px;
   overflow-x: auto;
 }
-
 .msg code {
   background: #1e293b;
   padding: 3px 6px;
   border-radius: 4px;
 }
 
-.input-area {
+.input-bar {
   display: flex;
   padding: 10px;
-  background: #020617;
   border-top: 1px solid #1e293b;
+  background: #020617;
 }
 
 input {
   flex: 1;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
   outline: none;
 }
 
 button {
   margin-left: 10px;
-  padding: 0 16px;
-  border-radius: 8px;
+  padding: 0 18px;
+  border-radius: 10px;
   border: none;
   background: #2563eb;
   color: white;
