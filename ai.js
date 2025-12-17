@@ -1,19 +1,46 @@
+const chatBox = document.getElementById("chat-box");
+const userInput = document.getElementById("user-input");
+
+function addMessage(text, sender) {
+  const msg = document.createElement("div");
+  msg.className = sender;
+  msg.textContent = text;
+  chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
 async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chat = document.getElementById("chat");
+  const message = userInput.value.trim();
+  if (!message) return;
 
-  if (!input.value) return;
+  addMessage(message, "user");
+  userInput.value = "";
 
-  chat.innerHTML += `<p><b>Kamu:</b> ${input.value}</p>`;
+  addMessage("⏳ AI sedang mengetik...", "ai");
 
-  const res = await fetch("/api/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: input.value })
-  });
+  try {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message })
+    });
 
-  const data = await res.json();
-  chat.innerHTML += `<p><b>AI:</b> ${data.reply}</p>`;
+    const data = await response.json();
 
-  input.value = "";
+    // hapus loading
+    chatBox.removeChild(chatBox.lastChild);
+
+    if (data.reply) {
+      addMessage(data.reply, "ai");
+    } else {
+      addMessage("❌ AI tidak merespon.", "ai");
+    }
+
+  } catch (error) {
+    chatBox.removeChild(chatBox.lastChild);
+    addMessage("❌ Terjadi error koneksi.", "ai");
+    console.error(error);
+  }
 }
