@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const { message } = req.body;
 
     if (!message) {
-      return res.status(400).json({ error: "Message kosong" });
+      return res.status(400).json({ error: "Message is required" });
     }
 
     const response = await fetch(
@@ -23,15 +23,16 @@ export default async function handler(req, res) {
           messages: [
             {
               role: "system",
-              content: "Kamu adalah EL, AI yang menjawab singkat, jelas, dan ramah."
+              content:
+                "Kamu adalah EL, asisten AI yang menjawab singkat, jelas, dan ramah dalam bahasa Indonesia."
             },
             {
               role: "user",
               content: message
             }
           ],
-          max_tokens: 300,
-          temperature: 0.7
+          temperature: 0.5,
+          max_tokens: 300
         })
       }
     );
@@ -39,14 +40,16 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!data.choices) {
-      return res.status(500).json({ error: data });
+      console.error(data);
+      return res.status(500).json({ error: "Invalid response from AI" });
     }
 
     return res.status(200).json({
       reply: data.choices[0].message.content
     });
 
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    console.error("SERVER ERROR:", err);
+    return res.status(500).json({ error: "Server error" });
   }
 }
