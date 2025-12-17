@@ -1,47 +1,61 @@
-const chatBox = document.getElementById("chatBox");
-const input = document.getElementById("userInput");
-
-function renderMarkdown(text) {
-  return text
-    .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
-    .replace(/\n/g, "<br>");
-}
-
-function addMessage(role, content, isMarkdown = false) {
-  const div = document.createElement("div");
-  div.className = `message ${role}`;
-  div.innerHTML = isMarkdown ? renderMarkdown(content) : content;
-  chatBox.appendChild(div);
-  chatBox.scrollTop = chatBox.scrollHeight;
-  return div;
-}
-
 async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const chatBox = document.getElementById("chatBox");
+
   const message = input.value.trim();
   if (!message) return;
 
-  addMessage("user", message);
-  input.value = "";
+  // tampilkan pesan user
+  chatBox.innerHTML += `
+    <div class="message user">
+      <b>Kamu:</b><br>${message}
+    </div>
+  `;
 
-  const typingEl = addMessage("ai", "EL sedang mengetik...", false);
-  typingEl.classList.add("typing");
+  input.value = "";
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  // typing indicator
+  const typingEl = document.createElement("div");
+  typingEl.className = "message ai typing";
+  typingEl.id = "typing";
+  typingEl.innerText = "EL sedang mengetik...";
+  chatBox.appendChild(typingEl);
+  chatBox.scrollTop = chatBox.scrollHeight;
 
   try {
     const res = await fetch("/api/chat", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ message })
     });
 
     const data = await res.json();
 
+    // hapus typing
     typingEl.remove();
-    addMessage("ai", data.reply || "Maaf, EL tidak bisa merespon.", true);
 
+    if (!res.ok || !data.reply) {
+      throw new Error("AI tidak memberi jawaban");
+    }
+
+    chatBox.innerHTML += `
+      <div class="message ai">
+        <b>EL:</b><br>${data.reply}
+      </div>
+    `;
   } catch (err) {
+    // hapus typing jika error
     typingEl.remove();
-    addMessage("ai", "Terjadi kesalahan koneksi.", false);
+
+    chatBox.innerHTML += `
+      <div class="message ai">
+        <b>EL:</b><br>Maaf, EL gagal merespon.
+      </div>
+    `;
   }
+
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
