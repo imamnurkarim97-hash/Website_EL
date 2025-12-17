@@ -1,21 +1,39 @@
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chatBox = document.getElementById("chat-box");
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
 
+window.onload = () => {
+  addAI("Halo, saya EL. Ada yang bisa saya bantu?");
+};
+
+function addUser(text) {
+  const div = document.createElement("div");
+  div.className = "msg user";
+  div.innerText = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function addAI(text) {
+  const div = document.createElement("div");
+  div.className = "msg ai";
+  div.innerText = "EL: " + text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+async function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
 
-  chatBox.innerHTML += `<div class="user"><b>Kamu:</b> ${message}</div>`;
+  addUser(message);
   input.value = "";
-  chatBox.scrollTop = chatBox.scrollHeight;
 
-  // Loading
   const loading = document.createElement("div");
-  loading.className = "ai loading";
+  loading.className = "msg ai loading";
   loading.id = "loading";
-  loading.innerText = "AI sedang mengetik...";
-  chatBox.appendChild(loading);
-  chatBox.scrollTop = chatBox.scrollHeight;
+  loading.innerText = "EL sedang mengetik...";
+  chat.appendChild(loading);
+  chat.scrollTop = chat.scrollHeight;
 
   try {
     const res = await fetch("/api/chat", {
@@ -25,13 +43,10 @@ async function sendMessage() {
     });
 
     const data = await res.json();
-
     document.getElementById("loading").remove();
-    chatBox.innerHTML += `<div class="ai"><b>AI:</b> ${data.reply}</div>`;
+    addAI(data.reply);
   } catch {
     document.getElementById("loading").remove();
-    chatBox.innerHTML += `<div class="ai">❌ AI tidak merespon</div>`;
+    addAI("Maaf, EL sedang mengalami gangguan.");
   }
-
-  chatBox.scrollTop = chatBox.scrollHeight;
 }
