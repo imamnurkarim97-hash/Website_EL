@@ -1,52 +1,55 @@
-const chat = document.getElementById("chat");
-const input = document.getElementById("input");
+const chatBox = document.getElementById("chatBox");
+const input = document.getElementById("userInput");
 
-window.onload = () => {
-  addAI("Halo, saya EL. Ada yang bisa saya bantu?");
-};
-
-function addUser(text) {
+function addMessage(text, sender) {
   const div = document.createElement("div");
-  div.className = "msg user";
-  div.innerText = text;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function addAI(text) {
-  const div = document.createElement("div");
-  div.className = "msg ai";
-  div.innerText = "EL: " + text;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+  div.className = `msg ${sender}`;
+  div.innerHTML = sender === "ai"
+    ? `<b>EL:</b><br>${marked.parse(text)}`
+    : `<b>Kamu:</b><br>${text}`;
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return div;
 }
 
 async function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
 
-  addUser(message);
+  addMessage(message, "user");
   input.value = "";
 
-  const loading = document.createElement("div");
-  loading.className = "msg ai loading";
-  loading.id = "loading";
-  loading.innerText = "EL sedang mengetik...";
-  chat.appendChild(loading);
-  chat.scrollTop = chat.scrollHeight;
+  const typing = addMessage("⏳ EL sedang mengetik...", "ai");
 
-  try {
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message })
-    });
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message })
+  });
 
-    const data = await res.json();
-    document.getElementById("loading").remove();
-    addAI(data.reply);
-  } catch {
-    document.getElementById("loading").remove();
-    addAI("Maaf, EL sedang mengalami gangguan.");
-  }
+  const data = await res.json();
+  typing.innerHTML = "<b>EL:</b><br>";
+
+  typeEffect(typing, data.reply);
 }
+
+function typeEffect(el, text) {
+  let i = 0;
+  const speed = 15;
+
+  function typing() {
+    if (i < text.length) {
+      el.innerHTML += text.charAt(i);
+      i++;
+      chatBox.scrollTop = chatBox.scrollHeight;
+      setTimeout(typing, speed);
+    } else {
+      el.innerHTML = "<b>EL:</b><br>" + marked.parse(text);
+    }
+  }
+  typing();
+}
+
+window.onload = () => {
+  addMessage("Halo 👋 Saya **EL**. Ada yang bisa saya bantu?", "ai");
+};
