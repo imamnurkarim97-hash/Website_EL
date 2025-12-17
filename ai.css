@@ -1,10 +1,37 @@
-/* ===== CHAT WRAPPER ===== */
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ===== BODY ===== */
+body {
+  background: linear-gradient(180deg, #020617, #020617);
+  color: #e5e7eb;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== HEADER ===== */
+header {
+  padding: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+}
+
+/* ===== CHAT AREA ===== */
 .chat-box {
-  padding: 12px;
+  flex: 1;
+  padding: 14px;
   overflow-y: auto;
 }
 
-/* ===== PESAN ===== */
+/* ===== MESSAGE ===== */
 .message {
   max-width: 100%;
   margin-bottom: 12px;
@@ -14,20 +41,46 @@
   font-size: 15px;
 }
 
-/* ===== BUBBLE ===== */
+/* ===== AI ===== */
 .message.ai {
   background: #0b1220;
-  color: #e5e7eb;
-  border-radius: 14px;
   padding: 12px;
+  border-radius: 14px;
 }
 
+/* ===== USER ===== */
 .message.user {
   background: #2563eb;
-  color: #ffffff;
-  border-radius: 14px;
+  color: #fff;
   padding: 12px;
+  border-radius: 14px;
   text-align: right;
+}
+
+/* ===== INPUT ===== */
+.input-area {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background: #020617;
+  border-top: 1px solid #1e293b;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.input-area button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0 14px;
+  font-size: 18px;
 }
 
 /* ===== MARKDOWN FIX ===== */
@@ -36,9 +89,8 @@
   padding: 12px;
   border-radius: 10px;
   overflow-x: auto;
-  white-space: pre-wrap;   /* KUNCI UTAMA */
+  white-space: pre-wrap;
   word-break: break-word;
-  max-width: 100%;
 }
 
 .message code {
@@ -47,8 +99,8 @@
   color: #22c55e;
 }
 
-/* ===== LOADING (EL MENGETIK) ===== */
+/* ===== TYPING ===== */
 .typing {
   font-style: italic;
-  opacity: 0.7;
+  opacity: 0.6;
 }
