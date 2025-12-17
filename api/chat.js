@@ -1,7 +1,5 @@
-import fetch from "node-fetch";
-
 export default async function handler(req, res) {
-  // WAJIB: hanya izinkan POST
+  // Hanya izinkan POST
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
@@ -9,7 +7,7 @@ export default async function handler(req, res) {
   try {
     const { message } = req.body;
 
-    if (!message) {
+    if (!message || message.trim() === "") {
       return res.status(400).json({ error: "Message kosong" });
     }
 
@@ -28,10 +26,12 @@ export default async function handler(req, res) {
               role: "system",
               content: `
 Nama kamu EL.
-Jawab seperti ChatGPT:
+Gunakan bahasa Indonesia.
+Aturan jawaban:
 - Singkat
 - Padat
 - Jelas
+- Terstruktur rapi
 - Maksimal 5 paragraf
 - Jangan spam bold
 - Gunakan list hanya jika perlu
@@ -50,8 +50,8 @@ Jawab seperti ChatGPT:
 
     const data = await response.json();
 
-    // CEK kalau API error
-    if (!data.choices) {
+    // Jika Groq API error
+    if (!data.choices || !data.choices[0]) {
       return res.status(500).json({
         error: "Groq API error",
         detail: data
@@ -62,10 +62,10 @@ Jawab seperti ChatGPT:
       reply: data.choices[0].message.content
     });
 
-  } catch (err) {
+  } catch (error) {
     return res.status(500).json({
       error: "Server error",
-      message: err.message
+      message: error.message
     });
   }
 }
