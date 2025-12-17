@@ -1,6 +1,6 @@
 async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chatBox = document.getElementById("chatBox");
+  const input = document.getElementById("user-input");
+  const chatBox = document.getElementById("chat-box");
 
   const message = input.value.trim();
   if (!message) return;
@@ -8,15 +8,18 @@ async function sendMessage() {
   chatBox.innerHTML += `<div><b>Kamu:</b> ${message}</div>`;
   input.value = "";
 
-  const res = await fetch("/api/chat", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ message })
-  });
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message })
+    });
 
-  const data = await res.json();
-
-  chatBox.innerHTML += `<div><b>AI:</b> ${data.reply}</div>`;
+    const data = await res.json();
+    chatBox.innerHTML += `<div><b>AI:</b> ${data.reply}</div>`;
+  } catch (err) {
+    chatBox.innerHTML += `<div><b>Error:</b> AI tidak merespon</div>`;
+  }
 }
