@@ -1,26 +1,23 @@
-async function sendMessage() {
-  const input = document.getElementById("user-input");
-  const chatBox = document.getElementById("chat-box");
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Chat</title>
+  <link rel="stylesheet" href="/ai.css">
+</head>
+<body>
 
-  const message = input.value.trim();
-  if (!message) return;
+  <section class="ai-container">
+    <h2>🤖 AI Assistant</h2>
 
-  chatBox.innerHTML += `<div><b>Kamu:</b> ${message}</div>`;
-  input.value = "";
+    <div id="chat-box"></div>
 
-  try {
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message })
-    });
+    <div class="input-area">
+      <input id="user-input" placeholder="Tulis pesan..." />
+      <button id="send-btn">Kirim</button>
+    </div>
+  </section>
 
-    const data = await res.json();
-
-    chatBox.innerHTML += `<div><b>AI:</b> ${data.reply}</div>`;
-  } catch (err) {
-    chatBox.innerHTML += `<div style="color:red">Error: AI tidak merespon</div>`;
-  }
-}
+  <script src="/ai.js"></script>
+</body>
+</html>
