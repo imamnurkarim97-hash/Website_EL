@@ -1,29 +1,32 @@
-function parseMarkdown(text) {
+const chatBox = document.getElementById("chatBox");
+const input = document.getElementById("userInput");
+
+function renderMarkdown(text) {
   return text
-    .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
-    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
-    .replace(/\*(.*?)\*/g, "<i>$1</i>")
-    .replace(/`(.*?)`/g, "<code>$1</code>")
+    .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
     .replace(/\n/g, "<br>");
 }
 
-async function sendMessage() {
-  const input = document.getElementById("user-input");
-  const chatBox = document.getElementById("chat-box");
-  const typing = document.getElementById("typing");
+function addMessage(role, content, isMarkdown = false) {
+  const div = document.createElement("div");
+  div.className = `message ${role}`;
+  div.innerHTML = isMarkdown ? renderMarkdown(content) : content;
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return div;
+}
 
+async function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
 
-  // User bubble
-  chatBox.innerHTML += `
-    <div class="bubble user">${message}</div>
-  `;
+  addMessage("user", message);
   input.value = "";
-  chatBox.scrollTop = chatBox.scrollHeight;
 
-  // Show typing
-  typing.classList.remove("hidden");
+  const typingEl = addMessage("ai", "EL sedang mengetik...", false);
+  typingEl.classList.add("typing");
 
   try {
     const res = await fetch("/api/chat", {
@@ -34,17 +37,11 @@ async function sendMessage() {
 
     const data = await res.json();
 
-    typing.classList.add("hidden");
+    typingEl.remove();
+    addMessage("ai", data.reply || "Maaf, EL tidak bisa merespon.", true);
 
-    chatBox.innerHTML += `
-      <div class="bubble ai">${parseMarkdown(data.reply)}</div>
-    `;
-  } catch (e) {
-    typing.classList.add("hidden");
-    chatBox.innerHTML += `
-      <div class="bubble ai">Maaf, EL gagal merespon.</div>
-    `;
+  } catch (err) {
+    typingEl.remove();
+    addMessage("ai", "Terjadi kesalahan koneksi.", false);
   }
-
-  chatBox.scrollTop = chatBox.scrollHeight;
 }
