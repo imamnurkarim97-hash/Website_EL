@@ -3,21 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <title>EL AI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Markdown Parser -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
   <link rel="stylesheet" href="ai.css" />
 </head>
 <body>
 
-<div class="app">
-  <header>🤖 EL</header>
+<header class="header">🤖 EL</header>
 
-  <main id="chat"></main>
+<main id="chatBox" class="chat"></main>
 
-  <footer>
-    <input id="input" placeholder="Ketik pesan ke EL..." />
-    <button onclick="sendMessage()">➤</button>
-  </footer>
-</div>
+<footer class="input-area">
+  <input id="userInput" placeholder="Tulis pesan ke EL..." />
+  <button onclick="sendMessage()">➤</button>
+</footer>
 
 <script src="ai.js"></script>
 </body>
