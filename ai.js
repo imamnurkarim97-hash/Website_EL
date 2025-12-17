@@ -1,34 +1,50 @@
 async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chatBox = document.getElementById("chatBox");
+  const input = document.getElementById("user-input");
+  const chatBox = document.getElementById("chat-box");
 
   const message = input.value.trim();
   if (!message) return;
 
-  chatBox.innerHTML += `<div class="user"><b>Kamu:</b> ${message}</div>`;
-  input.value = "";
+  // Tampilkan pesan user
+  const userDiv = document.createElement("div");
+  userDiv.className = "chat user";
+  userDiv.innerHTML = `<b>Kamu:</b><br>${message}`;
+  chatBox.appendChild(userDiv);
 
-  chatBox.innerHTML += `<div class="ai typing">EL sedang mengetik...</div>`;
+  input.value = "";
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  // Loading AI
+  const loadingDiv = document.createElement("div");
+  loadingDiv.className = "chat ai loading";
+  loadingDiv.innerHTML = `<b>EL:</b><br><i>mengetik...</i>`;
+  chatBox.appendChild(loadingDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
 
   try {
     const res = await fetch("/api/chat", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ message })
     });
 
     const data = await res.json();
 
-    document.querySelector(".typing")?.remove();
-
-    if (data.reply) {
-      chatBox.innerHTML += `<div class="ai"><b>EL:</b> ${data.reply}</div>`;
-    } else {
-      chatBox.innerHTML += `<div class="ai error">EL error: ${JSON.stringify(data)}</div>`;
-    }
+    loadingDiv.classList.remove("loading");
+    loadingDiv.innerHTML = `<b>EL:</b><br>${formatText(data.reply)}`;
+    chatBox.scrollTop = chatBox.scrollHeight;
 
   } catch (err) {
-    document.querySelector(".typing")?.remove();
-    chatBox.innerHTML += `<div class="ai error">Server error</div>`;
+    loadingDiv.innerHTML = `<b>EL:</b><br><span style="color:red">Gagal merespon</span>`;
   }
+}
+
+// Supaya teks rapi & mudah dibaca (mirip ChatGPT)
+function formatText(text) {
+  return text
+    .replace(/\n/g, "<br>")
+    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+    .replace(/\*(.*?)\*/g, "<i>$1</i>");
 }
