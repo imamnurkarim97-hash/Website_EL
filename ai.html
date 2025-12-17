@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>AI Chat</title>
-  <link rel="stylesheet" href="/ai.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="ai.css">
 </head>
 <body>
 
-  <section class="ai-container">
-    <h2>🤖 AI Assistant</h2>
+<div class="ai-container">
+  <div class="header">🤖 AI Assistant</div>
 
-    <div id="chat-box"></div>
+  <div id="chat-box"></div>
 
-    <div class="input-area">
-      <input id="user-input" placeholder="Tulis pesan..." />
-      <button id="send-btn">Kirim</button>
-    </div>
-  </section>
+  <div class="input-area">
+    <input id="userInput" placeholder="Tulis pesan..." />
+    <button onclick="sendMessage()">Kirim</button>
+  </div>
+</div>
 
-  <script src="/ai.js"></script>
+<script src="ai.js"></script>
 </body>
 </html>
