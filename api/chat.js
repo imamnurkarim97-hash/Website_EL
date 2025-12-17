@@ -4,6 +4,12 @@ export default async function handler(req, res) {
   }
 
   try {
+    if (!process.env.GROQ_API_KEY) {
+      return res.status(500).json({
+        error: "GROQ_API_KEY tidak terbaca di server"
+      });
+    }
+
     const { message } = req.body;
 
     if (!message) {
@@ -24,7 +30,7 @@ export default async function handler(req, res) {
             {
               role: "system",
               content:
-                "Kamu adalah EL, asisten AI yang menjawab singkat, jelas, dan ramah dalam bahasa Indonesia."
+                "Nama kamu EL. Jawab singkat, jelas, dan ramah dalam bahasa Indonesia."
             },
             {
               role: "user",
@@ -32,16 +38,19 @@ export default async function handler(req, res) {
             }
           ],
           temperature: 0.5,
-          max_tokens: 300
+          max_tokens: 256
         })
       }
     );
 
     const data = await response.json();
 
-    if (!data.choices) {
-      console.error(data);
-      return res.status(500).json({ error: "Invalid response from AI" });
+    // 🔴 PENTING: KIRIM ERROR ASLI KE CLIENT
+    if (!data.choices || !data.choices[0]) {
+      return res.status(500).json({
+        error: "Groq error",
+        detail: data
+      });
     }
 
     return res.status(200).json({
@@ -49,7 +58,9 @@ export default async function handler(req, res) {
     });
 
   } catch (err) {
-    console.error("SERVER ERROR:", err);
-    return res.status(500).json({ error: "Server error" });
+    return res.status(500).json({
+      error: "Server crash",
+      detail: err.message
+    });
   }
 }
