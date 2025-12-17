@@ -13,15 +13,12 @@ export default async function handler(req, res) {
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`
+        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         model: "llama3-8b-8192",
-        messages: [
-          { role: "system", content: "Kamu adalah AI milik website Elkarim, jawab dengan bahasa Indonesia yang sopan." },
-          { role: "user", content: message }
-        ]
+        messages: [{ role: "user", content: message }]
       })
     });
 
@@ -32,9 +29,6 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    res.status(500).json({
-      error: "AI Server Error",
-      detail: error.message
-    });
+    res.status(500).json({ error: error.message });
   }
 }
