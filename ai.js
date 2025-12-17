@@ -5,21 +5,13 @@ async function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
 
-  // Tampilkan pesan user
-  const userDiv = document.createElement("div");
-  userDiv.className = "chat user";
-  userDiv.innerHTML = `<b>Kamu:</b><br>${message}`;
-  chatBox.appendChild(userDiv);
+  chatBox.innerHTML += `
+    <div class="chat user">
+      <b>Kamu:</b><br>${message}
+    </div>
+  `;
 
   input.value = "";
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  // Loading AI
-  const loadingDiv = document.createElement("div");
-  loadingDiv.className = "chat ai loading";
-  loadingDiv.innerHTML = `<b>EL:</b><br><i>mengetik...</i>`;
-  chatBox.appendChild(loadingDiv);
-  chatBox.scrollTop = chatBox.scrollHeight;
 
   try {
     const res = await fetch("/api/chat", {
@@ -30,21 +22,25 @@ async function sendMessage() {
       body: JSON.stringify({ message })
     });
 
+    if (!res.ok) {
+      throw new Error("Server error");
+    }
+
     const data = await res.json();
 
-    loadingDiv.classList.remove("loading");
-    loadingDiv.innerHTML = `<b>EL:</b><br>${formatText(data.reply)}`;
+    chatBox.innerHTML += `
+      <div class="chat ai">
+        <b>EL:</b><br>${data.reply}
+      </div>
+    `;
+
     chatBox.scrollTop = chatBox.scrollHeight;
 
   } catch (err) {
-    loadingDiv.innerHTML = `<b>EL:</b><br><span style="color:red">Gagal merespon</span>`;
+    chatBox.innerHTML += `
+      <div class="chat ai error">
+        <b>EL:</b><br>Maaf, EL gagal merespon.
+      </div>
+    `;
   }
-}
-
-// Supaya teks rapi & mudah dibaca (mirip ChatGPT)
-function formatText(text) {
-  return text
-    .replace(/\n/g, "<br>")
-    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
-    .replace(/\*(.*?)\*/g, "<i>$1</i>");
 }
