@@ -1,90 +1,54 @@
-* {
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-body {
-  margin: 0;
-  background: #0f172a;
-  height: 100vh;
-}
-
-.chat-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  max-width: 480px;
-  margin: auto;
-  background: #020617;
-}
-
-.header {
-  padding: 14px;
-  text-align: center;
-  font-weight: bold;
-  color: #e5e7eb;
-  background: #020617;
-  border-bottom: 1px solid #1e293b;
-}
-
+/* ===== CHAT WRAPPER ===== */
 .chat-box {
-  flex: 1;
   padding: 12px;
   overflow-y: auto;
 }
 
-.bubble {
-  max-width: 85%;
-  padding: 10px 14px;
-  margin-bottom: 10px;
-  border-radius: 12px;
-  line-height: 1.5;
-  font-size: 14px;
+/* ===== PESAN ===== */
+.message {
+  max-width: 100%;
+  margin-bottom: 12px;
+  line-height: 1.6;
   word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: 15px;
 }
 
-.ai {
-  background: #020617;
+/* ===== BUBBLE ===== */
+.message.ai {
+  background: #0b1220;
   color: #e5e7eb;
-  border: 1px solid #1e293b;
+  border-radius: 14px;
+  padding: 12px;
 }
 
-.user {
+.message.user {
   background: #2563eb;
-  color: white;
-  margin-left: auto;
+  color: #ffffff;
+  border-radius: 14px;
+  padding: 12px;
+  text-align: right;
 }
 
+/* ===== MARKDOWN FIX ===== */
+.message pre {
+  background: #020617;
+  padding: 12px;
+  border-radius: 10px;
+  overflow-x: auto;
+  white-space: pre-wrap;   /* KUNCI UTAMA */
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.message code {
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #22c55e;
+}
+
+/* ===== LOADING (EL MENGETIK) ===== */
 .typing {
-  color: #94a3b8;
-  font-size: 13px;
-  padding: 6px 12px;
-}
-
-.hidden {
-  display: none;
-}
-
-.input-area {
-  display: flex;
-  padding: 10px;
-  gap: 8px;
-  border-top: 1px solid #1e293b;
-}
-
-input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-}
-
-button {
-  background: #2563eb;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0 16px;
-  font-size: 16px;
+  font-style: italic;
+  opacity: 0.7;
 }
