@@ -1,5 +1,4 @@
 export default async function handler(req, res) {
-  // Hanya izinkan POST
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
@@ -7,7 +6,7 @@ export default async function handler(req, res) {
   try {
     const { message } = req.body;
 
-    if (!message || message.trim() === "") {
+    if (!message) {
       return res.status(400).json({ error: "Message kosong" });
     }
 
@@ -24,38 +23,23 @@ export default async function handler(req, res) {
           messages: [
             {
               role: "system",
-              content: `
-Nama kamu EL.
-Gunakan bahasa Indonesia.
-Aturan jawaban:
-- Singkat
-- Padat
-- Jelas
-- Terstruktur rapi
-- Maksimal 5 paragraf
-- Jangan spam bold
-- Gunakan list hanya jika perlu
-`
+              content: "Kamu adalah EL, AI yang menjawab singkat, jelas, dan ramah."
             },
             {
               role: "user",
               content: message
             }
           ],
-          temperature: 0.3,
-          max_tokens: 300
+          max_tokens: 300,
+          temperature: 0.7
         })
       }
     );
 
     const data = await response.json();
 
-    // Jika Groq API error
-    if (!data.choices || !data.choices[0]) {
-      return res.status(500).json({
-        error: "Groq API error",
-        detail: data
-      });
+    if (!data.choices) {
+      return res.status(500).json({ error: data });
     }
 
     return res.status(200).json({
@@ -63,9 +47,6 @@ Aturan jawaban:
     });
 
   } catch (error) {
-    return res.status(500).json({
-      error: "Server error",
-      message: error.message
-    });
+    return res.status(500).json({ error: error.message });
   }
 }
