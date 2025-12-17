@@ -1,9 +1,16 @@
 export default async function handler(req, res) {
-  const userMessage = req.body.message;
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method Not Allowed" });
+  }
 
-  const response = await fetch(
-    "https://api.groq.com/openai/v1/chat/completions",
-    {
+  try {
+    const { message } = req.body;
+
+    if (!message) {
+      return res.status(400).json({ error: "Message is required" });
+    }
+
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -11,13 +18,23 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: "llama3-8b-8192",
-        messages: [{ role: "user", content: userMessage }]
+        messages: [
+          { role: "system", content: "Kamu adalah AI milik website Elkarim, jawab dengan bahasa Indonesia yang sopan." },
+          { role: "user", content: message }
+        ]
       })
-    }
-  );
+    });
 
-  const data = await response.json();
-  res.status(200).json({
-    reply: data.choices[0].message.content
-  });
+    const data = await response.json();
+
+    res.status(200).json({
+      reply: data.choices[0].message.content
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      error: "AI Server Error",
+      detail: error.message
+    });
+  }
 }
