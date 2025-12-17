@@ -1,55 +1,60 @@
-const chatBox = document.getElementById("chatBox");
-const input = document.getElementById("userInput");
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
 
-function addMessage(text, sender) {
+function normalize(text) {
+  return text.replace(/\n{3,}/g, "\n\n");
+}
+
+function add(text, sender) {
   const div = document.createElement("div");
   div.className = `msg ${sender}`;
-  div.innerHTML = sender === "ai"
-    ? `<b>EL:</b><br>${marked.parse(text)}`
-    : `<b>Kamu:</b><br>${text}`;
-  chatBox.appendChild(div);
-  chatBox.scrollTop = chatBox.scrollHeight;
+
+  if (sender === "ai") {
+    div.innerHTML = "<b>EL:</b><br>" + marked.parse(normalize(text));
+  } else {
+    div.innerHTML = "<b>Kamu:</b><br>" + text;
+  }
+
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
   return div;
 }
 
-async function sendMessage() {
-  const message = input.value.trim();
-  if (!message) return;
+async function send() {
+  const msg = input.value.trim();
+  if (!msg) return;
 
-  addMessage(message, "user");
+  add(msg, "user");
   input.value = "";
 
-  const typing = addMessage("⏳ EL sedang mengetik...", "ai");
+  const typing = add("⏳ EL sedang mengetik...", "ai");
 
   const res = await fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message })
+    body: JSON.stringify({ message: msg })
   });
 
   const data = await res.json();
-  typing.innerHTML = "<b>EL:</b><br>";
-
   typeEffect(typing, data.reply);
 }
 
 function typeEffect(el, text) {
+  el.innerHTML = "<b>EL:</b><br>";
   let i = 0;
-  const speed = 15;
 
-  function typing() {
+  function step() {
     if (i < text.length) {
-      el.innerHTML += text.charAt(i);
-      i++;
-      chatBox.scrollTop = chatBox.scrollHeight;
-      setTimeout(typing, speed);
+      el.innerHTML += text[i++];
+      chat.scrollTop = chat.scrollHeight;
+      setTimeout(step, 12);
     } else {
-      el.innerHTML = "<b>EL:</b><br>" + marked.parse(text);
+      el.innerHTML = "<b>EL:</b><br>" + marked.parse(normalize(text));
     }
   }
-  typing();
+  step();
 }
 
 window.onload = () => {
-  addMessage("Halo 👋 Saya **EL**. Ada yang bisa saya bantu?", "ai");
+  add("Halo 👋 Saya **EL**, AI seperti ChatGPT. Ada yang bisa saya bantu?", "ai");
 };
