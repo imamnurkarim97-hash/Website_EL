@@ -5,27 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EL AI Gambar</title>
 
+<!-- PAKAI CSS UTAMA SAJA -->
 <link rel="stylesheet" href="ai.css">
-<link rel="stylesheet" href="ai-image.css">
 </head>
 
-<body>
+<body class="menu-bg">
 
-<header class="chat-header">🎨 EL AI Gambar</header>
+<section class="menu-wrapper">
+  <div class="glow-card">
 
-<div id="imageBox" class="chat-box">
-  <div class="message ai">
-    Jelaskan gambar yang ingin kamu buat 👇
+    <h1>🎨 EL AI Gambar</h1>
+    <p>Buat gambar AI dengan tampilan rapi</p>
+
+    <input id="promptInput" placeholder="Contoh: kucing astronot cyberpunk">
+
+    <a class="menu-btn primary" onclick="generateImage()">🎨 Buat Gambar</a>
+
+    <div id="imageResult"></div>
+
   </div>
-</div>
-
-<div class="input-area">
-  <input
-    id="promptInput"
-    placeholder="Contoh: kucing astronot gaya cyberpunk"
-  />
-  <button onclick="generateImage()">🎨</button>
-</div>
+</section>
 
 <script src="ai-image.js"></script>
 </body>
