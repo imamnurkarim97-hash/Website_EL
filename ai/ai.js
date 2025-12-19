@@ -1,10 +1,10 @@
 async function sendMessage(){
-  const input = document.getElementById("userInput");
-  const chatBox = document.getElementById("chatBox");
-  const text = input.value.trim();
-  if(!text) return;
+  const input=document.getElementById("userInput");
+  const chatBox=document.getElementById("chatBox");
+  const text=input.value.trim();
+  if(!text)return;
 
-  const user = document.createElement("div");
+  const user=document.createElement("div");
   user.className="message user";
   user.textContent=text;
   chatBox.appendChild(user);
