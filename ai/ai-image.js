@@ -1,80 +1,65 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-/* ===============================
-   EL AI IMAGE GENERATOR
-================================ */
-
 const MAX_LIMIT = 5;
 let imageCount = parseInt(localStorage.getItem("imageCount")) || 0;
 
-const promptInput = document.getElementById("promptInput");
-const imageResult = document.getElementById("imageResult");
-const historyBox = document.getElementById("history");
-
-function setPreset(text){
-  promptInput.value = text;
-  promptInput.focus();
-}
-
-function autoPrompt(prompt){
-  return `High quality, ultra detailed, cinematic lighting, realistic, ${prompt}`;
-}
+const input = document.getElementById("promptInput");
+const box = document.getElementById("imageBox");
 
 async function generateImage(){
-
   if(imageCount >= MAX_LIMIT){
-    alert("Batas penggunaan tercapai (5 gambar).");
+    alert("Batas 5 gambar tercapai.");
     return;
   }
 
-  let prompt = promptInput.value.trim();
-  if(!prompt){
-    alert("Masukkan deskripsi gambar.");
-    return;
-  }
+  const text = input.value.trim();
+  if(!text) return;
 
-  prompt = autoPrompt(prompt);
+  const user = document.createElement("div");
+  user.className = "message user";
+  user.textContent = text;
+  box.appendChild(user);
 
-  imageResult.innerHTML = `
-    <div class="message ai typing">⏳ Membuat gambar...</div>
-  `;
+  input.value = "";
+  box.scrollTop = box.scrollHeight;
+
+  const typing = document.createElement("div");
+  typing.className = "message ai typing";
+  typing.textContent = "EL sedang membuat gambar...";
+  box.appendChild(typing);
 
   try{
     const res = await fetch("/api/image",{
       method:"POST",
       headers:{ "Content-Type":"application/json" },
-      body:JSON.stringify({ prompt })
+      body:JSON.stringify({ prompt:text })
     });
 
     const data = await res.json();
-    imageResult.innerHTML = "";
+    typing.remove();
 
-    if(!data.image){
-      imageResult.innerHTML = "<div class='message ai'>Gagal membuat gambar.</div>";
-      return;
+    if(data.image){
+      imageCount++;
+      localStorage.setItem("imageCount", imageCount);
+
+      const ai = document.createElement("div");
+      ai.className = "message ai";
+      ai.innerHTML = `
+        <img src="${data.image}" style="width:100%;border-radius:14px;margin-bottom:8px">
+        <a href="${data.image}" download class="menu-btn primary">⬇ Download</a>
+      `;
+      box.appendChild(ai);
+    }else{
+      typing.textContent = "Gagal membuat gambar.";
     }
 
-    imageCount++;
-    localStorage.setItem("imageCount", imageCount);
-
-    imageResult.innerHTML = `
-      <div class="message ai">
-        <img src="${data.image}" style="width:100%;border-radius:16px">
-        <a href="${data.image}" download class="menu-btn primary">⬇ Download</a>
-      </div>
-    `;
-
-    const img = document.createElement("img");
-    img.src = data.image;
-    historyBox.prepend(img);
-
   }catch{
-    imageResult.innerHTML = "<div class='message ai'>Server error.</div>";
+    typing.textContent = "Server error.";
   }
+
+  box.scrollTop = box.scrollHeight;
 }
 
-// expose ke HTML
 window.generateImage = generateImage;
-window.setPreset = setPreset;
 
 });
