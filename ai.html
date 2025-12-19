@@ -3,156 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EL AI</title>
-
-<style>
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: radial-gradient(circle at top, #1e293b, #020617);
-  color: #e5e7eb;
-  min-height: 100vh;
-}
-
-/* ===== MENU ===== */
-#menuScreen {
-  max-width: 480px;
-  margin: auto;
-  padding: 30px 20px;
-}
-
-.menu-title {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-
-.menu-sub {
-  opacity: 0.8;
-  margin-bottom: 20px;
-}
-
-.menu-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.menu-card {
-  padding: 16px;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #0b1220, #020617);
-  border: 1px solid #1e293b;
-  cursor: pointer;
-}
-
-.menu-card h3 {
-  margin: 0 0 6px;
-}
-
-.menu-card p {
-  font-size: 14px;
-  opacity: 0.75;
-}
-
-/* ===== CHAT ===== */
-#chatScreen {
-  display: none;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-header {
-  padding: 14px;
-  background: #020617;
-  font-weight: bold;
-}
-
-.chat-box {
-  flex: 1;
-  overflow-y: auto;
-  padding: 12px;
-}
-
-.message {
-  max-width: 85%;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-  border-radius: 12px;
-  line-height: 1.5;
-  word-wrap: break-word;
-  white-space: pre-wrap;
-}
-
-.user {
-  background: #2563eb;
-  color: #fff;
-  margin-left: auto;
-}
-
-.ai {
-  background: #020617;
-  border: 1px solid #1e293b;
-}
-
-.typing {
-  font-style: italic;
-  opacity: 0.7;
-}
-
-.input-area {
-  display: flex;
-  padding: 10px;
-  background: #020617;
-  gap: 8px;
-}
-
-.input-area input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-}
-
-.input-area button {
-  background: #2563eb;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 0 16px;
-  font-size: 18px;
-}
-</style>
+<title>EL Assistant</title>
+<link rel="stylesheet" href="ai.css">
 </head>
 
 <body>
 
-<!-- ===== MENU AI ===== -->
-<div id="menuScreen">
-  <div class="menu-title">🤖 EL AI</div>
-  <div class="menu-sub">Pilih fitur AI yang ingin digunakan</div>
-
-  <div class="menu-grid">
-    <div class="menu-card" onclick="openChat()">
-      <h3>💬 Chat AI</h3>
-      <p>Ngobrol dengan EL</p>
-    </div>
-
-    <div class="menu-card" onclick="alert('Fitur buat gambar segera hadir')">
-      <h3>🎨 Buat Gambar</h3>
-      <p>Generate gambar AI</p>
-    </div>
-  </div>
+<!-- MENU -->
+<div id="menu" class="menu">
+  <h1>🤖 EL Assistant</h1>
+  <button onclick="openChat()">🧠 Chat AI</button>
+  <button onclick="openImage()">🎨 Buat Gambar</button>
 </div>
 
-<!-- ===== CHAT AI ===== -->
-<div id="chatScreen">
-  <header>
-    🤖 EL
-    <span style="float:right;cursor:pointer;font-size:14px" onclick="backMenu()">← Menu</span>
-  </header>
+<!-- CHAT -->
+<div id="chat" class="hidden">
+  <header>🤖 EL Chat</header>
 
   <div id="chatBox" class="chat-box">
     <div class="message ai">
@@ -166,64 +32,16 @@ header {
   </div>
 </div>
 
-<script>
-function openChat() {
-  document.getElementById("menuScreen").style.display = "none";
-  document.getElementById("chatScreen").style.display = "flex";
-}
+<!-- IMAGE -->
+<div id="image" class="hidden">
+  <header>🎨 Buat Gambar AI</header>
+  <div class="image-box">
+    <input id="imgPrompt" placeholder="Deskripsikan gambar..." />
+    <button onclick="generateImage()">Buat Gambar</button>
+    <div id="imgResult"></div>
+  </div>
+</div>
 
-function backMenu() {
-  document.getElementById("chatScreen").style.display = "none";
-  document.getElementById("menuScreen").style.display = "block";
-}
-
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chatBox = document.getElementById("chatBox");
-  const text = input.value.trim();
-  if (!text) return;
-
-  const userMsg = document.createElement("div");
-  userMsg.className = "message user";
-  userMsg.textContent = text;
-  chatBox.appendChild(userMsg);
-
-  input.value = "";
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  const typing = document.createElement("div");
-  typing.className = "message ai typing";
-  typing.id = "typing";
-  typing.textContent = "EL sedang mengetik...";
-  chatBox.appendChild(typing);
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  try {
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text })
-    });
-
-    const data = await res.json();
-    typing.remove();
-
-    const aiMsg = document.createElement("div");
-    aiMsg.className = "message ai";
-    aiMsg.textContent = data.reply || "EL tidak bisa menjawab saat ini.";
-    chatBox.appendChild(aiMsg);
-
-  } catch {
-    typing.remove();
-    const err = document.createElement("div");
-    err.className = "message ai";
-    err.textContent = "Maaf, EL gagal merespon.";
-    chatBox.appendChild(err);
-  }
-
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
-</script>
-
+<script src="ai.js"></script>
 </body>
 </html>
