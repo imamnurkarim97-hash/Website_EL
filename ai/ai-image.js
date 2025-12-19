@@ -1,29 +1,43 @@
-const MAX_LIMIT = 5;
-let count = localStorage.getItem("imageCount") || 0;
+document.addEventListener("DOMContentLoaded", () => {
 
-function autoPrompt(text){
-  return `High quality, ultra detailed, cinematic lighting, ${text}`;
+/* ===============================
+   EL AI IMAGE GENERATOR
+================================ */
+
+const MAX_LIMIT = 5;
+let imageCount = parseInt(localStorage.getItem("imageCount")) || 0;
+
+const promptInput = document.getElementById("promptInput");
+const imageResult = document.getElementById("imageResult");
+const historyBox = document.getElementById("history");
+
+function setPreset(text){
+  promptInput.value = text;
+  promptInput.focus();
+}
+
+function autoPrompt(prompt){
+  return `High quality, ultra detailed, cinematic lighting, realistic, ${prompt}`;
 }
 
 async function generateImage(){
-  const input = document.getElementById("promptInput");
-  const result = document.getElementById("imageResult");
-  const history = document.getElementById("history");
 
-  if(count >= MAX_LIMIT){
-    alert("Batas penggunaan tercapai");
+  if(imageCount >= MAX_LIMIT){
+    alert("Batas penggunaan tercapai (5 gambar).");
     return;
   }
 
-  let prompt = input.value.trim();
+  let prompt = promptInput.value.trim();
   if(!prompt){
-    alert("Masukkan deskripsi gambar");
+    alert("Masukkan deskripsi gambar.");
     return;
   }
 
   prompt = autoPrompt(prompt);
 
-  result.innerHTML = "<p>⏳ Membuat gambar...</p>";
+  imageResult.innerHTML = `
+    <div class="message ai typing">⏳ Membuat gambar...</div>
+  `;
 
   try{
     const res = await fetch("/api/image",{
@@ -33,25 +47,34 @@ async function generateImage(){
     });
 
     const data = await res.json();
+    imageResult.innerHTML = "";
 
-    if(data.image){
-      count++;
-      localStorage.setItem("imageCount", count);
-
-      const img = document.createElement("img");
-      img.src = data.image;
-
-      history.prepend(img);
-
-      result.innerHTML = `
-        <img src="${data.image}" style="width:100%;border-radius:16px">
-        <a href="${data.image}" download class="menu-btn primary">⬇ Download</a>
-      `;
-    }else{
-      result.innerHTML = "Gagal membuat gambar";
+    if(!data.image){
+      imageResult.innerHTML = "<div class='message ai'>Gagal membuat gambar.</div>";
+      return;
     }
 
+    imageCount++;
+    localStorage.setItem("imageCount", imageCount);
+
+    imageResult.innerHTML = `
+      <div class="message ai">
+        <img src="${data.image}" style="width:100%;border-radius:16px">
+        <a href="${data.image}" download class="menu-btn primary">⬇ Download</a>
+      </div>
+    `;
+
+    const img = document.createElement("img");
+    img.src = data.image;
+    historyBox.prepend(img);
+
   }catch{
-    result.innerHTML = "Server error";
+    imageResult.innerHTML = "<div class='message ai'>Server error.</div>";
   }
 }
+
+// expose ke HTML
+window.generateImage = generateImage;
+window.setPreset = setPreset;
+
+});
