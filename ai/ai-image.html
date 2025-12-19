@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EL AI Gambar</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EL AI Gambar</title>
 
-<!-- CSS KHUSUS AI GAMBAR (TIDAK GANGGU CSS LAMA) -->
-<link rel="stylesheet" href="ai-image.css">
+  <!-- CSS UTAMA (WAJIB) -->
+  <link rel="stylesheet" href="ai.css">
+
+  <!-- CSS KHUSUS AI GAMBAR -->
+  <link rel="stylesheet" href="ai-image.css">
 </head>
 
 <body class="menu-bg">
 
-<header class="chat-header">🎨 EL AI Gambar</header>
+  <header class="chat-header">🎨 EL AI Gambar</header>
 
-<div class="image-container">
+  <div class="image-container">
 
-  <input
-    id="promptInput"
-    placeholder="Contoh: kucing astronot gaya cyberpunk"
-  />
+    <input
+      id="promptInput"
+      placeholder="Contoh: kucing astronot gaya cyberpunk"
+    />
 
-  <button onclick="generateImage()" class="menu-btn primary">
-    🎨 Buat Gambar
-  </button>
+    <button onclick="generateImage()" class="menu-btn primary">
+      🎨 Buat Gambar
+    </button>
 
-  <div id="imageResult"></div>
+    <div id="imageResult"></div>
 
-  <h3>📜 Riwayat</h3>
-  <div id="history" class="gallery"></div>
+    <h3>📜 Riwayat</h3>
+    <div id="history" class="gallery"></div>
 
-</div>
+  </div>
 
-<script src="ai-image.js"></script>
+  <script src="ai-image.js"></script>
 </body>
 </html>
