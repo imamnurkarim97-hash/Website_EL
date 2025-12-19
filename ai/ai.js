@@ -2,8 +2,9 @@ async function sendMessage(){
   const input=document.getElementById("userInput");
   const chatBox=document.getElementById("chatBox");
   const text=input.value.trim();
-  if(!text)return;
+  if(!text) return;
 
+  // User message
   const user=document.createElement("div");
   user.className="message user";
   user.textContent=text;
@@ -12,13 +13,14 @@ async function sendMessage(){
   input.value="";
   chatBox.scrollTop=chatBox.scrollHeight;
 
+  // Typing indicator
   const typing=document.createElement("div");
   typing.className="message ai typing";
   typing.textContent="EL sedang mengetik...";
   chatBox.appendChild(typing);
 
-  try{
-    const res=await fetch("/api/chat",{
+  try {
+    const res=await fetch("/api/chat", {
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({message:text})
@@ -32,7 +34,7 @@ async function sendMessage(){
     ai.textContent=data.reply || "EL tidak bisa menjawab.";
     chatBox.appendChild(ai);
 
-  }catch{
+  } catch {
     typing.remove();
     const err=document.createElement("div");
     err.className="message ai";
