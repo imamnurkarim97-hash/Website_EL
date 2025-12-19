@@ -77,10 +77,45 @@ header {
   color: white;
   font-size: 18px;
 }
+
+/* ============================= */
+/* TAMBAHAN AMAN (POJOK KANAN)   */
+/* ============================= */
+.el-wrapper {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 360px;
+  max-width: 95vw;
+  height: 540px;
+  max-height: 90vh;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #0f172a;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .el-wrapper {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    top: auto;
+    width: auto;
+    height: 70vh;
+  }
+}
 </style>
 </head>
 
 <body>
+
+<div class="el-wrapper">
 
 <header>🤖 EL</header>
 
@@ -95,6 +130,8 @@ header {
   <button onclick="sendMessage()">➤</button>
 </div>
 
+</div>
+
 <script>
 async function sendMessage() {
   const input = document.getElementById("userInput");
@@ -103,7 +140,6 @@ async function sendMessage() {
   const text = input.value.trim();
   if (!text) return;
 
-  // pesan user
   const userMsg = document.createElement("div");
   userMsg.className = "message user";
   userMsg.textContent = text;
@@ -112,7 +148,6 @@ async function sendMessage() {
   input.value = "";
   chatBox.scrollTop = chatBox.scrollHeight;
 
-  // typing
   const typing = document.createElement("div");
   typing.className = "message ai typing";
   typing.id = "typing";
