@@ -1,38 +1,64 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EL AI Gambar</title>
+/* ================================
+   AI IMAGE (SCOPED — AMAN)
+================================ */
 
-<link rel="stylesheet" href="ai.css">
-<link rel="stylesheet" href="ai-image.css">
-</head>
+.ai-image-page{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 
-<body class="menu-bg">
+/* WRAPPER */
+.ai-image-page .image-wrapper{
+  width:100%;
+  max-width:420px;
+  padding:20px;
+}
 
-<section class="menu-wrapper">
+/* HEADER */
+.ai-image-page .image-header{
+  text-align:center;
+  font-weight:bold;
+  font-size:18px;
+  margin-bottom:14px;
+}
 
-  <div class="glow-card image-card">
+/* CARD */
+.ai-image-page .image-card{
+  background:linear-gradient(180deg,#0b1220,#020617);
+  padding:18px;
+  border-radius:20px;
+  box-shadow:
+    0 0 40px rgba(37,99,235,.25),
+    inset 0 0 20px rgba(255,255,255,.04);
+}
 
-    <h1>🎨 EL AI Gambar</h1>
-    <p>Buat gambar AI berkualitas tinggi</p>
+/* INPUT */
+.ai-image-page input{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  margin-bottom:12px;
+  font-size:15px;
+}
 
-    <input
-      id="promptInput"
-      placeholder="Contoh: kucing astronot gaya cyberpunk"
-    />
+/* RESULT */
+.ai-image-page .image-result img{
+  width:100%;
+  border-radius:14px;
+  margin-top:12px;
+}
 
-    <button onclick="generateImage()" class="menu-btn primary">
-      🎨 Buat Gambar
-    </button>
+/* GALLERY */
+.ai-image-page .gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(110px,1fr));
+  gap:10px;
+  margin-top:10px;
+}
 
-    <div id="imageResult"></div>
-
-  </div>
-
-</section>
-
-<script src="ai-image.js"></script>
-</body>
-</html>
+.ai-image-page .gallery img{
+  width:100%;
+  border-radius:12px;
+}
