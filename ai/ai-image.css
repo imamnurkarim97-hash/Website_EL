@@ -1,60 +1,38 @@
-/* ===============================
-   AI IMAGE LAYOUT FIX
-================================ */
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EL AI Gambar</title>
 
-.image-container{
-  max-width:480px;
-  margin:0 auto;
-  padding:16px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
+<link rel="stylesheet" href="ai.css">
+<link rel="stylesheet" href="ai-image.css">
+</head>
 
-/* INPUT */
-#promptInput{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:none;
-  font-size:15px;
-  background:#020617;
-  color:#e5e7eb;
-  outline:none;
-}
+<body class="menu-bg">
 
-/* BUTTON */
-.image-container .menu-btn{
-  width:100%;
-  text-align:center;
-}
+<section class="menu-wrapper">
 
-/* RESULT */
-#imageResult{
-  margin-top:10px;
-}
+  <div class="glow-card image-card">
 
-/* RESULT CARD */
-#imageResult .message{
-  padding:12px;
-  border-radius:16px;
-  background:#0b1220;
-}
+    <h1>🎨 EL AI Gambar</h1>
+    <p>Buat gambar AI berkualitas tinggi</p>
 
-/* HISTORY */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-}
+    <input
+      id="promptInput"
+      placeholder="Contoh: kucing astronot gaya cyberpunk"
+    />
 
-.gallery img{
-  width:100%;
-  border-radius:12px;
-  object-fit:cover;
-}
-/* Tidak perlu banyak, karena pakai ai.css */
+    <button onclick="generateImage()" class="menu-btn primary">
+      🎨 Buat Gambar
+    </button>
 
-.chat-box img{
-  display:block;
-}
+    <div id="imageResult"></div>
+
+  </div>
+
+</section>
+
+<script src="ai-image.js"></script>
+</body>
+</html>
