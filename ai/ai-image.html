@@ -5,25 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EL AI Gambar</title>
 
-<!-- PAKAI CSS UTAMA SAJA -->
+<!-- CSS UTAMA (WAJIB) -->
 <link rel="stylesheet" href="ai.css">
+
+<!-- CSS KHUSUS AI IMAGE -->
+<link rel="stylesheet" href="ai-image.css">
 </head>
 
-<body class="menu-bg">
+<body class="menu-bg ai-image-page">
 
-<section class="menu-wrapper">
-  <div class="glow-card">
+<section class="image-wrapper">
 
-    <h1>🎨 EL AI Gambar</h1>
-    <p>Buat gambar AI dengan tampilan rapi</p>
+  <header class="image-header">
+    🎨 EL AI Gambar
+  </header>
 
-    <input id="promptInput" placeholder="Contoh: kucing astronot cyberpunk">
+  <div class="image-card">
 
-    <a class="menu-btn primary" onclick="generateImage()">🎨 Buat Gambar</a>
+    <input
+      id="promptInput"
+      placeholder="Contoh: kucing astronot gaya cyberpunk"
+    />
 
-    <div id="imageResult"></div>
+    <button onclick="generateImage()" class="menu-btn">
+      🎨 Buat Gambar
+    </button>
+
+    <div id="imageResult" class="image-result"></div>
+
+    <h3>📜 Riwayat</h3>
+    <div id="history" class="gallery"></div>
 
   </div>
+
 </section>
 
 <script src="ai-image.js"></script>
