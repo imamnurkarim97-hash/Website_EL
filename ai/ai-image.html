@@ -1,39 +1,32 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EL AI Gambar</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EL AI Gambar</title>
 
-  <!-- CSS UTAMA (WAJIB) -->
-  <link rel="stylesheet" href="ai.css">
-
-  <!-- CSS KHUSUS AI GAMBAR -->
-  <link rel="stylesheet" href="ai-image.css">
+<link rel="stylesheet" href="ai.css">
+<link rel="stylesheet" href="ai-image.css">
 </head>
 
-<body class="menu-bg">
+<body>
 
-  <header class="chat-header">🎨 EL AI Gambar</header>
+<header class="chat-header">🎨 EL AI Gambar</header>
 
-  <div class="image-container">
-
-    <input
-      id="promptInput"
-      placeholder="Contoh: kucing astronot gaya cyberpunk"
-    />
-
-    <button onclick="generateImage()" class="menu-btn primary">
-      🎨 Buat Gambar
-    </button>
-
-    <div id="imageResult"></div>
-
-    <h3>📜 Riwayat</h3>
-    <div id="history" class="gallery"></div>
-
+<div id="imageBox" class="chat-box">
+  <div class="message ai">
+    Jelaskan gambar yang ingin kamu buat 👇
   </div>
+</div>
 
-  <script src="ai-image.js"></script>
+<div class="input-area">
+  <input
+    id="promptInput"
+    placeholder="Contoh: kucing astronot gaya cyberpunk"
+  />
+  <button onclick="generateImage()">🎨</button>
+</div>
+
+<script src="ai-image.js"></script>
 </body>
 </html>
