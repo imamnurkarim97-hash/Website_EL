@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EL AI Gambar</title>
+<link rel="stylesheet" href="ai.css">
+</head>
+
+<body class="chat-bg">
+
+<header class="chat-header">🎨 EL AI Gambar</header>
+
+<div class="chat-box">
+
+  <div class="message ai">
+    Tulis deskripsi gambar yang ingin dibuat.
+  </div>
+
+  <div class="input-area">
+    <input id="promptInput" placeholder="Contoh: Kucing robot cyberpunk futuristik" />
+    <button onclick="generateImage()">➤</button>
+  </div>
+
+  <div id="imageResult" style="margin-top:16px"></div>
+
+</div>
+
+<script>
+async function generateImage(){
+  const prompt = document.getElementById("promptInput").value.trim();
+  const result = document.getElementById("imageResult");
+
+  if(!prompt){
+    alert("Masukkan deskripsi gambar");
+    return;
+  }
+
+  result.innerHTML = "<div class='message ai'>⏳ Membuat gambar...</div>";
+
+  try{
+    const res = await fetch("/api/image",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify({ prompt })
+    });
+
+    const data = await res.json();
+
+    if(data.image){
+      result.innerHTML = `
+        <img src="${data.image}" 
+             style="width:100%;border-radius:16px;margin-top:12px">
+      `;
+    }else{
+      result.innerHTML = "<div class='message ai'>Gagal membuat gambar.</div>";
+    }
+
+  }catch{
+    result.innerHTML = "<div class='message ai'>Server error.</div>";
+  }
+}
+</script>
+
+</body>
+</html>
