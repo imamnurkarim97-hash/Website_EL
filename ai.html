@@ -3,45 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EL Assistant</title>
+<title>EL AI</title>
 <link rel="stylesheet" href="ai.css">
 </head>
 
-<body>
+<body class="ai-home">
 
-<!-- MENU -->
-<div id="menu" class="menu">
-  <h1>🤖 EL Assistant</h1>
-  <button onclick="openChat()">🧠 Chat AI</button>
-  <button onclick="openImage()">🎨 Buat Gambar</button>
-</div>
+<div class="container">
 
-<!-- CHAT -->
-<div id="chat" class="hidden">
-  <header>🤖 EL Chat</header>
+  <div class="header">
+    <div class="logo">🤖</div>
+    <h1>EL AI</h1>
+    <p>Selamat datang!<br>Pilih alat AI menarik yang ingin kamu coba:</p>
+  </div>
 
-  <div id="chatBox" class="chat-box">
-    <div class="message ai">
-      Halo 👋 Saya EL. Ada yang bisa saya bantu?
+  <div class="grid">
+    <div class="card blue" onclick="goChat()">
+      💬
+      <h3>Chat AI</h3>
+      <span>Ngobrol dengan asisten AI</span>
+    </div>
+
+    <div class="card pink" onclick="goImage()">
+      🎨
+      <h3>Buat Gambar</h3>
+      <span>Buat gambar dengan AI</span>
+    </div>
+
+    <div class="card green" onclick="goSummary()">
+      📝
+      <h3>Ringkas Teks</h3>
+      <span>Merangkum teks panjang</span>
+    </div>
+
+    <div class="card purple" onclick="goCoding()">
+      💻
+      <h3>AI Coding</h3>
+      <span>Bantu menulis & debug kode</span>
     </div>
   </div>
 
-  <div class="input-area">
-    <input id="userInput" placeholder="Ketik pesan ke EL..." />
-    <button onclick="sendMessage()">➤</button>
-  </div>
+  <button class="about" onclick="location.href='about.html'">
+    Tentang EL ↗
+  </button>
+
 </div>
 
-<!-- IMAGE -->
-<div id="image" class="hidden">
-  <header>🎨 Buat Gambar AI</header>
-  <div class="image-box">
-    <input id="imgPrompt" placeholder="Deskripsikan gambar..." />
-    <button onclick="generateImage()">Buat Gambar</button>
-    <div id="imgResult"></div>
-  </div>
-</div>
+<script>
+function goChat(){ location.href='ai-chat.html'; }
+function goImage(){ alert('Fitur gambar segera aktif'); }
+function goSummary(){ alert('Fitur ringkas segera aktif'); }
+function goCoding(){ alert('Fitur coding segera aktif'); }
+</script>
 
-<script src="ai.js"></script>
 </body>
 </html>
