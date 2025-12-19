@@ -14,19 +14,37 @@
 <div class="chat-box">
 
   <div class="message ai">
-    Tulis deskripsi gambar yang ingin dibuat.
+    Pilih gaya atau tulis deskripsi gambar.
   </div>
 
+  <!-- PRESET -->
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+    <button onclick="setPreset('Anime style, highly detailed, vibrant colors')" class="menu-btn ghost">Anime</button>
+    <button onclick="setPreset('Realistic photo, ultra HD, cinematic lighting')" class="menu-btn ghost">Realistic</button>
+    <button onclick="setPreset('Cyberpunk futuristic, neon lights')" class="menu-btn ghost">Cyberpunk</button>
+  </div>
+
+  <!-- INPUT -->
   <div class="input-area">
-    <input id="promptInput" placeholder="Contoh: Kucing robot cyberpunk futuristik" />
+    <input id="promptInput" placeholder="Contoh: Kucing robot di kota futuristik" />
     <button onclick="generateImage()">➤</button>
   </div>
 
+  <!-- RESULT -->
   <div id="imageResult" style="margin-top:16px"></div>
+
+  <!-- HISTORY -->
+  <div id="history" style="margin-top:20px"></div>
 
 </div>
 
 <script>
+const historyEl = document.getElementById("history");
+
+function setPreset(text){
+  document.getElementById("promptInput").value = text;
+}
+
 async function generateImage(){
   const prompt = document.getElementById("promptInput").value.trim();
   const result = document.getElementById("imageResult");
@@ -48,10 +66,15 @@ async function generateImage(){
     const data = await res.json();
 
     if(data.image){
-      result.innerHTML = `
-        <img src="${data.image}" 
-             style="width:100%;border-radius:16px;margin-top:12px">
+      const imgHTML = `
+        <div class="message ai">
+          <img src="${data.image}" style="width:100%;border-radius:16px;margin-bottom:10px">
+          <a href="${data.image}" download class="menu-btn primary">⬇ Download</a>
+        </div>
       `;
+
+      result.innerHTML = imgHTML;
+      historyEl.innerHTML = imgHTML + historyEl.innerHTML;
     }else{
       result.innerHTML = "<div class='message ai'>Gagal membuat gambar.</div>";
     }
