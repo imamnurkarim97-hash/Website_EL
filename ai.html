@@ -4,56 +4,177 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EL AI</title>
-<link rel="stylesheet" href="ai.css">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, #7c3aed, #020617 60%),
+    radial-gradient(circle at bottom, #1e40af, transparent 60%);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header .robot {
+  font-size: 60px;
+}
+
+.header h1 {
+  margin: 10px 0 5px;
+  font-size: 32px;
+}
+
+.header p {
+  opacity: .9;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.card {
+  border-radius: 20px;
+  padding: 18px;
+  min-height: 140px;
+  cursor: pointer;
+  transition: .3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.03);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(255,255,255,.25), transparent 60%);
+  opacity: .4;
+}
+
+.card h3 {
+  margin: 10px 0 6px;
+}
+
+.card p {
+  font-size: 14px;
+  opacity: .85;
+}
+
+.icon {
+  font-size: 28px;
+}
+
+/* WARNA */
+.blue {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  box-shadow: 0 20px 40px rgba(37,99,235,.4);
+}
+
+.pink {
+  background: linear-gradient(135deg, #db2777, #7c3aed);
+  box-shadow: 0 20px 40px rgba(219,39,119,.4);
+}
+
+.green {
+  background: linear-gradient(135deg, #22c55e, #15803d);
+  box-shadow: 0 20px 40px rgba(34,197,94,.4);
+}
+
+.purple {
+  background: linear-gradient(135deg, #6366f1, #4338ca);
+  box-shadow: 0 20px 40px rgba(99,102,241,.4);
+}
+
+.footer-btn {
+  margin-top: 25px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.15);
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.footer-btn:hover {
+  background: rgba(255,255,255,.25);
+}
+</style>
 </head>
 
-<body class="ai-home">
+<body>
 
 <div class="container">
 
   <div class="header">
-    <div class="logo">🤖</div>
+    <div class="robot">🤖</div>
     <h1>EL AI</h1>
     <p>Selamat datang!<br>Pilih alat AI menarik yang ingin kamu coba:</p>
   </div>
 
   <div class="grid">
     <div class="card blue" onclick="goChat()">
-      💬
+      <div class="icon">💬</div>
       <h3>Chat AI</h3>
-      <span>Ngobrol dengan asisten AI</span>
+      <p>Ngobrol dengan asisten AI</p>
     </div>
 
-    <div class="card pink" onclick="goImage()">
-      🎨
+    <div class="card pink" onclick="alert('Fitur belum aktif')">
+      <div class="icon">🎨</div>
       <h3>Buat Gambar</h3>
-      <span>Buat gambar dengan AI</span>
+      <p>Buat gambar dengan AI</p>
     </div>
 
-    <div class="card green" onclick="goSummary()">
-      📝
+    <div class="card green" onclick="alert('Fitur belum aktif')">
+      <div class="icon">📝</div>
       <h3>Ringkas Teks</h3>
-      <span>Merangkum teks panjang</span>
+      <p>Merangkum teks panjang</p>
     </div>
 
-    <div class="card purple" onclick="goCoding()">
-      💻
+    <div class="card purple" onclick="alert('Fitur belum aktif')">
+      <div class="icon">💻</div>
       <h3>AI Coding</h3>
-      <span>Bantu menulis & debug kode</span>
+      <p>Bantu menulis & debug kode</p>
     </div>
   </div>
 
-  <button class="about" onclick="location.href='about.html'">
+  <button class="footer-btn" onclick="window.location.href='about.html'">
     Tentang EL ↗
   </button>
 
 </div>
 
 <script>
-function goChat(){ location.href='ai-chat.html'; }
-function goImage(){ alert('Fitur gambar segera aktif'); }
-function goSummary(){ alert('Fitur ringkas segera aktif'); }
-function goCoding(){ alert('Fitur coding segera aktif'); }
+function goChat() {
+  // GANTI jika chat AI kamu ada di halaman lain
+  window.location.href = "chat.html";
+}
 </script>
 
 </body>
