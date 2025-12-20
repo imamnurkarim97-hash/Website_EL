@@ -3,21 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EL AI Gambar</title>
-<link rel="stylesheet" href="ai-image.css">
+<title>EL AI Image</title>
+<link rel="stylesheet" href="ai.css">
 </head>
 
 <body class="chat-bg">
 
-<div class="chat-header">🎨 EL AI Gambar</div>
+<div class="chat-header">🎨 EL AI Image</div>
 
-<div class="image-box" id="imageBox">
-  <p>Tulis prompt lalu tekan Enter atau Kirim</p>
-</div>
+<div class="chat-box">
+  <input
+    id="promptInput"
+    placeholder="Deskripsikan gambar..."
+    onkeydown="if(event.key==='Enter') generateImage()"
+    style="width:100%;padding:14px;border-radius:12px;border:none"
+  >
 
-<div class="input-area">
-  <input id="imagePrompt" placeholder="Contoh: Cyberpunk city malam hari">
-  <button onclick="generateImage()">➤</button>
+  <button onclick="generateImage()" style="margin-top:12px">
+    🎨 Buat Gambar
+  </button>
+
+  <div id="result" style="margin-top:20px"></div>
 </div>
 
 <script src="ai-image.js"></script>
