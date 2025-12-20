@@ -1,5 +1,3 @@
-import fetch from "node-fetch";
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -7,9 +5,8 @@ export default async function handler(req, res) {
 
   try {
     const { prompt } = req.body;
-
     if (!prompt) {
-      return res.status(400).json({ error: "Prompt kosong" });
+      return res.status(400).json({ error: "Prompt is required" });
     }
 
     const response = await fetch(
@@ -31,10 +28,7 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!data.data || !data.data[0]) {
-      return res.status(500).json({
-        error: "Gagal generate gambar",
-        detail: data
-      });
+      return res.status(500).json({ error: "Gagal membuat gambar", detail: data });
     }
 
     res.status(200).json({
@@ -42,6 +36,6 @@ export default async function handler(req, res) {
     });
 
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: "Server error", detail: err.message });
   }
 }
