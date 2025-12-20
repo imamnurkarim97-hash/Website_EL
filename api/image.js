@@ -8,7 +8,13 @@ export default async function handler(req, res) {
   try {
     const { prompt } = req.body;
     if (!prompt) {
-      return res.status(400).json({ error: "Prompt is required" });
+      return res.status(400).json({ error: "Prompt kosong" });
+    }
+
+    if (!process.env.OPENAI_API_KEY) {
+      return res.status(500).json({
+        error: "OPENAI_API_KEY tidak terbaca di server",
+      });
     }
 
     const response = await fetch(
@@ -21,7 +27,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           model: "gpt-image-1",
-          prompt: prompt,
+          prompt,
           size: "1024x1024",
         }),
       }
@@ -29,8 +35,11 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    if (!data.data || !data.data[0]?.url) {
-      return res.status(500).json({ error: "Image generation failed", detail: data });
+    if (!response.ok) {
+      return res.status(500).json({
+        error: "OpenAI error",
+        detail: data,
+      });
     }
 
     res.status(200).json({
