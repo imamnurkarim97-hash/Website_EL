@@ -1,4 +1,7 @@
-*{box-sizing:border-box; font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+*{
+  box-sizing:border-box;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+}
 
 .chat-bg{
   background:#020617;
@@ -22,21 +25,20 @@
   justify-content:center;
   align-items:center;
   padding:16px;
-  overflow-y:auto;
 }
 
 .image-box img{
   max-width:100%;
   border-radius:16px;
-  box-shadow:0 10px 30px rgba(37,99,235,.3);
+  box-shadow:0 0 40px rgba(37,99,235,.4);
 }
 
 .input-area{
   display:flex;
   gap:8px;
   padding:12px;
-  border-top:1px solid #1e293b;
   background:#020617;
+  border-top:1px solid #1e293b;
 }
 
 .input-area input{
