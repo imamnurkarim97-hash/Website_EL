@@ -4,22 +4,74 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EL AI Image</title>
-<link rel="stylesheet" href="ai-image.css">
+
+<style>
+body{
+  margin:0;
+  font-family:system-ui;
+  background:#020617;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+
+.card{
+  width:360px;
+  padding:22px;
+  border-radius:20px;
+  background:linear-gradient(180deg,#0b1220,#020617);
+  box-shadow:0 0 50px rgba(37,99,235,.4);
+  text-align:center;
+}
+
+h2{
+  margin-top:0;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  background:#0b1220;
+  color:white;
+  margin-top:12px;
+}
+
+button{
+  width:100%;
+  margin-top:14px;
+  padding:12px;
+  border-radius:14px;
+  border:none;
+  font-size:16px;
+  background:linear-gradient(135deg,#2563eb,#22d3ee);
+  color:white;
+  cursor:pointer;
+}
+
+img{
+  margin-top:16px;
+  width:100%;
+  border-radius:14px;
+  display:none;
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
-  <h1>🎨 EL AI Image</h1>
+<div class="card">
+  <h2>🎨 EL AI Image</h2>
+  <p>Buat gambar dari teks</p>
 
-  <input type="text" id="prompt" placeholder="Deskripsikan gambar..." />
-  <input type="file" id="imageInput" accept="image/*">
+  <input id="prompt" placeholder="Contoh: naga cyberpunk di kota neon">
 
   <button id="generate">Generate</button>
 
-  <div class="result">
-    <img id="resultImage" />
-  </div>
+  <img id="result">
 </div>
 
 <script src="ai-image.js"></script>
