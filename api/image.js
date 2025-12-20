@@ -7,20 +7,22 @@ export default async function handler(req, res) {
 
   try {
     const { prompt } = req.body;
-    if (!prompt) return res.status(400).json({ error: "Prompt is required" });
+    if (!prompt) {
+      return res.status(400).json({ error: "Prompt is required" });
+    }
 
     const response = await fetch(
-      "https://api.groq.com/openai/v1/images/generations",
+      "https://api.openai.com/v1/images/generations",
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+          "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "dall-e-3",
+          model: "gpt-image-1",
           prompt: prompt,
-          size: "1024x1024" // ukuran gambar
+          size: "1024x1024",
         }),
       }
     );
@@ -28,12 +30,17 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!data.data || !data.data[0]?.url) {
-      return res.status(500).json({ error: "Invalid response from AI", detail: data });
+      return res.status(500).json({ error: "Image generation failed", detail: data });
     }
 
-    res.status(200).json({ imageUrl: data.data[0].url });
+    res.status(200).json({
+      imageUrl: data.data[0].url,
+    });
 
-  } catch (error) {
-    res.status(500).json({ error: "Server error", detail: error.message });
+  } catch (err) {
+    res.status(500).json({
+      error: "Server error",
+      detail: err.message,
+    });
   }
 }
