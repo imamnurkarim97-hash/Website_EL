@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     if (!prompt) return res.status(400).json({ error: "Prompt is required" });
 
     const response = await fetch(
-      "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2",
+      "https://api-inference.huggingface.co/models/runwayml/stable-diffusion-v1-5",
       {
         method: "POST",
         headers: {
@@ -19,26 +19,17 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           inputs: prompt,
-          options: { wait_for_model: true }
+          options: { wait_for_model: true },
         }),
       }
     );
 
     const data = await response.json();
 
-    if (data.error) {
-      return res.status(500).json({ error: "HF Error", detail: data.error });
-    }
+    if (data.error) return res.status(500).json({ error: "HF Error", detail: data.error });
 
-    // HF Router terkini mengembalikan array dengan base64
-    const image_base64 = data[0].image_base64 || data[0].generated_image;
-
-    if (!image_base64) {
-      return res.status(500).json({ error: "HF did not return image" });
-    }
-
-    res.status(200).json({ image: image_base64 });
-
+    // Data berupa base64 image
+    res.status(200).json({ image: data[0].generated_image });
   } catch (err) {
     res.status(500).json({ error: "Server error", detail: err.message });
   }
