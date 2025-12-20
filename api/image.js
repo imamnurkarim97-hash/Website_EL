@@ -3,37 +3,42 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  try {
-    const { prompt } = req.body;
-    if (!prompt) {
-      return res.status(400).json({ error: "Prompt kosong" });
-    }
+  const { prompt } = req.body;
+  if (!prompt) {
+    return res.status(400).json({ error: "Prompt is required" });
+  }
 
-    const hfRes = await fetch(
-      "https://router.huggingface.co/hf-inference/models/stabilityai/stable-diffusion-xl-base-1.0",
+  try {
+    const response = await fetch(
+      "https://router.huggingface.co/hf-inference/models/runwayml/stable-diffusion-v1-5",
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${process.env.HF_API_KEY}`,
+          Authorization: `Bearer ${process.env.HF_API_KEY}`,
           "Content-Type": "application/json",
-          "Accept": "image/png"
         },
         body: JSON.stringify({
-          inputs: prompt
-        })
+          inputs: prompt,
+        }),
       }
     );
 
-    if (!hfRes.ok) {
-      const err = await hfRes.text();
-      return res.status(500).json({ error: "HF Error", detail: err });
+    if (!response.ok) {
+      const err = await response.text();
+      return res.status(500).json({
+        error: "HF Error",
+        detail: err,
+      });
     }
 
-    const buffer = Buffer.from(await hfRes.arrayBuffer());
+    const imageBuffer = await response.arrayBuffer();
     res.setHeader("Content-Type", "image/png");
-    res.status(200).send(buffer);
+    return res.status(200).send(Buffer.from(imageBuffer));
 
-  } catch (err) {
-    res.status(500).json({ error: "Server error", detail: err.message });
+  } catch (e) {
+    return res.status(500).json({
+      error: "Server error",
+      detail: e.message,
+    });
   }
 }
