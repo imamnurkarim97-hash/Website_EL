@@ -22,8 +22,12 @@ export default async function handler(req, res) {
 
     if (data.error) return res.status(500).json({ error: "HF Error", detail: data.error });
 
-    // Data dari HF API berupa base64
-    res.status(200).json({ image: data[0].generated_image });
+    // Sesuaikan field base64 image
+    const imageBase64 = data[0]?.generated_image || data?.image;
+
+    if (!imageBase64) return res.status(500).json({ error: "No image returned from HF API" });
+
+    res.status(200).json({ image: imageBase64 });
   } catch (err) {
     res.status(500).json({ error: "Server error", detail: err.message });
   }
