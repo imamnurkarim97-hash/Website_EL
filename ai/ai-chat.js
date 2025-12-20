@@ -1,7 +1,6 @@
 async function sendMessage() {
   const input = document.getElementById("userInput");
   const chatBox = document.getElementById("chatBox");
-
   const text = input.value.trim();
   if (!text) return;
 
@@ -10,7 +9,6 @@ async function sendMessage() {
   userMsg.className = "message user";
   userMsg.textContent = text;
   chatBox.appendChild(userMsg);
-
   input.value = "";
   chatBox.scrollTop = chatBox.scrollHeight;
 
@@ -19,6 +17,7 @@ async function sendMessage() {
   typing.className = "message ai typing";
   typing.textContent = "EL sedang mengetik...";
   chatBox.appendChild(typing);
+  chatBox.scrollTop = chatBox.scrollHeight;
 
   try {
     const res = await fetch("/api/chat", {
@@ -34,14 +33,14 @@ async function sendMessage() {
     aiMsg.className = "message ai";
     aiMsg.textContent = data.reply;
     chatBox.appendChild(aiMsg);
+    chatBox.scrollTop = chatBox.scrollHeight;
 
-  } catch (e) {
+  } catch (err) {
     typing.remove();
-    const err = document.createElement("div");
-    err.className = "message ai";
-    err.textContent = "EL gagal merespon.";
-    chatBox.appendChild(err);
+    const errMsg = document.createElement("div");
+    errMsg.className = "message ai";
+    errMsg.textContent = "EL gagal merespon.";
+    chatBox.appendChild(errMsg);
+    chatBox.scrollTop = chatBox.scrollHeight;
   }
-
-  chatBox.scrollTop = chatBox.scrollHeight;
 }
