@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     const { prompt } = req.body;
 
     if (!prompt) {
-      return res.status(400).json({ error: "Prompt wajib diisi" });
+      return res.status(400).json({ error: "Prompt kosong" });
     }
 
     const response = await fetch(
@@ -30,8 +30,11 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    if (!data.data) {
-      return res.status(500).json(data);
+    if (!data.data || !data.data[0]) {
+      return res.status(500).json({
+        error: "Gagal generate gambar",
+        detail: data
+      });
     }
 
     res.status(200).json({
