@@ -4,26 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EL AI Image</title>
-<link rel="stylesheet" href="ai.css">
+<link rel="stylesheet" href="ai-image.css">
 </head>
 
-<body class="chat-bg">
+<body>
 
-<div class="chat-header">🎨 EL AI Image</div>
+<div class="container">
+  <h1>🎨 EL AI Image</h1>
 
-<div class="chat-box">
-  <input
-    id="promptInput"
-    placeholder="Deskripsikan gambar..."
-    onkeydown="if(event.key==='Enter') generateImage()"
-    style="width:100%;padding:14px;border-radius:12px;border:none"
-  >
+  <input type="text" id="prompt" placeholder="Deskripsikan gambar..." />
+  <input type="file" id="imageInput" accept="image/*">
 
-  <button onclick="generateImage()" style="margin-top:12px">
-    🎨 Buat Gambar
-  </button>
+  <button id="generate">Generate</button>
 
-  <div id="result" style="margin-top:20px"></div>
+  <div class="result">
+    <img id="resultImage" />
+  </div>
 </div>
 
 <script src="ai-image.js"></script>
