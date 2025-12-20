@@ -1,39 +1,28 @@
-const input = document.getElementById("imagePrompt");
-const imageBox = document.getElementById("imageBox");
-
-// ENTER KEY
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    generateImage();
-  }
-});
-
 async function generateImage() {
+  const input = document.getElementById("promptInput");
+  const result = document.getElementById("result");
+
   const prompt = input.value.trim();
   if (!prompt) return;
 
-  imageBox.innerHTML = "<p>🎨 EL sedang menggambar...</p>";
+  result.innerHTML = "⏳ EL sedang menggambar...";
 
   try {
     const res = await fetch("/api/image", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({ prompt })
     });
 
     const data = await res.json();
 
-    if (!res.ok || !data.imageUrl) {
-      throw new Error("Gagal generate gambar");
+    if (!data.image) {
+      throw new Error("Gagal generate");
     }
 
-    imageBox.innerHTML = `
-      <img src="${data.imageUrl}" alt="EL AI Image">
-    `;
-    input.value = "";
+    result.innerHTML = `<img src="${data.image}" style="width:100%;border-radius:16px;">`;
 
-  } catch (err) {
-    imageBox.innerHTML = "<p>❌ EL gagal membuat gambar</p>";
-    console.error(err);
+  } catch (e) {
+    result.innerHTML = "❌ Gagal membuat gambar";
   }
 }
