@@ -9,16 +9,20 @@
 
 <body>
 
-<div class="chat">
-
+<!-- CHAT AREA -->
+<div class="chat" id="chat">
   <div class="bubble ai">
     Halo 👋 Aku EL. Ketik deskripsi gambar yang kamu mau.
   </div>
-
 </div>
 
+<!-- INPUT -->
 <div class="input-area">
-  <input id="prompt" placeholder="Contoh: naga cyberpunk di kota neon">
+  <input
+    id="prompt"
+    placeholder="Contoh: naga cyberpunk di kota neon"
+    onkeydown="handleEnter(event)"
+  >
   <button onclick="generateImage()">🎨</button>
 </div>
 
