@@ -1,42 +1,54 @@
-const btn = document.getElementById("generate");
-const img = document.getElementById("resultImage");
-const input = document.getElementById("prompt");
+async function generateImage(){
+  const promptInput = document.getElementById("prompt");
+  const chat = document.querySelector(".chat");
 
-btn.onclick = generate;
-input.addEventListener("keydown", e => {
-  if (e.key === "Enter") generate();
-});
+  const prompt = promptInput.value.trim();
+  if(!prompt) return;
 
-async function generate() {
-  const prompt = input.value.trim();
-  if (!prompt) return alert("Prompt wajib diisi");
+  // Bubble user
+  const userBubble = document.createElement("div");
+  userBubble.className = "bubble user";
+  userBubble.textContent = prompt;
+  chat.appendChild(userBubble);
 
-  btn.innerText = "Generating...";
-  img.style.display = "none";
+  promptInput.value = "";
+  chat.scrollTop = chat.scrollHeight;
 
-  try {
-    const res = await fetch("/api/image", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt }),
+  // Bubble loading
+  const loading = document.createElement("div");
+  loading.className = "bubble ai loading";
+  loading.textContent = "EL sedang membuat gambar… ⏳";
+  chat.appendChild(loading);
+  chat.scrollTop = chat.scrollHeight;
+
+  try{
+    const res = await fetch("/api/image",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify({ prompt })
     });
 
     const data = await res.json();
 
-    if (data.loading) {
-      alert("Model sedang loading, tunggu 10–30 detik lalu coba lagi");
-      btn.innerText = "Generate";
+    // Model masih loading
+    if(data.loading){
+      loading.textContent = "Model sedang loading, tunggu 10–30 detik lalu klik Generate lagi 🙏";
       return;
     }
 
-    if (!data.image) throw "No image";
+    // Tampilkan gambar
+    loading.remove();
+    const imgBubble = document.createElement("div");
+    imgBubble.className = "bubble ai";
 
-    img.src = data.image;
-    img.style.display = "block";
+    const img = document.createElement("img");
+    img.src = `data:image/png;base64,${data.image}`;
+    imgBubble.appendChild(img);
 
-  } catch (e) {
-    alert("Gagal membuat gambar");
+    chat.appendChild(imgBubble);
+    chat.scrollTop = chat.scrollHeight;
+
+  }catch(err){
+    loading.textContent = "❌ Gagal membuat gambar.";
   }
-
-  btn.innerText = "Generate";
 }
