@@ -1,9 +1,9 @@
-async function generateImage(){
-  const promptInput = document.getElementById("prompt");
-  const chat = document.getElementById("chat");
+async function generateImage() {
+  const input = document.getElementById("prompt");
+  const chat = document.querySelector(".chat");
 
-  const prompt = promptInput.value.trim();
-  if(!prompt) return;
+  const prompt = input.value.trim();
+  if (!prompt) return;
 
   // Bubble user
   const userBubble = document.createElement("div");
@@ -11,67 +11,52 @@ async function generateImage(){
   userBubble.textContent = prompt;
   chat.appendChild(userBubble);
 
-  promptInput.value = "";
+  input.value = "";
   chat.scrollTop = chat.scrollHeight;
 
   // Bubble loading
   const loading = document.createElement("div");
   loading.className = "bubble ai loading";
-  loading.textContent = "🎨 EL sedang membuat gambar...";
+  loading.textContent = "🎨 EL sedang membuat gambar…";
   chat.appendChild(loading);
   chat.scrollTop = chat.scrollHeight;
 
-  try{
-    const res = await fetch("/api/image",{
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body:JSON.stringify({ prompt })
+  try {
+    const res = await fetch("/api/image", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ prompt })
     });
 
-    const data = await res.json();
-
-    // ⏳ Model masih loading (HuggingFace)
-    if(data.loading){
-      loading.textContent =
-        "⏳ Model sedang loading (10–30 detik), klik Generate lagi ya…";
+    if (!res.ok) {
+      loading.textContent = "❌ Gagal membuat gambar.";
       return;
     }
 
-    // Hapus loading
+    const blob = await res.blob();
     loading.remove();
 
-    // Bubble AI
     const imgBubble = document.createElement("div");
     imgBubble.className = "bubble ai";
 
     const img = document.createElement("img");
-
-    // ✅ SUPPORT BASE64 & URL
-    if(data.image){
-      if(data.image.startsWith("http")){
-        img.src = data.image;
-      }else{
-        img.src = `data:image/png;base64,${data.image}`;
-      }
-    }else{
-      imgBubble.textContent = "❌ Gambar tidak tersedia dari server.";
-      chat.appendChild(imgBubble);
-      return;
-    }
+    img.src = URL.createObjectURL(blob);
+    img.alt = prompt;
 
     imgBubble.appendChild(img);
     chat.appendChild(imgBubble);
     chat.scrollTop = chat.scrollHeight;
 
-  }catch(err){
-    loading.textContent = "❌ Gagal membuat gambar (server error).";
-    console.error(err);
+  } catch (err) {
+    loading.textContent = "❌ Error saat generate gambar.";
   }
 }
 
-// ENTER SUPPORT
-function handleEnter(e){
-  if(e.key === "Enter"){
+// ENTER untuk generate
+document.getElementById("prompt").addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
     generateImage();
   }
-}
+});
