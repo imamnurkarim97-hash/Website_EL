@@ -1,31 +1,30 @@
 const btn = document.getElementById("generate");
 const img = document.getElementById("resultImage");
+const input = document.getElementById("prompt");
 
 btn.onclick = generate;
-document.getElementById("prompt").addEventListener("keydown", e => {
+input.addEventListener("keydown", e => {
   if (e.key === "Enter") generate();
 });
 
-async function generate(){
-  const prompt = document.getElementById("prompt").value;
+async function generate() {
+  const prompt = input.value.trim();
   if (!prompt) return alert("Prompt wajib diisi");
 
   btn.innerText = "Generating...";
   img.style.display = "none";
 
-  const form = new FormData();
-  form.append("prompt", prompt);
-
   try {
     const res = await fetch("/api/image", {
-      method:"POST",
-      body:form
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt }),
     });
 
     const data = await res.json();
 
     if (data.loading) {
-      alert("Model sedang loading, coba lagi 10–30 detik");
+      alert("Model sedang loading, tunggu 10–30 detik lalu coba lagi");
       btn.innerText = "Generate";
       return;
     }
@@ -35,7 +34,7 @@ async function generate(){
     img.src = data.image;
     img.style.display = "block";
 
-  } catch {
+  } catch (e) {
     alert("Gagal membuat gambar");
   }
 
