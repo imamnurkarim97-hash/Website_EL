@@ -1,13 +1,8 @@
-console.log("AI CHAT JS TERLOAD");
+async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const chatBox = document.getElementById("chatBox");
 
-const chatBox = document.getElementById("chatBox");
-const userInput = document.getElementById("userInput");
-const sendBtn = document.getElementById("sendBtn");
-
-sendBtn.addEventListener("click", sendMessage);
-
-function sendMessage() {
-  const text = userInput.value.trim();
+  const text = input.value.trim();
   if (!text) return;
 
   // pesan user
@@ -16,15 +11,37 @@ function sendMessage() {
   userMsg.textContent = text;
   chatBox.appendChild(userMsg);
 
-  userInput.value = "";
+  input.value = "";
   chatBox.scrollTop = chatBox.scrollHeight;
 
-  // balasan AI (dummy dulu)
-  setTimeout(() => {
+  // typing
+  const typing = document.createElement("div");
+  typing.className = "message ai typing";
+  typing.textContent = "EL sedang mengetik...";
+  chatBox.appendChild(typing);
+
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text })
+    });
+
+    const data = await res.json();
+    typing.remove();
+
     const aiMsg = document.createElement("div");
     aiMsg.className = "message ai";
-    aiMsg.textContent = "🤖 EL: Pesan kamu diterima!";
+    aiMsg.textContent = data.reply;
     chatBox.appendChild(aiMsg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }, 500);
+
+  } catch (e) {
+    typing.remove();
+    const err = document.createElement("div");
+    err.className = "message ai";
+    err.textContent = "EL gagal merespon.";
+    chatBox.appendChild(err);
+  }
+
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
