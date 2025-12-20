@@ -1,16 +1,16 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   try {
     const { prompt } = req.body;
     if (!prompt) {
-      return res.status(400).json({ error: "Prompt required" });
+      return res.status(400).json({ error: "Prompt kosong" });
     }
 
-    const response = await fetch(
-      "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0",
+    const hfRes = await fetch(
+      "https://api-inference.huggingface.co/models/runwayml/stable-diffusion-v1-5",
       {
         method: "POST",
         headers: {
@@ -21,17 +21,21 @@ export default async function handler(req, res) {
       }
     );
 
-    // Model masih loading (umum di HF)
-    if (response.status === 503) {
-      return res.status(200).json({ loading: true });
+    if (hfRes.status === 503) {
+      return res.json({ loading: true });
     }
 
-    const buffer = await response.arrayBuffer();
-    const base64 = Buffer.from(buffer).toString("base64");
+    if (!hfRes.ok) {
+      const text = await hfRes.text();
+      return res.status(500).json({ error: text });
+    }
 
-    res.status(200).json({ image: base64 });
+    const buffer = await hfRes.arrayBuffer();
+    const image = Buffer.from(buffer).toString("base64");
+
+    return res.json({ image });
 
   } catch (err) {
-    res.status(500).json({ error: "Failed to generate image" });
+    return res.status(500).json({ error: err.message });
   }
 }
