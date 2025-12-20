@@ -38,9 +38,11 @@ async function generateImage() {
 
     const imgBubble = document.createElement("div");
     imgBubble.className = "bubble ai";
+
     const img = document.createElement("img");
-    img.src = `data:image/png;base64,${data.image}`;
+    img.src = data.image; // pakai URL dari HF API
     imgBubble.appendChild(img);
+
     chat.appendChild(imgBubble);
     chat.scrollTop = chat.scrollHeight;
   } catch (err) {
