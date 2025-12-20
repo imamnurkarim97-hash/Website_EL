@@ -43,6 +43,7 @@ async function generateImage() {
     imgBubble.appendChild(img);
     chat.appendChild(imgBubble);
     chat.scrollTop = chat.scrollHeight;
+
   } catch (err) {
     loading.textContent = "❌ Gagal membuat gambar.";
   }
