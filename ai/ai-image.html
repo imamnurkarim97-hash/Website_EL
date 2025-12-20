@@ -4,41 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EL AI Gambar</title>
-
-<!-- CSS UTAMA (WAJIB) -->
-<link rel="stylesheet" href="ai.css">
-
-<!-- CSS KHUSUS AI IMAGE -->
 <link rel="stylesheet" href="ai-image.css">
 </head>
+<body class="chat-bg">
 
-<body class="menu-bg ai-image-page">
+<div class="chat-header">🎨 EL AI Gambar</div>
 
-<section class="image-wrapper">
+<div class="image-box" id="imageBox">
+  <p>Masukkan prompt di bawah untuk membuat gambar</p>
+</div>
 
-  <header class="image-header">
-    🎨 EL AI Gambar
-  </header>
-
-  <div class="image-card">
-
-    <input
-      id="promptInput"
-      placeholder="Contoh: kucing astronot gaya cyberpunk"
-    />
-
-    <button onclick="generateImage()" class="menu-btn">
-      🎨 Buat Gambar
-    </button>
-
-    <div id="imageResult" class="image-result"></div>
-
-    <h3>📜 Riwayat</h3>
-    <div id="history" class="gallery"></div>
-
-  </div>
-
-</section>
+<div class="input-area">
+  <input type="text" id="imagePrompt" placeholder="Contoh: Pemandangan futuristik di malam hari">
+  <button onclick="generateImage()">➤</button>
+</div>
 
 <script src="ai-image.js"></script>
 </body>
