@@ -8,30 +8,34 @@ document.getElementById("prompt").addEventListener("keydown", e => {
 
 async function generate(){
   const prompt = document.getElementById("prompt").value;
-  const file = document.getElementById("imageInput").files[0];
-
   if (!prompt) return alert("Prompt wajib diisi");
 
+  btn.innerText = "Generating...";
   img.style.display = "none";
-  btn.innerText = "Loading...";
 
   const form = new FormData();
   form.append("prompt", prompt);
-  if (file) form.append("image", file);
 
-  try{
+  try {
     const res = await fetch("/api/image", {
       method:"POST",
       body:form
     });
 
     const data = await res.json();
-    if (!data.image) throw "Gagal";
+
+    if (data.loading) {
+      alert("Model sedang loading, coba lagi 10–30 detik");
+      btn.innerText = "Generate";
+      return;
+    }
+
+    if (!data.image) throw "No image";
 
     img.src = data.image;
     img.style.display = "block";
 
-  }catch(e){
+  } catch {
     alert("Gagal membuat gambar");
   }
 
