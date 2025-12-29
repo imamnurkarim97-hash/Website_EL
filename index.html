@@ -5,181 +5,114 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta name="monetag" content="c65fdf7192ffdd78950cc719cbefe341">
-  
-  <title>Virendra EL-Karim | Website Resmi</title>
 
-  <meta name="description" content="Virendra EL-Karim adalah website hiburan dan informasi digital yang menyajikan konten multimedia dan teknologi web modern.">
+  <title>Virendra EL-Karim | TikTok Video Downloader</title>
 
-  <!-- Google AdSense (WAJIB, IKLAN MANUAL BELUM DIPAKAI) -->
+  <meta name="description" content="Download video TikTok tanpa watermark secara gratis di Virendra EL-Karim.">
+
+  <!-- GOOGLE ADSENSE -->
   <script async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2613355217837386"
     crossorigin="anonymous"></script>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-      line-height: 1.7;
-    }
-
-    /* NAVBAR */
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 15px 25px;
-      display: flex;
-      justify-content: space-between;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(5px);
-      z-index: 100;
-    }
-
-    .logo {
-      color: gold;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .navbar a {
-      color: white;
-      margin-left: 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    /* CONTENT */
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 130px 20px 40px;
-      text-align: center;
-    }
-
-    h1, h2 {
-      color: gold;
-    }
-
-    video {
-      width: 100%;
-      margin: 30px 0;
-      border-top: 3px solid gold;
-      border-bottom: 3px solid gold;
-    }
-
-    .text-section {
-      text-align: left;
-      margin-top: 40px;
-      color: #ddd;
-      font-size: 18px;
-    }
-
-    /* FOOTER */
-    footer {
-      margin-top: 60px;
-      padding: 25px;
-      background: #111;
-      text-align: center;
-      border-top: 1px solid gold;
-    }
-
-    footer a {
-      color: gold;
-      margin: 0 12px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    footer p {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #aaa;
-    }
-
-    /* SEMBUNYIKAN FORM (AMAN UNTUK REVIEW) */
-    .form-section {
-      display: none;
-    }
-  </style>
+  <!-- ✅ CSS EKSTERNAL -->
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
-  <div class="navbar">
-    <div class="logo">VIRENDRA EL-KARIM</div>
-    <div>
-      <a href="#home">Home</a>
-      <a href="#about">Tentang</a>
-    </div>
+<!-- ================= NAVBAR ================= -->
+<div class="navbar">
+  <div class="logo">VIRENDRA EL-KARIM</div>
+  <div>
+    <a href="#home">Home</a>
+    <a href="#about">Tentang</a>
   </div>
-
-  <!-- CONTENT -->
-  <div class="container" id="home">
-
-    <h1>Selamat Datang di Virendra EL-Karim</h1>
-
-    <p>
-      Virendra EL-Karim adalah website hiburan dan informasi digital
-      yang dikembangkan untuk memberikan pengalaman pengguna
-      yang cepat, aman, dan nyaman.
-    </p>
-
-    <video autoplay muted loop playsinline>
-      <source src="gear5.mp4" type="video/mp4">
-    </video>
-
-    <!-- MONETAG NATIVE BANNER (ZONE: 10336101) -->
-<div style="margin:30px 0; text-align:center;">
-  <script>
-    (function(s){
-      s.dataset.zone = '10336101';
-      s.src = 'https://nap5k.com/tag.min.js';
-    })
-    ([document.documentElement, document.body]
-      .filter(Boolean)
-      .pop()
-      .appendChild(document.createElement('script')));
-  </script>
 </div>
-    
-    <div class="text-section" id="about">
-      <h2>Tentang Website Ini</h2>
 
-      <p>
-        Website ini dibuat sebagai platform digital yang menyajikan
-        konten multimedia, informasi teknologi web, dan eksperimen desain modern.
-        Kami berfokus pada kualitas tampilan, kecepatan akses, serta kepatuhan
-        terhadap kebijakan layanan pihak ketiga seperti Google AdSense.
-      </p>
+<!-- ================= CONTENT ================= -->
+<div class="container" id="home">
 
-      <p>
-        Semua konten yang ditampilkan di website ini bersifat aman,
-        tidak melanggar hak cipta, dan tidak mengandung unsur terlarang.
-        Website ini dapat diakses secara gratis oleh semua pengguna
-        tanpa kewajiban pendaftaran.
-      </p>
+  <h1>Download Video TikTok</h1>
+  <p>Unduh video TikTok tanpa watermark secara cepat dan gratis.</p>
 
-      <p>
-        Ke depannya, Virendra EL-Karim akan terus dikembangkan
-        dengan fitur tambahan, peningkatan desain, serta konten
-        yang lebih informatif dan bermanfaat.
-      </p>
-    </div>
-
+  <!-- ===== DOWNLOADER ===== -->
+  <div class="downloader">
+    <input type="text" id="tiktokUrl" placeholder="Tempel link TikTok di sini">
+    <button onclick="downloadTikTok()">Download Video</button>
+    <div id="result"></div>
   </div>
 
-  <!-- FOOTER (WAJIB UNTUK ADSENSE) -->
-  <footer>
-    <a href="about.html">About</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="contact.html">Contact</a>
-    <a href="ai/ai-menu.html">🤖 Coba AI Chat</a>
-    
-    <p>© 2025 Virendra EL-Karim. All rights reserved.</p>
-  </footer>
+  <!-- ===== IKLAN MONETAG (POSISI ASLI) ===== -->
+  <div style="margin:30px 0; text-align:center;">
+    <script>
+      (function(s){
+        s.dataset.zone = '10336101';
+        s.src = 'https://nap5k.com/tag.min.js';
+      })
+      ([document.documentElement, document.body]
+        .filter(Boolean)
+        .pop()
+        .appendChild(document.createElement('script')));
+    </script>
+  </div>
+
+  <!-- ===== ABOUT ===== -->
+  <div id="about">
+    <h2>Tentang Layanan Ini</h2>
+    <p>
+      Layanan ini memungkinkan pengguna mengunduh video TikTok untuk penggunaan pribadi.
+      Kami tidak menyimpan data pengguna dan tidak berafiliasi dengan TikTok™.
+    </p>
+    <p>
+      Semua hak cipta video adalah milik pemilik aslinya.
+    </p>
+  </div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <a href="about.html">About</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="contact.html">Contact</a>
+  <a href="ai/ai-menu.html">🤖 Coba AI Chat</a>
+
+  <p>© 2025 Virendra EL-Karim. All rights reserved.</p>
+</footer>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+async function downloadTikTok() {
+  const url = document.getElementById("tiktokUrl").value;
+  const result = document.getElementById("result");
+
+  if (!url) {
+    result.innerHTML = "❌ Masukkan URL TikTok!";
+    return;
+  }
+
+  result.innerHTML = "⏳ Memproses video...";
+
+  try {
+    const api = "https://tikwm.com/api/?url=" + encodeURIComponent(url);
+    const res = await fetch(api);
+    const data = await res.json();
+
+    if (data && data.data && data.data.play) {
+      result.innerHTML = `
+        <video controls src="${data.data.play}"></video>
+        <a href="${data.data.play}" download>⬇ Download MP4</a>
+        <a href="${data.data.music}" download>🎵 Download MP3</a>
+      `;
+    } else {
+      result.innerHTML = "❌ Gagal mengambil video.";
+    }
+  } catch (err) {
+    result.innerHTML = "⚠️ Terjadi kesalahan server.";
+  }
+}
+</script>
 
 </body>
 </html>
