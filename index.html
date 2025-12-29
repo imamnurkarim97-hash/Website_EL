@@ -105,7 +105,6 @@ footer a{color:gold;margin:0 10px;text-decoration:none;font-weight:bold}
   </div>
 </div>
 
-<!-- SCRIPT -->
 <script>
 function pasteLink(){
   navigator.clipboard.readText().then(text=>{
@@ -115,7 +114,7 @@ function pasteLink(){
 
 function showMonetagAd(targetId){
   const s=document.createElement('script');
-  s.dataset.zone='10391957'; // ganti dengan zone Monetag kamu
+  s.dataset.zone='10391957'; // ganti dengan zone Monetag aktif
   s.src='https://3nbf4.com/act/files/tag.min.js';
   s.async=true;
   document.getElementById(targetId).appendChild(s);
@@ -133,10 +132,9 @@ async function prepareDownload(){
   const res=await fetch("https://tikwm.com/api/?url="+encodeURIComponent(url));
   const data=await res.json();
   if(!data?.data){alert("Gagal mengambil video."); return;}
-
   videoData=data.data;
 
-  // Tampilkan modal iklan
+  // Tampilkan modal
   document.getElementById("adModal").style.display="block";
   document.getElementById("downloadBtn").disabled=true;
   document.getElementById("timer").innerText="5";
