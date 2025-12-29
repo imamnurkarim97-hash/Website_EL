@@ -1,0 +1,166 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+}
+
+.logo {
+  color: gold;
+  font-size: 22px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.navbar a {
+  color: #fff;
+  margin-left: 18px;
+  text-decoration: none;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.navbar a:hover {
+  color: gold;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 130px 16px 40px;
+  text-align: center;
+}
+
+h1, h2 {
+  color: gold;
+  margin-bottom: 10px;
+}
+
+/* DOWNLOADER */
+.downloader {
+  background: #111;
+  border: 1px solid gold;
+  border-radius: 10px;
+  padding: 22px;
+  margin: 25px 0 35px;
+}
+
+.downloader input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+
+.downloader button {
+  width: 100%;
+  padding: 12px;
+  background: gold;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.downloader button:hover {
+  background: #ffdf00;
+}
+
+/* RESULT */
+#result video {
+  width: 100%;
+  margin-top: 16px;
+  border-top: 3px solid gold;
+  border-bottom: 3px solid gold;
+}
+
+#result a {
+  display: block;
+  margin-top: 10px;
+  color: gold;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* ABOUT */
+#about {
+  margin-top: 35px;
+  text-align: left;
+  color: #ddd;
+  font-size: 18px;
+}
+
+/* FOOTER */
+footer {
+  margin-top: 60px;
+  padding: 25px 15px;
+  background: #111;
+  text-align: center;
+  border-top: 1px solid gold;
+}
+
+footer a {
+  color: gold;
+  margin: 0 12px;
+  text-decoration: none;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+footer p {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .navbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .navbar div {
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar a {
+    margin: 0 10px;
+    display: inline-block;
+  }
+
+  .container {
+    padding-top: 150px;
+  }
+
+  #about {
+    font-size: 16px;
+  }
+}
