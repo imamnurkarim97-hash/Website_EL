@@ -6,34 +6,31 @@
 <meta name="monetag" content="c65fdf7192ffdd78950cc719cbefe341">
 
 <title>Virendra EL-Karim | TikTok Downloader</title>
-<meta name="description" content="Download video TikTok tanpa watermark secara gratis di Virendra EL-Karim.">
+<meta name="description" content="Download video TikTok tanpa watermark secara gratis.">
 
 <!-- GOOGLE ADSENSE -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2613355217837386" crossorigin="anonymous"></script>
 
-<!-- MONETAG GLOBAL -->
+<!-- MONETAG GLOBAL (POP / SMARTLINK) -->
 <script src="https://3nbf4.com/act/files/tag.min.js?z=10391874" data-cfasync="false" async></script>
 
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#000;color:#fff;line-height:1.6}
-.navbar{display:flex;justify-content:space-between;padding:15px;background:#111;align-items:center}
+body{margin:0;font-family:Arial;background:#000;color:#fff}
+.navbar{display:flex;justify-content:space-between;padding:15px;background:#111}
 .navbar a{color:gold;margin-left:15px;text-decoration:none;font-weight:bold}
-.navbar .logo{font-size:18px;font-weight:bold;color:gold}
-.container{max-width:900px;margin:auto;padding:30px 15px;text-align:center}
-.downloader{background:#111;border:1px solid gold;padding:20px;border-radius:10px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;margin-top:20px}
-.downloader input{flex:1 1 200px;padding:10px;border-radius:6px;border:none}
-.downloader button, .downloader select{padding:10px;border-radius:6px;border:none;background:gold;font-weight:bold;cursor:pointer}
-.downloader button:disabled{background:#555;color:#aaa}
-.downloader select{min-width:150px}
-#result{margin-top:15px;text-align:center}
-video{width:100%;max-width:600px;margin-top:15px;border-radius:8px}
+.logo{color:gold;font-weight:bold}
+.container{max-width:900px;margin:auto;padding:25px;text-align:center}
+.downloader{background:#111;border:1px solid gold;border-radius:10px;padding:15px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+input,button,select{padding:10px;border-radius:6px;border:none}
+button,select{background:gold;font-weight:bold;cursor:pointer}
+video{width:100%;max-width:600px;margin-top:15px}
 footer{background:#111;color:gold;text-align:center;padding:15px;margin-top:40px}
-footer a{color:gold;margin:0 10px;text-decoration:none;font-weight:bold}
+footer a{color:gold;margin:0 10px;font-weight:bold;text-decoration:none}
 
-/* MODAL IKLAN */
+/* MODAL */
 .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:999}
-.modal-content{background:#111;border:1px solid gold;max-width:400px;margin:120px auto;padding:20px;text-align:center;border-radius:10px}
-.countdown{color:gold;font-size:22px;margin:15px 0}
+.modal-content{background:#111;border:1px solid gold;max-width:380px;margin:120px auto;padding:20px;text-align:center;border-radius:10px}
+.countdown{font-size:20px;color:gold;margin:10px}
 </style>
 </head>
 
@@ -45,110 +42,95 @@ footer a{color:gold;margin:0 10px;text-decoration:none;font-weight:bold}
   <div>
     <a href="#home">Home</a>
     <a href="#about">Tentang</a>
-    <a href="ai/ai-menu.html">🤖 Coba AI Chat</a>
+    <a href="ai/ai-menu.html">🤖 AI Chat</a>
   </div>
 </div>
 
 <!-- CONTENT -->
 <div class="container" id="home">
 <h1>Download Video TikTok</h1>
-<p>Unduh video TikTok tanpa watermark secara cepat dan gratis.</p>
+<p>Tempel link TikTok (pendek / panjang)</p>
 
 <div class="downloader">
-  <input type="text" id="tiktokUrl" placeholder="Tempel link TikTok di sini">
+  <input id="tiktokUrl" placeholder="https://vt.tiktok.com/xxxxx">
   <button onclick="pasteLink()">Tempel</button>
+
   <select id="quality">
-    <option value="hd">HD (Kualitas Tinggi)</option>
-    <option value="sd">SD (Lebih Kecil)</option>
+    <option value="hd">HD</option>
+    <option value="sd">SD</option>
     <option value="hdnowm">HD Tanpa Watermark</option>
   </select>
-  <button onclick="prepareDownload()">Download Video</button>
+
+  <button onclick="prepareDownload()">Download</button>
 </div>
 
 <div id="result"></div>
 
-<!-- IKLAN MONETAG BAWAH FORM -->
-<div style="margin:30px 0;text-align:center;">
+<!-- IKLAN MONETAG BAWAH -->
+<div style="margin:25px">
 <script>
-  (function(s){
-    s.dataset.zone='10336101';
-    s.src='https://nap5k.com/tag.min.js';
-  })(document.body.appendChild(document.createElement('script')));
+(function(s){
+  s.dataset.zone='10336101';
+  s.src='https://nap5k.com/tag.min.js';
+})(document.body.appendChild(document.createElement('script')));
 </script>
 </div>
 
 <!-- ABOUT -->
 <div id="about">
-<h2>Tentang Layanan Ini</h2>
-<p>Layanan ini memungkinkan pengguna mengunduh video TikTok untuk penggunaan pribadi. Kami tidak menyimpan data pengguna dan tidak berafiliasi dengan TikTok™.</p>
-<p>Semua hak cipta video adalah milik pemilik aslinya.</p>
+<h2>Tentang</h2>
+<p>Downloader TikTok tanpa watermark untuk penggunaan pribadi.</p>
 </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
   <a href="about.html">About</a>
-  <a href="privacy.html">Privacy Policy</a>
+  <a href="privacy.html">Privacy</a>
   <a href="contact.html">Contact</a>
-  <a href="ai/ai-menu.html">🤖 Coba AI Chat</a>
-  <p>© 2025 Virendra EL-Karim. All rights reserved.</p>
+  <a href="ai/ai-menu.html">🤖 AI Chat</a>
+  <p>© 2025 Virendra EL-Karim</p>
 </footer>
 
 <!-- MODAL IKLAN -->
 <div class="modal" id="adModal">
   <div class="modal-content">
-    <h3>Mohon tunggu…</h3>
-    <p>Tonton iklan sebelum download</p>
-    <div id="monetagAd" style="margin:15px 0;"></div>
+    <h3>Tunggu sebentar…</h3>
     <div class="countdown" id="timer">5</div>
     <button id="downloadBtn" disabled onclick="startDownload()">Download Sekarang</button>
   </div>
 </div>
 
 <script>
-function pasteLink(){
-  navigator.clipboard.readText().then(text=>{
-    document.getElementById("tiktokUrl").value=text;
-  }).catch(()=>alert("Tidak bisa mengakses clipboard"));
-}
-
-function showMonetagAd(targetId){
-  const s=document.createElement('script');
-  s.dataset.zone='10391957'; // ganti dengan zone Monetag aktif
-  s.src='https://3nbf4.com/act/files/tag.min.js';
-  s.async=true;
-  document.getElementById(targetId).appendChild(s);
-}
-
 let videoData=null;
 let selectedQuality="hd";
 
-async function prepareDownload(){
-  const url=document.getElementById("tiktokUrl").value;
-  selectedQuality=document.getElementById("quality").value;
-  if(!url){alert("Masukkan URL TikTok!"); return;}
+function pasteLink(){
+  navigator.clipboard.readText().then(t=>{
+    document.getElementById("tiktokUrl").value=t;
+  });
+}
 
-  // Ambil video
-  const res=await fetch("https://tikwm.com/api/?url="+encodeURIComponent(url));
+async function prepareDownload(){
+  const url=document.getElementById("tiktokUrl").value.trim();
+  selectedQuality=document.getElementById("quality").value;
+  if(!url){alert("Masukkan link TikTok");return;}
+
+  document.getElementById("adModal").style.display="block";
+
+  // 🔥 PANGGIL SERVER TERMUX (WAJIB)
+  const api="http://localhost:3000/tiktok?url="+encodeURIComponent(url);
+  const res=await fetch(api);
   const data=await res.json();
-  if(!data?.data){alert("Gagal mengambil video."); return;}
+  if(!data?.data){alert("Gagal ambil video");return;}
+
   videoData=data.data;
 
-  // Tampilkan modal
-  document.getElementById("adModal").style.display="block";
-  document.getElementById("downloadBtn").disabled=true;
-  document.getElementById("timer").innerText="5";
-
-  // Tampilkan iklan Monetag di modal
-  document.getElementById("monetagAd").innerHTML="";
-  showMonetagAd("monetagAd");
-
-  // Mulai countdown
   let t=5;
-  const interval=setInterval(()=>{
+  const i=setInterval(()=>{
     document.getElementById("timer").innerText=t;
     if(--t<0){
-      clearInterval(interval);
+      clearInterval(i);
       document.getElementById("downloadBtn").disabled=false;
     }
   },1000);
@@ -156,24 +138,25 @@ async function prepareDownload(){
 
 function startDownload(){
   document.getElementById("adModal").style.display="none";
-  let link;
-  if(selectedQuality==="hdnowm") link=videoData.nowatermark;
-  else link=selectedQuality==="hd"?videoData.hdplay:videoData.play;
 
-  document.getElementById("result").innerHTML=`
-    <video controls src="${link}"></video>
-    <a href="${link}" download>⬇ Download MP4</a>
-    <a href="${videoData.music}" download>🎵 Download MP3</a>
-  `;
+  let link =
+    selectedQuality==="hdnowm"
+      ? videoData.hdplay
+      : selectedQuality==="hd"
+      ? videoData.hdplay
+      : videoData.play;
+
+  // 🔥 MONETAG POP (USER INTERACTION)
+  window.open("https://otieu.com/4/10391957","_blank");
+
+  setTimeout(()=>{
+    document.getElementById("result").innerHTML=`
+      <video controls src="${link}"></video>
+      <a href="${link}" download>⬇ Download Video</a>
+      <a href="${videoData.music}" download>🎵 Download MP3</a>
+    `;
+  },2500);
 }
-
-// Event listener menu navbar & footer
-document.querySelectorAll(
-  '.navbar a[href="#about"], .navbar a[href="ai/ai-menu.html"], '+
-  'footer a[href="about.html"], footer a[href="ai/ai-menu.html"]'
-).forEach(a=>{
-  a.addEventListener('click',()=>{showMonetagAd("monetagAd");});
-});
 </script>
 
 </body>
