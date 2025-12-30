@@ -1,8 +1,15 @@
 {
-  "name": "website-el",
+  "name": "tiktok-downloader",
   "version": "1.0.0",
-  "type": "module",
+  "description": "TikTok Downloader Backend",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
-    "node-fetch": "^3.3.2"
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
   }
 }
