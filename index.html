@@ -31,6 +31,7 @@ body{
     radial-gradient(circle at top,#12001f,#05000a 70%);
   background-size:40px 40px,40px 40px,cover;
   color:#fff;
+  min-height:100vh;
 }
 .navbar{
   display:flex;
@@ -166,7 +167,8 @@ footer{
 </div>
 
 <script>
-let videoData=null, selectedQuality="hd";
+let videoData=null;
+let selectedQuality="hd";
 
 function pasteLink(){
   navigator.clipboard.readText().then(t=>{
@@ -177,17 +179,17 @@ function pasteLink(){
 async function prepareDownload(){
   const url=document.getElementById("tiktokUrl").value.trim();
   selectedQuality=document.getElementById("quality").value;
-  if(!url){alert("Masukkan link TikTok"); return;}
+  if(!url) return alert("Masukkan link TikTok");
 
   document.getElementById("adModal").style.display="block";
 
-  // ==== API backend Vercel tiktok-downloader ====
-  const api = "https://downloader99.vercel.app/api/tiktok?url=" + encodeURIComponent(url);
-  const res = await fetch(api);
+  // Backend live
+  const backendURL = "https://downloader99.vercel.app/tiktok?url=" + encodeURIComponent(url);
+  const res = await fetch(backendURL);
   const data = await res.json();
+  if(!data?.play) return alert("Gagal mengambil video");
 
-  if(!data?.data){alert("Gagal ambil video"); return;}
-  videoData = data.data;
+  videoData = data;
 
   let t=5;
   const i=setInterval(()=>{
@@ -202,28 +204,22 @@ async function prepareDownload(){
 function startDownload(){
   document.getElementById("adModal").style.display="none";
 
-  let link = selectedQuality==="hdnowm"
-    ? videoData.hdplay
-    : selectedQuality==="hd"
-    ? videoData.hdplay
+  let link = selectedQuality === "hdnowm"
+    ? videoData.hdplay || videoData.play
+    : selectedQuality === "hd"
+    ? videoData.hdplay || videoData.play
     : videoData.play;
 
-  // Buka iklan dulu
-  window.open("https://otieu.com/4/10391957","_blank");
+  // Iklan pop-up
+  setTimeout(()=>{ window.open("https://otieu.com/4/10391957","_blank"); },300);
 
   setTimeout(()=>{
     document.getElementById("result").innerHTML=`
       <video controls src="${link}"></video><br>
-      <a href="${link}" download onclick="openAd()">⬇ Download Video</a>
-      <a href="${videoData.music}" download onclick="openAd()">🎵 Download MP3</a>
+      <a href="${link}" download onclick="window.open('https://otieu.com/4/10391957','_blank')">⬇ Download Video</a>
+      <a href="${videoData.music}" download onclick="window.open('https://otieu.com/4/10391957','_blank')">🎵 Download MP3</a>
     `;
-  },2000);
-}
-
-function openAd(){
-  setTimeout(()=>{
-    window.open("https://otieu.com/4/10391957","_blank");
-  },300);
+  },1000);
 }
 </script>
 
