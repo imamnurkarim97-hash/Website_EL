@@ -1,25 +1,24 @@
+import axios from "axios";
+
 export default async function handler(req, res) {
-  const { url } = req.query;
-  if (!url) {
-    return res.status(400).json({ error: "URL TikTok kosong" });
-  }
+  const url = req.query.url;
+  if (!url) return res.status(400).json({ error: "URL tidak ada" });
 
   try {
-    const api = await fetch(
-      "https://tikwm.com/api/?url=" + encodeURIComponent(url)
-    );
-    const json = await api.json();
+    // TikWM API
+    const apiUrl = `https://tikwm.com/api/?url=${encodeURIComponent(url)}`;
+    const response = await axios.get(apiUrl);
+    const data = response.data;
 
-    if (json.code !== 0) {
-      return res.status(500).json({ error: "Gagal mengambil video" });
-    }
+    if (data.code !== 0) return res.status(500).json({ error: "Gagal ambil video" });
 
     res.status(200).json({
-      play: json.data.play,
-      hdplay: json.data.hdplay,
-      music: json.data.music
+      play: data.data.play,         // SD
+      hdplay: data.data.hdplay,     // HD
+      nowmplay: data.data.nowmplay, // HD tanpa watermark
+      music: data.data.music
     });
-  } catch (e) {
-    res.status(500).json({ error: "Server error" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 }
