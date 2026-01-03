@@ -1,32 +1,21 @@
-const express = require("express");
-const cors = require("cors");
-const axios = require("axios");
+const express = require('express');
+const cors = require('cors');
+const axios = require('axios');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/tiktok", async (req, res) => {
+app.get('/tiktok', async (req, res) => {
   const url = req.query.url;
-  if (!url) return res.status(400).json({ error: "URL tidak ada" });
-
+  if(!url) return res.json({code:1,message:"URL kosong"});
   try {
-    const api = `https://tikwm.com/api/?url=${encodeURIComponent(url)}`;
-    const response = await axios.get(api);
-    const data = response.data;
-
-    if (data.code !== 0) return res.status(500).json({ error: "Gagal ambil video" });
-
-    res.json({
-      play: data.data.play,       // SD
-      hdplay: data.data.hdplay,   // HD
-      hdnowm: data.data.nowmplay, // HD tanpa watermark (API backend harus mendukung)
-      music: data.data.music
-    });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const response = await axios.get(`https://tikwm.com/api/?url=${encodeURIComponent(url)}`);
+    res.json(response.data);
+  } catch(e) {
+    res.json({code:1,message:"Gagal ambil video"});
   }
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`TikTok Downloader running on port ${port}`));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, ()=>console.log(`Server running on port ${PORT}`));
