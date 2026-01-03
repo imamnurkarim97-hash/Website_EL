@@ -157,7 +157,7 @@ footer{
   <p>© 2025 Virendra EL-Karim</p>
 </footer>
 
-<!-- MODAL -->
+<!-- MODAL IKLAN -->
 <div class="modal" id="adModal">
   <div class="modal-content">
     <h3>Tunggu sebentar…</h3>
@@ -167,8 +167,8 @@ footer{
 </div>
 
 <script>
-let videoData=null;
-let selectedQuality="hd";
+let videoData = null;
+let selectedQuality = "hd";
 
 function pasteLink(){
   navigator.clipboard.readText().then(t=>{
@@ -177,42 +177,49 @@ function pasteLink(){
 }
 
 async function prepareDownload(){
-  const url=document.getElementById("tiktokUrl").value.trim();
-  selectedQuality=document.getElementById("quality").value;
+  const url = document.getElementById("tiktokUrl").value.trim();
+  selectedQuality = document.getElementById("quality").value;
   if(!url) return alert("Masukkan link TikTok");
 
   document.getElementById("adModal").style.display="block";
 
-  // Backend live
+  // panggil backend tiktok-downloader
   const backendURL = "https://downloader99.vercel.app/tiktok?url=" + encodeURIComponent(url);
-  const res = await fetch(backendURL);
-  const data = await res.json();
-  if(!data?.play) return alert("Gagal mengambil video");
+  try{
+    const res = await fetch(backendURL);
+    const data = await res.json();
+    if(!data?.play) return alert("Gagal mengambil video");
 
-  videoData = data;
+    videoData = data;
 
-  let t=5;
-  const i=setInterval(()=>{
-    document.getElementById("timer").innerText=t;
-    if(--t<0){
-      clearInterval(i);
-      document.getElementById("downloadBtn").disabled=false;
-    }
-  },1000);
+    let t = 5;
+    const i = setInterval(()=>{
+      document.getElementById("timer").innerText = t;
+      if(--t<0){
+        clearInterval(i);
+        document.getElementById("downloadBtn").disabled = false;
+      }
+    },1000);
+  } catch(e){
+    alert("Terjadi kesalahan, coba lagi");
+    console.error(e);
+  }
 }
 
 function startDownload(){
   document.getElementById("adModal").style.display="none";
 
+  // pilih link sesuai kualitas
   let link = selectedQuality === "hdnowm"
     ? videoData.hdplay || videoData.play
     : selectedQuality === "hd"
     ? videoData.hdplay || videoData.play
     : videoData.play;
 
-  // Iklan pop-up
+  // pop-up iklan
   setTimeout(()=>{ window.open("https://otieu.com/4/10391957","_blank"); },300);
 
+  // tampilkan video dan tombol download
   setTimeout(()=>{
     document.getElementById("result").innerHTML=`
       <video controls src="${link}"></video><br>
