@@ -11,26 +11,199 @@
 <!-- GOOGLE ADSENSE -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2613355217837386" crossorigin="anonymous"></script>
 
-<!-- MONETAG GLOBAL (POP / SMARTLINK) -->
+<!-- MONETAG -->
 <script src="https://3nbf4.com/act/files/tag.min.js?z=10391874" data-cfasync="false" async></script>
 
 <style>
-body{margin:0;font-family:Arial;background:#000;color:#fff}
-.navbar{display:flex;justify-content:space-between;padding:15px;background:#111}
-.navbar a{color:gold;margin-left:15px;text-decoration:none;font-weight:bold}
-.logo{color:gold;font-weight:bold}
-.container{max-width:900px;margin:auto;padding:25px;text-align:center}
-.downloader{background:#111;border:1px solid gold;border-radius:10px;padding:15px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-input,button,select{padding:10px;border-radius:6px;border:none}
-button,select{background:gold;font-weight:bold;cursor:pointer}
-video{width:100%;max-width:600px;margin-top:15px}
-footer{background:#111;color:gold;text-align:center;padding:15px;margin-top:40px}
-footer a{color:gold;margin:0 10px;font-weight:bold;text-decoration:none}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+
+:root{
+  --neon1:#00ffff;
+  --neon2:#b100ff;
+  --dark:#05000a;
+  --glass:rgba(255,255,255,0.06);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:'Orbitron',sans-serif;
+  background:
+    linear-gradient(180deg,rgba(0,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(177,0,255,.04) 1px,transparent 1px),
+    radial-gradient(circle at top,#12001f,#05000a 70%);
+  background-size:40px 40px,40px 40px,cover;
+  color:#fff;
+  min-height:100vh;
+}
+
+/* NAVBAR */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  padding:18px 30px;
+  background:rgba(0,0,0,.7);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--neon2);
+  box-shadow:0 0 20px var(--neon2);
+}
+
+.logo{
+  color:var(--neon1);
+  text-shadow:0 0 15px var(--neon1);
+  letter-spacing:3px;
+}
+
+.navbar a{
+  color:var(--neon2);
+  margin-left:15px;
+  text-decoration:none;
+  transition:.3s;
+}
+.navbar a:hover{
+  color:var(--neon1);
+  text-shadow:0 0 10px var(--neon1);
+}
+
+/* CONTENT */
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:40px 20px;
+  text-align:center;
+}
+
+h1{
+  color:var(--neon1);
+  text-shadow:0 0 25px var(--neon1);
+}
+
+/* CYBER CARD */
+.downloader{
+  background:var(--glass);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--neon1);
+  border-radius:18px;
+  padding:25px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
+  box-shadow:
+    0 0 25px var(--neon1),
+    inset 0 0 25px rgba(0,255,255,.15);
+}
+
+/* INPUT */
+input,select{
+  background:#06000f;
+  color:#fff;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid var(--neon2);
+  box-shadow:0 0 12px var(--neon2);
+}
+
+/* NEON BUTTON */
+button,select{
+  cursor:pointer;
+  font-family:'Orbitron',sans-serif;
+}
+
+button{
+  background:transparent;
+  color:var(--neon1);
+  border:2px solid var(--neon1);
+  padding:12px 18px;
+  border-radius:12px;
+  text-shadow:0 0 8px var(--neon1);
+  box-shadow:
+    0 0 15px var(--neon1),
+    inset 0 0 15px rgba(0,255,255,.3);
+  transition:.25s;
+}
+
+button:hover{
+  background:var(--neon1);
+  color:#000;
+  box-shadow:
+    0 0 30px var(--neon1),
+    0 0 60px var(--neon2);
+}
+
+/* RESULT */
+video{
+  width:100%;
+  max-width:600px;
+  margin-top:25px;
+  border-radius:14px;
+  box-shadow:0 0 40px var(--neon2);
+}
+
+#result a{
+  display:inline-block;
+  margin:12px;
+  padding:12px 18px;
+  border:2px solid var(--neon2);
+  color:var(--neon2);
+  text-decoration:none;
+  border-radius:12px;
+  box-shadow:0 0 20px var(--neon2);
+}
+
+/* ABOUT */
+#about{
+  margin-top:50px;
+  padding:30px;
+  background:var(--glass);
+  border:1px solid var(--neon2);
+  border-radius:16px;
+  box-shadow:0 0 30px var(--neon2);
+}
+
+/* FOOTER */
+footer{
+  background:rgba(0,0,0,.8);
+  color:var(--neon1);
+  text-align:center;
+  padding:20px;
+  margin-top:50px;
+  box-shadow:0 0 25px var(--neon1);
+}
+footer a{
+  color:var(--neon2);
+  margin:0 10px;
+  text-decoration:none;
+}
 
 /* MODAL */
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:999}
-.modal-content{background:#111;border:1px solid gold;max-width:380px;margin:120px auto;padding:20px;text-align:center;border-radius:10px}
-.countdown{font-size:20px;color:gold;margin:10px}
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  z-index:999;
+}
+
+.modal-content{
+  background:var(--glass);
+  border:2px solid var(--neon1);
+  max-width:380px;
+  margin:140px auto;
+  padding:25px;
+  text-align:center;
+  border-radius:18px;
+  box-shadow:
+    0 0 40px var(--neon1),
+    inset 0 0 30px rgba(0,255,255,.3);
+}
+
+.countdown{
+  font-size:26px;
+  color:var(--neon1);
+  text-shadow:0 0 15px var(--neon1);
+}
 </style>
 </head>
 
@@ -46,7 +219,6 @@ footer a{color:gold;margin:0 10px;font-weight:bold;text-decoration:none}
   </div>
 </div>
 
-<!-- CONTENT -->
 <div class="container" id="home">
 <h1>Download Video TikTok</h1>
 <p>Tempel link TikTok (pendek / panjang)</p>
@@ -66,7 +238,7 @@ footer a{color:gold;margin:0 10px;font-weight:bold;text-decoration:none}
 
 <div id="result"></div>
 
-<!-- IKLAN MONETAG BAWAH -->
+<!-- IKLAN -->
 <div style="margin:25px">
 <script>
 (function(s){
@@ -76,14 +248,12 @@ footer a{color:gold;margin:0 10px;font-weight:bold;text-decoration:none}
 </script>
 </div>
 
-<!-- ABOUT -->
 <div id="about">
 <h2>Tentang</h2>
 <p>Downloader TikTok tanpa watermark untuk penggunaan pribadi.</p>
 </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <a href="about.html">About</a>
   <a href="privacy.html">Privacy</a>
@@ -92,7 +262,7 @@ footer a{color:gold;margin:0 10px;font-weight:bold;text-decoration:none}
   <p>© 2025 Virendra EL-Karim</p>
 </footer>
 
-<!-- MODAL IKLAN -->
+<!-- MODAL -->
 <div class="modal" id="adModal">
   <div class="modal-content">
     <h3>Tunggu sebentar…</h3>
@@ -118,7 +288,6 @@ async function prepareDownload(){
 
   document.getElementById("adModal").style.display="block";
 
-  // 🔥 PANGGIL SERVER TERMUX (WAJIB)
   const api="http://localhost:3000/tiktok?url="+encodeURIComponent(url);
   const res=await fetch(api);
   const data=await res.json();
@@ -146,12 +315,11 @@ function startDownload(){
       ? videoData.hdplay
       : videoData.play;
 
-  // 🔥 MONETAG POP (USER INTERACTION)
   window.open("https://otieu.com/4/10391957","_blank");
 
   setTimeout(()=>{
     document.getElementById("result").innerHTML=`
-      <video controls src="${link}"></video>
+      <video controls src="${link}"></video><br>
       <a href="${link}" download>⬇ Download Video</a>
       <a href="${videoData.music}" download>🎵 Download MP3</a>
     `;
