@@ -39,18 +39,16 @@ body{
   background:rgba(0,0,0,.7);
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--neon2);
-  box-shadow:0 0 20px var(--neon2);
 }
-.logo{color:var(--neon1);letter-spacing:3px;text-shadow:0 0 15px var(--neon1);}
-.navbar a{color:var(--neon2);margin-left:15px;text-decoration:none;}
-.navbar a:hover{color:var(--neon1);text-shadow:0 0 10px var(--neon1);}
+.logo{color:var(--neon1);letter-spacing:3px}
+.navbar a{color:var(--neon2);margin-left:15px;text-decoration:none}
+
 .container{
   max-width:900px;
   margin:auto;
   padding:40px 20px;
   text-align:center;
 }
-h1{color:var(--neon1);text-shadow:0 0 25px var(--neon1);}
 .downloader{
   background:var(--glass);
   backdrop-filter:blur(14px);
@@ -61,9 +59,6 @@ h1{color:var(--neon1);text-shadow:0 0 25px var(--neon1);}
   flex-wrap:wrap;
   gap:12px;
   justify-content:center;
-  box-shadow:
-    0 0 25px var(--neon1),
-    inset 0 0 25px rgba(0,255,255,.15);
 }
 input,select{
   background:#06000f;
@@ -71,7 +66,6 @@ input,select{
   padding:12px;
   border-radius:10px;
   border:1px solid var(--neon2);
-  box-shadow:0 0 12px var(--neon2);
 }
 button{
   background:transparent;
@@ -80,22 +74,12 @@ button{
   padding:12px 18px;
   border-radius:12px;
   cursor:pointer;
-  font-family:'Orbitron',sans-serif;
-  text-shadow:0 0 8px var(--neon1);
-  box-shadow:0 0 15px var(--neon1), inset 0 0 15px rgba(0,255,255,.3);
-  transition:.25s;
-}
-button:hover{
-  background:var(--neon1);
-  color:#000;
-  box-shadow:0 0 30px var(--neon1), 0 0 60px var(--neon2);
 }
 video{
   width:100%;
   max-width:600px;
   margin-top:25px;
   border-radius:14px;
-  box-shadow:0 0 40px var(--neon2);
 }
 #result a{
   display:inline-block;
@@ -104,16 +88,6 @@ video{
   border:2px solid var(--neon2);
   color:var(--neon2);
   text-decoration:none;
-  border-radius:12px;
-  box-shadow:0 0 20px var(--neon2);
-}
-#about{
-  margin-top:50px;
-  padding:30px;
-  background:var(--glass);
-  border:1px solid var(--neon2);
-  border-radius:16px;
-  box-shadow:0 0 30px var(--neon2);
 }
 footer{
   background:rgba(0,0,0,.8);
@@ -121,12 +95,6 @@ footer{
   text-align:center;
   padding:20px;
   margin-top:50px;
-  box-shadow:0 0 25px var(--neon1);
-}
-footer a{
-  color:var(--neon2);
-  margin:0 10px;
-  text-decoration:none;
 }
 .modal{
   display:none;
@@ -143,12 +111,6 @@ footer a{
   padding:25px;
   text-align:center;
   border-radius:18px;
-  box-shadow:0 0 40px var(--neon1), inset 0 0 30px rgba(0,255,255,.3);
-}
-.countdown{
-  font-size:26px;
-  color:var(--neon1);
-  text-shadow:0 0 15px var(--neon1);
 }
 </style>
 </head>
@@ -170,18 +132,15 @@ footer a{
 <!-- CONTENT -->
 <div class="container" id="home">
 <h1>Download Video TikTok</h1>
-<p>Tempel link TikTok (pendek / panjang)</p>
 
 <div class="downloader">
   <input id="tiktokUrl" placeholder="https://vt.tiktok.com/xxxxx">
   <button onclick="pasteLink()">Tempel</button>
-
   <select id="quality">
-    <option value="sd">SD</option>
     <option value="hd">HD</option>
+    <option value="sd">SD</option>
     <option value="hdnowm">HD Tanpa Watermark</option>
   </select>
-
   <button onclick="prepareDownload()">Download</button>
 </div>
 
@@ -201,13 +160,13 @@ footer a{
 <div class="modal" id="adModal">
   <div class="modal-content">
     <h3>Tunggu sebentar…</h3>
-    <div class="countdown" id="timer">5</div>
+    <div id="timer">5</div>
     <button id="downloadBtn" disabled onclick="startDownload()">Lanjutkan</button>
   </div>
 </div>
 
 <script>
-let videoData=null;
+let videoData=null, selectedQuality="hd";
 
 function pasteLink(){
   navigator.clipboard.readText().then(t=>{
@@ -217,45 +176,48 @@ function pasteLink(){
 
 async function prepareDownload(){
   const url=document.getElementById("tiktokUrl").value.trim();
-  let selectedQuality=document.getElementById("quality").value;
-  if(!url) return alert("Masukkan link TikTok");
+  selectedQuality=document.getElementById("quality").value;
+  if(!url){alert("Masukkan link TikTok"); return;}
 
   document.getElementById("adModal").style.display="block";
 
-  try {
-    const res=await fetch(`/api/tiktok?url=${encodeURIComponent(url)}`);
-    const data=await res.json();
-    if(data.error) return alert("Gagal ambil video");
+  // ==== API backend Vercel tiktok-downloader ====
+  const api = "https://downloader99.vercel.app/api/tiktok?url=" + encodeURIComponent(url);
+  const res = await fetch(api);
+  const data = await res.json();
 
-    videoData = data;
+  if(!data?.data){alert("Gagal ambil video"); return;}
+  videoData = data.data;
 
-    let t=5;
-    const i=setInterval(()=>{
-      document.getElementById("timer").innerText=t;
-      if(--t<0){
-        clearInterval(i);
-        document.getElementById("downloadBtn").disabled=false;
-      }
-    },1000);
-
-  } catch(e) {
-    alert("Gagal ambil video: " + e.message);
-  }
+  let t=5;
+  const i=setInterval(()=>{
+    document.getElementById("timer").innerText=t;
+    if(--t<0){
+      clearInterval(i);
+      document.getElementById("downloadBtn").disabled=false;
+    }
+  },1000);
 }
 
 function startDownload(){
   document.getElementById("adModal").style.display="none";
 
-  let selectedQuality=document.getElementById("quality").value;
-  let link = selectedQuality==="hdnowm" ? videoData.nowmplay
-           : selectedQuality==="hd" ? videoData.hdplay
-           : videoData.play;
+  let link = selectedQuality==="hdnowm"
+    ? videoData.hdplay
+    : selectedQuality==="hd"
+    ? videoData.hdplay
+    : videoData.play;
 
-  document.getElementById("result").innerHTML=`
-    <video controls src="${link}"></video><br>
-    <a href="${link}" download onclick="openAd()">⬇ Download Video</a>
-    <a href="${videoData.music}" download onclick="openAd()">🎵 Download MP3</a>
-  `;
+  // Buka iklan dulu
+  window.open("https://otieu.com/4/10391957","_blank");
+
+  setTimeout(()=>{
+    document.getElementById("result").innerHTML=`
+      <video controls src="${link}"></video><br>
+      <a href="${link}" download onclick="openAd()">⬇ Download Video</a>
+      <a href="${videoData.music}" download onclick="openAd()">🎵 Download MP3</a>
+    `;
+  },2000);
 }
 
 function openAd(){
