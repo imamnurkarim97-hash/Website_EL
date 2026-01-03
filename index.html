@@ -19,7 +19,6 @@
 :root{
   --neon1:#00ffff;
   --neon2:#b100ff;
-  --dark:#05000a;
   --glass:rgba(255,255,255,0.06);
 }
 *{box-sizing:border-box}
@@ -32,7 +31,6 @@ body{
     radial-gradient(circle at top,#12001f,#05000a 70%);
   background-size:40px 40px,40px 40px,cover;
   color:#fff;
-  min-height:100vh;
 }
 .navbar{
   display:flex;
@@ -41,18 +39,10 @@ body{
   background:rgba(0,0,0,.7);
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--neon2);
-  box-shadow:0 0 20px var(--neon2);
 }
-.logo{
-  color:var(--neon1);
-  text-shadow:0 0 15px var(--neon1);
-  letter-spacing:3px;
-}
-.navbar a{
-  color:var(--neon2);
-  margin-left:15px;
-  text-decoration:none;
-}
+.logo{color:var(--neon1);letter-spacing:3px}
+.navbar a{color:var(--neon2);margin-left:15px;text-decoration:none}
+
 .container{
   max-width:900px;
   margin:auto;
@@ -127,15 +117,19 @@ footer{
 
 <body>
 
+<!-- NAVBAR -->
 <div class="navbar">
   <div class="logo">VIRENDRA EL-KARIM</div>
   <div>
     <a href="#home">Home</a>
-    <a href="#about">Tentang</a>
+    <a href="#about">About</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="contact.html">Contact</a>
     <a href="ai/ai-menu.html">🤖 AI Chat</a>
   </div>
 </div>
 
+<!-- CONTENT -->
 <div class="container" id="home">
 <h1>Download Video TikTok</h1>
 
@@ -145,7 +139,6 @@ footer{
   <select id="quality">
     <option value="hd">HD</option>
     <option value="sd">SD</option>
-    <option value="hdnowm">HD Tanpa Watermark</option>
   </select>
   <button onclick="prepareDownload()">Download</button>
 </div>
@@ -162,16 +155,17 @@ footer{
   <p>© 2025 Virendra EL-Karim</p>
 </footer>
 
+<!-- MODAL -->
 <div class="modal" id="adModal">
   <div class="modal-content">
     <h3>Tunggu sebentar…</h3>
     <div id="timer">5</div>
-    <button id="downloadBtn" disabled onclick="startDownload()">Download Sekarang</button>
+    <button id="downloadBtn" disabled onclick="startDownload()">Lanjutkan</button>
   </div>
 </div>
 
 <script>
-let videoData=null, selectedQuality="hd";
+let videoData=null;
 
 function pasteLink(){
   navigator.clipboard.readText().then(t=>{
@@ -181,16 +175,16 @@ function pasteLink(){
 
 async function prepareDownload(){
   const url=document.getElementById("tiktokUrl").value.trim();
-  selectedQuality=document.getElementById("quality").value;
   if(!url) return alert("Masukkan link TikTok");
 
   document.getElementById("adModal").style.display="block";
 
   const res=await fetch("https://tikwm.com/api/?url="+encodeURIComponent(url));
   const data=await res.json();
-  if(data.code!==0) return alert("Gagal ambil video");
+  if(data.code!==0) return alert("Gagal mengambil video");
 
   videoData=data.data;
+
   let t=5;
   const i=setInterval(()=>{
     document.getElementById("timer").innerText=t;
@@ -203,14 +197,18 @@ async function prepareDownload(){
 
 function startDownload(){
   document.getElementById("adModal").style.display="none";
-  const link=videoData.play;
-  window.open("https://otieu.com/4/10391957","_blank");
+
+  document.getElementById("result").innerHTML=`
+    <video controls src="${videoData.play}"></video><br>
+    <a href="${videoData.play}" download onclick="openAd()">⬇ Download Video</a>
+    <a href="${videoData.music}" download onclick="openAd()">🎵 Download MP3</a>
+  `;
+}
+
+function openAd(){
   setTimeout(()=>{
-    document.getElementById("result").innerHTML=`
-      <video controls src="${link}"></video><br>
-      <a href="${link}" download>⬇ Download Video</a>
-      <a href="${videoData.music}" download>🎵 Download MP3</a>`;
-  },2000);
+    window.open("https://otieu.com/4/10391957","_blank");
+  },300);
 }
 </script>
 
