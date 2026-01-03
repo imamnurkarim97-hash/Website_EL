@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="monetag" content="c65fdf7192ffdd78950cc719cbefe341">
+
 <title>Virendra EL-Karim | TikTok Downloader</title>
 <meta name="description" content="Download video TikTok tanpa watermark secara gratis.">
 
@@ -15,25 +16,146 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
-:root{--neon1:#00ffff;--neon2:#b100ff;--glass:rgba(255,255,255,0.06);}
-*{box-sizing:border-box;}
-body{margin:0;font-family:'Orbitron',sans-serif;color:#fff;background:radial-gradient(circle at top,#12001f,#05000a 70%);}
-.navbar{display:flex;justify-content:space-between;padding:18px 30px;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);border-bottom:1px solid var(--neon2);}
-.logo{color:var(--neon1);letter-spacing:3px;}
+:root{
+  --neon1:#00ffff;
+  --neon2:#b100ff;
+  --glass:rgba(255,255,255,0.06);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Orbitron',sans-serif;
+  background:
+    linear-gradient(180deg,rgba(0,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(177,0,255,.04) 1px,transparent 1px),
+    radial-gradient(circle at top,#12001f,#05000a 70%);
+  background-size:40px 40px,40px 40px,cover;
+  color:#fff;
+}
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  padding:18px 30px;
+  background:rgba(0,0,0,.7);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--neon2);
+  box-shadow:0 0 20px var(--neon2);
+}
+.logo{color:var(--neon1);letter-spacing:3px;text-shadow:0 0 15px var(--neon1);}
 .navbar a{color:var(--neon2);margin-left:15px;text-decoration:none;}
-.container{max-width:900px;margin:auto;padding:40px 20px;text-align:center;}
-.downloader{background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--neon1);border-radius:18px;padding:25px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
-input,select{background:#06000f;color:#fff;padding:12px;border-radius:10px;border:1px solid var(--neon2);}
-button{background:transparent;color:var(--neon1);border:2px solid var(--neon1);padding:12px 18px;border-radius:12px;cursor:pointer;}
-video{width:100%;max-width:600px;margin-top:25px;border-radius:14px;}
-#result a{display:inline-block;margin:12px;padding:12px 18px;border:2px solid var(--neon2);color:var(--neon2);text-decoration:none;}
-footer{background:rgba(0,0,0,.8);color:var(--neon1);text-align:center;padding:20px;margin-top:50px;}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;}
-.modal-content{background:var(--glass);border:2px solid var(--neon1);max-width:380px;margin:140px auto;padding:25px;text-align:center;border-radius:18px;}
+.navbar a:hover{color:var(--neon1);text-shadow:0 0 10px var(--neon1);}
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:40px 20px;
+  text-align:center;
+}
+h1{color:var(--neon1);text-shadow:0 0 25px var(--neon1);}
+.downloader{
+  background:var(--glass);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--neon1);
+  border-radius:18px;
+  padding:25px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
+  box-shadow:
+    0 0 25px var(--neon1),
+    inset 0 0 25px rgba(0,255,255,.15);
+}
+input,select{
+  background:#06000f;
+  color:#fff;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid var(--neon2);
+  box-shadow:0 0 12px var(--neon2);
+}
+button{
+  background:transparent;
+  color:var(--neon1);
+  border:2px solid var(--neon1);
+  padding:12px 18px;
+  border-radius:12px;
+  cursor:pointer;
+  font-family:'Orbitron',sans-serif;
+  text-shadow:0 0 8px var(--neon1);
+  box-shadow:0 0 15px var(--neon1), inset 0 0 15px rgba(0,255,255,.3);
+  transition:.25s;
+}
+button:hover{
+  background:var(--neon1);
+  color:#000;
+  box-shadow:0 0 30px var(--neon1), 0 0 60px var(--neon2);
+}
+video{
+  width:100%;
+  max-width:600px;
+  margin-top:25px;
+  border-radius:14px;
+  box-shadow:0 0 40px var(--neon2);
+}
+#result a{
+  display:inline-block;
+  margin:12px;
+  padding:12px 18px;
+  border:2px solid var(--neon2);
+  color:var(--neon2);
+  text-decoration:none;
+  border-radius:12px;
+  box-shadow:0 0 20px var(--neon2);
+}
+#about{
+  margin-top:50px;
+  padding:30px;
+  background:var(--glass);
+  border:1px solid var(--neon2);
+  border-radius:16px;
+  box-shadow:0 0 30px var(--neon2);
+}
+footer{
+  background:rgba(0,0,0,.8);
+  color:var(--neon1);
+  text-align:center;
+  padding:20px;
+  margin-top:50px;
+  box-shadow:0 0 25px var(--neon1);
+}
+footer a{
+  color:var(--neon2);
+  margin:0 10px;
+  text-decoration:none;
+}
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  z-index:999;
+}
+.modal-content{
+  background:var(--glass);
+  border:2px solid var(--neon1);
+  max-width:380px;
+  margin:140px auto;
+  padding:25px;
+  text-align:center;
+  border-radius:18px;
+  box-shadow:0 0 40px var(--neon1), inset 0 0 30px rgba(0,255,255,.3);
+}
+.countdown{
+  font-size:26px;
+  color:var(--neon1);
+  text-shadow:0 0 15px var(--neon1);
+}
 </style>
 </head>
+
 <body>
 
+<!-- NAVBAR -->
 <div class="navbar">
   <div class="logo">VIRENDRA EL-KARIM</div>
   <div>
@@ -45,17 +167,21 @@ footer{background:rgba(0,0,0,.8);color:var(--neon1);text-align:center;padding:20
   </div>
 </div>
 
+<!-- CONTENT -->
 <div class="container" id="home">
 <h1>Download Video TikTok</h1>
+<p>Tempel link TikTok (pendek / panjang)</p>
 
 <div class="downloader">
   <input id="tiktokUrl" placeholder="https://vt.tiktok.com/xxxxx">
   <button onclick="pasteLink()">Tempel</button>
+
   <select id="quality">
-    <option value="hd">HD</option>
     <option value="sd">SD</option>
+    <option value="hd">HD</option>
     <option value="hdnowm">HD Tanpa Watermark</option>
   </select>
+
   <button onclick="prepareDownload()">Download</button>
 </div>
 
@@ -71,17 +197,17 @@ footer{background:rgba(0,0,0,.8);color:var(--neon1);text-align:center;padding:20
   <p>© 2025 Virendra EL-Karim</p>
 </footer>
 
+<!-- MODAL -->
 <div class="modal" id="adModal">
   <div class="modal-content">
     <h3>Tunggu sebentar…</h3>
-    <div id="timer">5</div>
+    <div class="countdown" id="timer">5</div>
     <button id="downloadBtn" disabled onclick="startDownload()">Lanjutkan</button>
   </div>
 </div>
 
 <script>
 let videoData=null;
-let selectedQuality="hd";
 
 function pasteLink(){
   navigator.clipboard.readText().then(t=>{
@@ -91,43 +217,45 @@ function pasteLink(){
 
 async function prepareDownload(){
   const url=document.getElementById("tiktokUrl").value.trim();
-  selectedQuality=document.getElementById("quality").value;
+  let selectedQuality=document.getElementById("quality").value;
   if(!url) return alert("Masukkan link TikTok");
 
   document.getElementById("adModal").style.display="block";
 
-  const res = await fetch("https://<YOUR_BACKEND_URL>/tiktok?url="+encodeURIComponent(url));
-  const data = await res.json();
-  if(data.error) return alert(data.error);
+  try {
+    const res=await fetch(`/api/tiktok?url=${encodeURIComponent(url)}`);
+    const data=await res.json();
+    if(data.error) return alert("Gagal ambil video");
 
-  videoData = data;
+    videoData = data;
 
-  let t=5;
-  const i=setInterval(()=>{
-    document.getElementById("timer").innerText=t;
-    if(--t<0){
-      clearInterval(i);
-      document.getElementById("downloadBtn").disabled=false;
-    }
-  },1000);
+    let t=5;
+    const i=setInterval(()=>{
+      document.getElementById("timer").innerText=t;
+      if(--t<0){
+        clearInterval(i);
+        document.getElementById("downloadBtn").disabled=false;
+      }
+    },1000);
+
+  } catch(e) {
+    alert("Gagal ambil video: " + e.message);
+  }
 }
 
 function startDownload(){
   document.getElementById("adModal").style.display="none";
 
-  let link =
-    selectedQuality === "hdnowm"
-      ? videoData.hdnowm
-      : selectedQuality === "hd"
-      ? videoData.hdplay
-      : videoData.play;
+  let selectedQuality=document.getElementById("quality").value;
+  let link = selectedQuality==="hdnowm" ? videoData.nowmplay
+           : selectedQuality==="hd" ? videoData.hdplay
+           : videoData.play;
 
-  setTimeout(()=>{
-    document.getElementById("result").innerHTML=`
-      <video controls src="${link}"></video><br>
-      <a href="${link}" download onclick="openAd()">⬇ Download Video</a>
-      <a href="${videoData.music}" download onclick="openAd()">🎵 Download MP3</a>`;
-  },300);
+  document.getElementById("result").innerHTML=`
+    <video controls src="${link}"></video><br>
+    <a href="${link}" download onclick="openAd()">⬇ Download Video</a>
+    <a href="${videoData.music}" download onclick="openAd()">🎵 Download MP3</a>
+  `;
 }
 
 function openAd(){
