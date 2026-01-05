@@ -14,23 +14,103 @@
 <!-- MONETAG -->
 <script src="https://3nbf4.com/act/files/tag.min.js?z=10391874" data-cfasync="false" async></script>
 
-<!-- FONT AWESOME -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-/* === SEMUA CSS ASLI TIDAK DIUBAH === */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+
+:root{
+  --neon1:#00ffff;
+  --neon2:#b100ff;
+  --neon3:#ff00ff;
+  --neon4:#ffea00;
+  --neon5:#00ff7f;
+  --neon6:#ff4500;
+  --glass:rgba(255,255,255,0.06);
+}
+
 *{box-sizing:border-box;}
-body{margin:0;font-family:'Orbitron',sans-serif;min-height:100vh;color:#fff;background:#05000a}
-.navbar{display:flex;justify-content:space-between;padding:18px 30px;background:rgba(0,0,0,.7)}
-.logo{letter-spacing:3px;font-size:1.5em}
-.navbar a{margin-left:15px;color:#fff;text-decoration:none}
-.container{max-width:900px;margin:auto;padding:20px;text-align:center}
-.downloader{background:rgba(255,255,255,0.06);padding:20px;border-radius:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-input,select,button{padding:10px;border-radius:10px}
-video{width:100%;max-width:600px;margin-top:20px}
-#result a{display:inline-block;margin:8px;padding:10px 16px;border:2px solid #fff;color:#fff;text-decoration:none}
-footer{text-align:center;padding:20px;margin-top:30px}
+body{
+  margin:0;
+  font-family:'Orbitron',sans-serif;
+  min-height:100vh;
+  color:#fff;
+  background:#05000a;
+  animation:bodyGlow 10s linear infinite;
+}
+
+@keyframes bodyGlow{
+  0%{background:#05000a;}
+  50%{background:#10001a;}
+  100%{background:#05000a;}
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(180deg,rgba(0,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(177,0,255,.05) 1px,transparent 1px);
+  background-size:40px 40px;
+  z-index:-2;
+}
+
+@keyframes neonColor{
+  0%{color:var(--neon1);}
+  100%{color:var(--neon6);}
+}
+@keyframes neonBorder{
+  0%{border-color:var(--neon1);}
+  100%{border-color:var(--neon6);}
+}
+@keyframes pulseGlow{
+  0%{box-shadow:0 0 8px currentColor;}
+  50%{box-shadow:0 0 25px currentColor;}
+  100%{box-shadow:0 0 8px currentColor;}
+}
+
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  padding:18px 30px;
+  background:rgba(0,0,0,.7);
+  border-bottom:2px solid currentColor;
+  animation:neonBorder 5s infinite alternate;
+}
+
+.logo{
+  font-size:1.5em;
+  animation:neonColor 5s infinite alternate;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+  text-align:center;
+}
+
+.downloader{
+  background:var(--glass);
+  border:2px solid currentColor;
+  border-radius:18px;
+  padding:20px;
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  animation:neonBorder 5s infinite alternate;
+}
+
+input,select,button{
+  background:#06000f;
+  color:#fff;
+  padding:10px;
+  border-radius:10px;
+  border:2px solid currentColor;
+}
+
+button:hover{animation:pulseGlow 1.5s infinite;}
 </style>
 </head>
 
@@ -38,90 +118,44 @@ footer{text-align:center;padding:20px;margin-top:30px}
 
 <div class="navbar">
   <div class="logo">VIRENDRA EL-KARIM</div>
-  <div>
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="privacy.html">Privacy</a>
-    <a href="contact.html">Contact</a>
-    <a href="ai/ai-menu.html">AI Chat</a>
-  </div>
 </div>
 
-<div class="container" id="home">
+<div class="container">
 <h1>Download Video TikTok</h1>
 
 <div class="downloader">
-  <input id="tiktokUrl" placeholder="https://vt.tiktok.com/xxxxx">
-  <button onclick="pasteLink()">Tempel</button>
+  <input id="tiktokUrl" placeholder="https://vt.tiktok.com/...">
   <select id="quality">
     <option value="hd">HD</option>
     <option value="sd">SD</option>
-    <option value="hdnowm">HD Tanpa Watermark</option>
   </select>
-  <button onclick="prepareDownload()">Download</button>
+  <button onclick="download()">Download</button>
 </div>
 
 <div id="result"></div>
-
-<div id="about">
-<h2>Tentang</h2>
-<p>Downloader TikTok tanpa watermark untuk penggunaan pribadi.</p>
 </div>
-</div>
-
-<footer>
-  <p>© 2025 Virendra EL-Karim</p>
-</footer>
 
 <script>
-let videoData = null;
-let selectedQuality = "hd";
-let adShown = false;
+let videoData=null;
 
-// tempel clipboard
-function pasteLink(){
-  navigator.clipboard.readText().then(t=>{
-    document.getElementById("tiktokUrl").value = t;
-  });
-}
-
-// ambil data video
-async function prepareDownload(){
-  const url = document.getElementById("tiktokUrl").value.trim();
-  selectedQuality = document.getElementById("quality").value;
+async function download(){
+  const url=document.getElementById("tiktokUrl").value.trim();
   if(!url) return alert("Masukkan link TikTok");
 
-  const backendURL = "https://downloader99.vercel.app/tiktok?url=" + encodeURIComponent(url);
-  const res = await fetch(backendURL);
-  const data = await res.json();
+  // IKLAN MONETAG POPUP (AUTO CPM)
+  window.open("https://otieu.com/4/10391957","_blank");
 
-  if(!data?.play) return alert("Gagal mengambil video");
-  videoData = data;
+  const api="https://downloader99.vercel.app/tiktok?url="+encodeURIComponent(url);
+  const r=await fetch(api);
+  const d=await r.json();
+  if(!d?.play) return alert("Gagal ambil video");
 
-  startDownload(); // LANGSUNG
-}
+  videoData=d;
 
-// === PILIHAN B ===
-// klik → iklan → download (tanpa timer)
-function startDownload(){
-
-  // buka iklan Monetag 1x
-  if(!adShown){
-    window.open("https://otieu.com/4/10391957","_blank");
-    adShown = true;
-  }
-
-  let link =
-    selectedQuality === "hdnowm"
-      ? videoData.hdplay || videoData.play
-      : selectedQuality === "hd"
-      ? videoData.hdplay || videoData.play
-      : videoData.play;
-
-  document.getElementById("result").innerHTML = `
-    <video controls src="${link}"></video><br>
+  const link=d.hdplay||d.play;
+  document.getElementById("result").innerHTML=`
+    <video controls src="${link}" width="100%"></video><br>
     <a href="${link}" download>⬇ Download Video</a>
-    <a href="${videoData.music}" download>🎵 Download MP3</a>
   `;
 }
 </script>
