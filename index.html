@@ -14,89 +14,210 @@
 <!-- MONETAG -->
 <script src="https://3nbf4.com/act/files/tag.min.js?z=10391874" data-cfasync="false" async></script>
 
+<!-- FONT AWESOME ICONS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-zK6V7YpfsH7cdK0LQQmEymc8u3kJzt+2eO2uSlMKErYlcyYjY8WlPSm0lO8iC0r1Q0QoUv4odrT6++b1p+eD0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+
+/* VARIABLES NEON */
 :root{
   --neon1:#00ffff;
   --neon2:#b100ff;
+  --neon3:#ff00ff;
+  --neon4:#ffea00;
+  --neon5:#00ff7f;
+  --neon6:#ff4500;
   --glass:rgba(255,255,255,0.06);
 }
-*{box-sizing:border-box}
+
+/* RESET & BODY */
+*{box-sizing:border-box;}
 body{
   margin:0;
   font-family:'Orbitron',sans-serif;
-  background:
-    linear-gradient(180deg,rgba(0,255,255,.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(177,0,255,.04) 1px,transparent 1px),
-    radial-gradient(circle at top,#12001f,#05000a 70%);
-  background-size:40px 40px,40px 40px,cover;
-  color:#fff;
   min-height:100vh;
+  color:#fff;
+  overflow-x:hidden;
+  background:#05000a;
+  position:relative;
+  animation:bodyGlow 10s linear infinite;
 }
+
+/* BODY NEON GLOW ANIMATION */
+@keyframes bodyGlow{
+  0%{background:#05000a;}
+  20%{background:#0a001f;}
+  40%{background:#05000a;}
+  60%{background:#10001a;}
+  80%{background:#05000a;}
+  100%{background:#0a000f;}
+}
+
+/* CYBER GRID BACKGROUND */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(180deg,rgba(0,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(177,0,255,.05) 1px,transparent 1px),
+    radial-gradient(circle at top,#12001f,#05000a 80%);
+  background-size:40px 40px,40px 40px,cover;
+  z-index:-2;
+  animation:gridMove 15s linear infinite;
+}
+@keyframes gridMove{
+  0%{background-position:0 0,0 0,0 0;}
+  100%{background-position:120px 120px,120px 120px,0 0;}
+}
+
+/* GLITCH LAYER */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:repeating-linear-gradient(45deg,rgba(255,0,255,0.02),rgba(255,0,255,0.02) 2px,transparent 2px,transparent 4px);
+  z-index:-1;
+  animation:glitchMove 3s infinite linear;
+}
+@keyframes glitchMove{
+  0%{transform:translate(0,0);}
+  25%{transform:translate(-5px,2px);}
+  50%{transform:translate(3px,-3px);}
+  75%{transform:translate(-2px,1px);}
+  100%{transform:translate(0,0);}
+}
+
+/* NEON TEXT & BORDER ANIMATION */
+@keyframes neonColor{
+  0%{color:var(--neon1);}
+  20%{color:var(--neon2);}
+  40%{color:var(--neon3);}
+  60%{color:var(--neon4);}
+  80%{color:var(--neon5);}
+  100%{color:var(--neon6);}
+}
+@keyframes neonBorder{
+  0%{border-color:var(--neon1);}
+  20%{border-color:var(--neon2);}
+  40%{border-color:var(--neon3);}
+  60%{border-color:var(--neon4);}
+  80%{border-color:var(--neon5);}
+  100%{border-color:var(--neon6);}
+}
+@keyframes pulseGlow{
+  0%{box-shadow:0 0 8px currentColor,0 0 16px currentColor;}
+  50%{box-shadow:0 0 18px currentColor,0 0 36px currentColor;}
+  100%{box-shadow:0 0 8px currentColor,0 0 16px currentColor;}
+}
+
+/* NAVBAR */
 .navbar{
   display:flex;
   justify-content:space-between;
+  flex-wrap:wrap;
   padding:18px 30px;
   background:rgba(0,0,0,.7);
   backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--neon2);
+  border-bottom:2px solid currentColor;
+  animation: neonBorder 5s infinite alternate;
 }
-.logo{color:var(--neon1);letter-spacing:3px}
-.navbar a{color:var(--neon2);margin-left:15px;text-decoration:none}
+.logo{
+  letter-spacing:3px;
+  animation: neonColor 5s infinite alternate;
+  font-size:1.5em;
+}
+.navbar a{
+  margin-left:15px;
+  text-decoration:none;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  animation: neonColor 5s infinite alternate;
+}
+.navbar a i{margin-right:6px;}
 
+/* CONTAINER */
 .container{
   max-width:900px;
   margin:auto;
-  padding:40px 20px;
+  padding:20px;
   text-align:center;
 }
 .downloader{
   background:var(--glass);
   backdrop-filter:blur(14px);
-  border:1px solid var(--neon1);
+  border:2px solid currentColor;
   border-radius:18px;
-  padding:25px;
+  padding:20px;
   display:flex;
   flex-wrap:wrap;
-  gap:12px;
+  gap:10px;
   justify-content:center;
+  animation: neonBorder 5s infinite alternate;
 }
 input,select{
   background:#06000f;
   color:#fff;
-  padding:12px;
+  padding:10px;
   border-radius:10px;
-  border:1px solid var(--neon2);
+  border:2px solid currentColor;
+  animation: neonBorder 5s infinite alternate;
 }
 button{
   background:transparent;
-  color:var(--neon1);
-  border:2px solid var(--neon1);
-  padding:12px 18px;
+  color:currentColor;
+  border:2px solid currentColor;
+  padding:10px 16px;
   border-radius:12px;
   cursor:pointer;
+  transition:0.3s;
 }
+button:hover{
+  animation:pulseGlow 1.5s infinite;
+}
+
+/* VIDEO + RESULT */
 video{
   width:100%;
   max-width:600px;
-  margin-top:25px;
-  border-radius:14px;
+  margin-top:20px;
+  border-radius:12px;
 }
 #result a{
   display:inline-block;
-  margin:12px;
-  padding:12px 18px;
-  border:2px solid var(--neon2);
-  color:var(--neon2);
+  margin:8px;
+  padding:10px 16px;
+  border:2px solid currentColor;
+  color:currentColor;
   text-decoration:none;
+  transition:0.3s;
 }
+#result a:hover{
+  animation:pulseGlow 1.5s infinite;
+}
+
+/* LOADING ANIMATION */
+#loading{
+  display:none;
+  margin-top:20px;
+  font-weight:bold;
+  font-size:1.2em;
+  animation: neonColor 2s linear infinite alternate;
+}
+
+/* FOOTER */
 footer{
   background:rgba(0,0,0,.8);
-  color:var(--neon1);
+  color:currentColor;
   text-align:center;
   padding:20px;
-  margin-top:50px;
+  margin-top:30px;
+  animation: neonColor 5s infinite alternate;
 }
+
+/* MODAL */
 .modal{
   display:none;
   position:fixed;
@@ -106,12 +227,20 @@ footer{
 }
 .modal-content{
   background:var(--glass);
-  border:2px solid var(--neon1);
+  border:2px solid currentColor;
   max-width:380px;
   margin:140px auto;
   padding:25px;
   text-align:center;
   border-radius:18px;
+  animation: neonBorder 5s infinite alternate;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width:600px){
+  .navbar div{width:100%; display:flex; justify-content:center; flex-wrap:wrap;}
+  .navbar a{margin:8px;}
+  .downloader{flex-direction:column;}
 }
 </style>
 </head>
@@ -122,11 +251,11 @@ footer{
 <div class="navbar">
   <div class="logo">VIRENDRA EL-KARIM</div>
   <div>
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="privacy.html">Privacy</a>
-    <a href="contact.html">Contact</a>
-    <a href="ai/ai-menu.html">🤖 AI Chat</a>
+    <a href="#home"><i class="fas fa-home"></i>Home</a>
+    <a href="#about"><i class="fas fa-info-circle"></i>About</a>
+    <a href="privacy.html"><i class="fas fa-user-secret"></i>Privacy</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    <a href="ai/ai-menu.html"><i class="fas fa-robot"></i>AI Chat</a>
   </div>
 </div>
 
@@ -145,6 +274,7 @@ footer{
   <button onclick="prepareDownload()">Download</button>
 </div>
 
+<div id="loading">Loading video… ⚡</div>
 <div id="result"></div>
 
 <div id="about">
@@ -157,7 +287,7 @@ footer{
   <p>© 2025 Virendra EL-Karim</p>
 </footer>
 
-<!-- MODAL IKLAN -->
+<!-- MODAL -->
 <div class="modal" id="adModal">
   <div class="modal-content">
     <h3>Tunggu sebentar…</h3>
@@ -167,60 +297,63 @@ footer{
 </div>
 
 <script>
-let videoData = null;
-let selectedQuality = "hd";
+// SOUND EFFECT
+const clickSound = new Audio('https://freesound.org/data/previews/522/522178_861714-lq.mp3');
+
+let videoData=null;
+let selectedQuality="hd";
 
 function pasteLink(){
   navigator.clipboard.readText().then(t=>{
     document.getElementById("tiktokUrl").value=t;
+    clickSound.play();
   });
 }
 
 async function prepareDownload(){
-  const url = document.getElementById("tiktokUrl").value.trim();
-  selectedQuality = document.getElementById("quality").value;
+  const url=document.getElementById("tiktokUrl").value.trim();
+  selectedQuality=document.getElementById("quality").value;
   if(!url) return alert("Masukkan link TikTok");
 
+  clickSound.play();
   document.getElementById("adModal").style.display="block";
+  document.getElementById("loading").style.display="block";
+  document.getElementById("result").innerHTML="";
 
-  // panggil backend tiktok-downloader
   const backendURL = "https://downloader99.vercel.app/tiktok?url=" + encodeURIComponent(url);
-  try{
-    const res = await fetch(backendURL);
-    const data = await res.json();
-    if(!data?.play) return alert("Gagal mengambil video");
-
-    videoData = data;
-
-    let t = 5;
-    const i = setInterval(()=>{
-      document.getElementById("timer").innerText = t;
-      if(--t<0){
-        clearInterval(i);
-        document.getElementById("downloadBtn").disabled = false;
-      }
-    },1000);
-  } catch(e){
-    alert("Terjadi kesalahan, coba lagi");
-    console.error(e);
+  const res = await fetch(backendURL);
+  const data = await res.json();
+  if(!data?.play) {
+    document.getElementById("loading").style.display="none";
+    return alert("Gagal mengambil video");
   }
+
+  videoData = data;
+
+  let t=5;
+  const i=setInterval(()=>{
+    document.getElementById("timer").innerText=t;
+    if(--t<0){
+      clearInterval(i);
+      document.getElementById("downloadBtn").disabled=false;
+    }
+  },1000);
 }
 
 function startDownload(){
+  clickSound.play();
   document.getElementById("adModal").style.display="none";
 
-  // pilih link sesuai kualitas
   let link = selectedQuality === "hdnowm"
     ? videoData.hdplay || videoData.play
     : selectedQuality === "hd"
     ? videoData.hdplay || videoData.play
     : videoData.play;
 
-  // pop-up iklan
   setTimeout(()=>{ window.open("https://otieu.com/4/10391957","_blank"); },300);
 
-  // tampilkan video dan tombol download
   setTimeout(()=>{
+    document.getElementById("loading").style.display="none";
     document.getElementById("result").innerHTML=`
       <video controls src="${link}"></video><br>
       <a href="${link}" download onclick="window.open('https://otieu.com/4/10391957','_blank')">⬇ Download Video</a>
