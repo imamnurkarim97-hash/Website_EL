@@ -300,66 +300,105 @@ footer{
 // SOUND EFFECT
 const clickSound = new Audio('https://freesound.org/data/previews/522/522178_861714-lq.mp3');
 
-let videoData=null;
-let selectedQuality="hd";
+let videoData = null;
+let selectedQuality = "hd";
 
-function pasteLink(){
-  navigator.clipboard.readText().then(t=>{
-    document.getElementById("tiktokUrl").value=t;
-    clickSound.play();
+function pasteLink() {
+  navigator.clipboard.readText().then(text => {
+    document.getElementById("tiktokUrl").value = text;
+    playSound();
+  }).catch(err => {
+    alert("Gagal menempel link: " + err.message);
   });
 }
 
-async function prepareDownload(){
-  const url=document.getElementById("tiktokUrl").value.trim();
-  selectedQuality=document.getElementById("quality").value;
-  if(!url) return alert("Masukkan link TikTok");
-
-  clickSound.play();
-  document.getElementById("adModal").style.display="block";
-  document.getElementById("loading").style.display="block";
-  document.getElementById("result").innerHTML="";
-
-  const backendURL = "https://downloader99.vercel.app/tiktok?url=" + encodeURIComponent(url);
-  const res = await fetch(backendURL);
-  const data = await res.json();
-  if(!data?.play) {
-    document.getElementById("loading").style.display="none";
-    return alert("Gagal mengambil video");
+async function prepareDownload() {
+  const url = document.getElementById("tiktokUrl").value.trim();
+  selectedQuality = document.getElementById("quality").value;
+  
+  // Validasi URL
+  if (!url || !url.includes("tiktok.com")) {
+    return alert("Masukkan link TikTok yang valid (misalnya: https://vt.tiktok.com/xxxxx)");
   }
 
-  videoData = data;
+  playSound();
+  document.getElementById("adModal").style.display = "block";
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("result").innerHTML = "";
 
-  let t=5;
-  const i=setInterval(()=>{
-    document.getElementById("timer").innerText=t;
-    if(--t<0){
-      clearInterval(i);
-      document.getElementById("downloadBtn").disabled=false;
+  // Backend API baru (lebih reliable untuk no-watermark)
+  const backendURL = "https://api.tiklydown.eu.org/api/download?url=" + encodeURIComponent(url);
+
+  try {
+    const res = await fetch(backendURL);
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
     }
-  },1000);
+    const data = await res.json();
+    
+    // Validasi data (sesuaikan dengan struktur API baru)
+    if (!data || (!data.video && !data.video_hd && !data.video_no_watermark)) {
+      throw new Error("Video tidak ditemukan atau API gagal mengambil data");
+    }
+    
+    videoData = data;  // Simpan data
+    
+    // Timer 5 detik
+    let t = 5;
+    const i = setInterval(() => {
+      document.getElementById("timer").innerText = t;
+      if (--t < 0) {
+        clearInterval(i);
+        document.getElementById("downloadBtn").disabled = false;
+      }
+    }, 1000);
+  } catch (error) {
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("adModal").style.display = "none";
+    alert("Error: " + error.message + ". Coba lagi atau ganti link.");
+    console.error("Fetch error:", error);
+  }
 }
 
-function startDownload(){
-  clickSound.play();
-  document.getElementById("adModal").style.display="none";
+function startDownload() {
+  playSound();
+  document.getElementById("adModal").style.display = "none";
 
-  let link = selectedQuality === "hdnowm"
-    ? videoData.hdplay || videoData.play
-    : selectedQuality === "hd"
-    ? videoData.hdplay || videoData.play
-    : videoData.play;
+  // Tentukan link berdasarkan quality (sesuaikan dengan struktur API)
+  let link = "";
+  if (selectedQuality === "hdnowm") {
+    link = videoData.video_no_watermark || videoData.video_hd || videoData.video;
+  } else if (selectedQuality === "hd") {
+    link = videoData.video_hd || videoData.video;
+  } else {
+    link = videoData.video;
+  }
 
-  setTimeout(()=>{ window.open("https://otieu.com/4/10391957","_blank"); },300);
+  if (!link) {
+    alert("Link download tidak tersedia untuk quality ini.");
+    return;
+  }
 
-  setTimeout(()=>{
-    document.getElementById("loading").style.display="none";
-    document.getElementById("result").innerHTML=`
+  // Buka iklan di tab baru
+  setTimeout(() => { window.open("https://otieu.com/4/10391957", "_blank"); }, 300);
+
+  // Tampilkan hasil setelah delay
+  setTimeout(() => {
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("result").innerHTML = `
       <video controls src="${link}"></video><br>
       <a href="${link}" download onclick="window.open('https://otieu.com/4/10391957','_blank')">⬇ Download Video</a>
-      <a href="${videoData.music}" download onclick="window.open('https://otieu.com/4/10391957','_blank')">🎵 Download MP3</a>
+      ${videoData.music ? `<a href="${videoData.music}" download onclick="window.open('https://otieu.com/4/10391957','_blank')">🎵 Download MP3</a>` : ''}
     `;
-  },1000);
+  }, 1000);
+}
+
+function playSound() {
+  try {
+    clickSound.play();
+  } catch (e) {
+    console.log("Audio play failed:", e);  // Tidak fatal, hanya log
+  }
 }
 </script>
 
