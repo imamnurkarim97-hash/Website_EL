@@ -192,7 +192,7 @@ function prepareDownload(){
   window.open("https://otieu.com/4/10391957","_blank");
 
   // LANGSUNG REDIRECT KE BACKEND UNTUK DOWNLOAD
-  let backendURL = "https://downloader99.vercel.app/api/tiktok?url=" + encodeURIComponent(url);
+  let backendURL = "https://tiktok-downloader-57nb.vercel.app/api/tiktok?url=" + encodeURIComponent(url);
   if(selectedQuality === "hdnowm") backendURL += "&quality=hdnowm";
   else if(selectedQuality === "sd") backendURL += "&quality=sd";
   else backendURL += "&quality=hd";
