@@ -3,73 +3,224 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="monetag" content="c65fdf7192ffdd78950cc719cbefe341">
+
 <title>Virendra EL-Karim | TikTok Downloader</title>
 <meta name="description" content="Download video TikTok tanpa watermark secara gratis.">
 
+<!-- GOOGLE ADSENSE -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2613355217837386" crossorigin="anonymous"></script>
+
+<!-- MONETAG -->
+<script src="https://3nbf4.com/act/files/tag.min.js?z=10391874" data-cfasync="false" async></script>
+
 <!-- FONT AWESOME ICONS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"/>
 
 <style>
-body { background:#05000a;color:#fff;font-family:sans-serif; text-align:center; padding:20px;}
-input, select, button { padding:10px; margin:5px; border-radius:6px; border:none;}
-button { cursor:pointer; background:#00ffff; color:#000; font-weight:bold;}
-video { width:100%; max-width:500px; margin-top:20px; border-radius:12px;}
-#result a { display:inline-block; margin:8px; padding:10px; border:2px solid #00ffff; color:#00ffff; text-decoration:none; border-radius:6px;}
-#loading{display:none; font-weight:bold; margin-top:10px;}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+
+/* ================= NEON STYLE ASLI ================= */
+:root{
+  --neon1:#00ffff;--neon2:#b100ff;--neon3:#ff00ff;
+  --neon4:#ffea00;--neon5:#00ff7f;--neon6:#ff4500;
+  --glass:rgba(255,255,255,0.06);
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;font-family:'Orbitron',sans-serif;min-height:100vh;
+  color:#fff;overflow-x:hidden;background:#05000a;
+  position:relative;
+  animation:bodyGlow 10s linear infinite;
+}
+@keyframes bodyGlow{
+  0%{background:#05000a;}
+  20%{background:#0a001f;}
+  40%{background:#05000a;}
+  60%{background:#10001a;}
+  80%{background:#05000a;}
+  100%{background:#0a000f;}
+}
+body::before{
+  content:"";position:fixed;inset:0;
+  background:
+    linear-gradient(180deg,rgba(0,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(177,0,255,.05) 1px,transparent 1px),
+    radial-gradient(circle at top,#12001f,#05000a 80%);
+  background-size:40px 40px,40px 40px,cover;
+  z-index:-2;
+  animation:gridMove 15s linear infinite;
+}
+@keyframes gridMove{
+  0%{background-position:0 0,0 0,0 0;}
+  100%{background-position:120px 120px,120px 120px,0 0;}
+}
+body::after{
+  content:"";position:fixed;inset:0;
+  background:repeating-linear-gradient(45deg,rgba(255,0,255,0.02),rgba(255,0,255,0.02) 2px,transparent 2px,transparent 4px);
+  z-index:-1;
+  animation:glitchMove 3s infinite linear;
+}
+@keyframes glitchMove{
+  0%{transform:translate(0,0);}
+  25%{transform:translate(-5px,2px);}
+  50%{transform:translate(3px,-3px);}
+  75%{transform:translate(-2px,1px);}
+  100%{transform:translate(0,0);}
+}
+@keyframes neonColor{
+  0%{color:var(--neon1);}
+  20%{color:var(--neon2);}
+  40%{color:var(--neon3);}
+  60%{color:var(--neon4);}
+  80%{color:var(--neon5);}
+  100%{color:var(--neon6);}
+}
+@keyframes neonBorder{
+  0%{border-color:var(--neon1);}
+  20%{border-color:var(--neon2);}
+  40%{border-color:var(--neon3);}
+  60%{border-color:var(--neon4);}
+  80%{border-color:var(--neon5);}
+  100%{border-color:var(--neon6);}
+}
+@keyframes pulseGlow{
+  0%{box-shadow:0 0 8px currentColor,0 0 16px currentColor;}
+  50%{box-shadow:0 0 18px currentColor,0 0 36px currentColor;}
+  100%{box-shadow:0 0 8px currentColor,0 0 16px currentColor;}
+}
+
+/* NAVBAR */
+.navbar{
+  display:flex;justify-content:space-between;flex-wrap:wrap;
+  padding:18px 30px;background:rgba(0,0,0,.7);
+  backdrop-filter:blur(10px);
+  border-bottom:2px solid currentColor;
+  animation: neonBorder 5s infinite alternate;
+}
+.logo{letter-spacing:3px;animation:neonColor 5s infinite alternate;font-size:1.5em;}
+.navbar a{margin-left:15px;text-decoration:none;font-weight:600;display:flex;align-items:center;animation:neonColor 5s infinite alternate;}
+.navbar a i{margin-right:6px;}
+
+/* CONTAINER */
+.container{max-width:900px;margin:auto;padding:20px;text-align:center;}
+.downloader{
+  background:var(--glass);backdrop-filter:blur(14px);
+  border:2px solid currentColor;border-radius:18px;padding:20px;
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+  animation: neonBorder 5s infinite alternate;
+}
+input,select{
+  background:#06000f;color:#fff;padding:10px;border-radius:10px;
+  border:2px solid currentColor;animation: neonBorder 5s infinite alternate;
+}
+button{
+  background:transparent;color:currentColor;border:2px solid currentColor;
+  padding:10px 16px;border-radius:12px;cursor:pointer;transition:0.3s;
+}
+button:hover{animation:pulseGlow 1.5s infinite;}
+video{width:100%;max-width:600px;margin-top:20px;border-radius:12px;}
+#result a{display:inline-block;margin:8px;padding:10px 16px;border:2px solid currentColor;color:currentColor;text-decoration:none;transition:0.3s;}
+#result a:hover{animation:pulseGlow 1.5s infinite;}
+#loading{display:none;margin-top:20px;font-weight:bold;font-size:1.2em;animation: neonColor 2s linear infinite alternate;}
+footer{background:rgba(0,0,0,.8);color:currentColor;text-align:center;padding:20px;margin-top:30px;animation: neonColor 5s infinite alternate;}
+
+/* RESPONSIVE */
+@media screen and (max-width:600px){
+  .navbar div{width:100%; display:flex; justify-content:center; flex-wrap:wrap;}
+  .navbar a{margin:8px;}
+  .downloader{flex-direction:column;}
+}
 </style>
 </head>
+
 <body>
 
+<div class="navbar">
+  <div class="logo">VIRENDRA EL-KARIM</div>
+  <div>
+    <a href="#home"><i class="fas fa-home"></i>Home</a>
+    <a href="#about"><i class="fas fa-info-circle"></i>About</a>
+    <a href="privacy.html"><i class="fas fa-user-secret"></i>Privacy</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    <a href="ai/ai-menu.html"><i class="fas fa-robot"></i>AI Chat</a>
+  </div>
+</div>
+
+<div class="container" id="home">
 <h1>Download Video TikTok</h1>
 
-<input id="tiktokUrl" placeholder="https://vt.tiktok.com/xxxxx" style="width:60%;">
-<select id="quality">
-  <option value="hd">HD</option>
-  <option value="sd">SD</option>
-  <option value="hdnowm">HD Tanpa Watermark</option>
-</select>
-<button onclick="prepareDownload()">Download</button>
+<div class="downloader">
+  <input id="tiktokUrl" placeholder="https://vt.tiktok.com/xxxxx">
+  <button onclick="pasteLink()">Tempel</button>
+  <select id="quality">
+    <option value="hd">HD</option>
+    <option value="sd">SD</option>
+    <option value="hdnowm">HD Tanpa Watermark</option>
+  </select>
+  <button onclick="prepareDownload()">Download</button>
+</div>
 
 <div id="loading">Loading video… ⚡</div>
 <div id="result"></div>
+</div>
+
+<footer>© 2025 Virendra EL-Karim</footer>
 
 <script>
-let selectedQuality = "hd";
+const clickSound = new Audio('https://freesound.org/data/previews/522/522178_861714-lq.mp3');
+let videoData=null;
+let selectedQuality="hd";
+
+function pasteLink(){
+  navigator.clipboard.readText().then(t=>{
+    document.getElementById("tiktokUrl").value=t;
+    clickSound.play();
+  });
+}
 
 function prepareDownload(){
-    const url = document.getElementById("tiktokUrl").value.trim();
-    selectedQuality = document.getElementById("quality").value;
-    if(!url) return alert("Masukkan link TikTok");
+  const url = document.getElementById("tiktokUrl").value.trim();
+  selectedQuality = document.getElementById("quality").value;
+  if(!url) return alert("Masukkan link TikTok");
 
-    document.getElementById("loading").style.display = "block";
-    document.getElementById("result").innerHTML = "";
+  clickSound.play();
+  document.getElementById("loading").style.display="block";
+  document.getElementById("result").innerHTML="";
 
-    // Backend URL tetap diarahkan ke downloader99
-    const backendURL = "https://downloader99.vercel.app/api/tiktok?url=" + encodeURIComponent(url);
+  // BUKA IKLAN POPUP
+  window.open("https://otieu.com/4/10391957","_blank");
 
-    fetch(backendURL)
-      .then(res => res.json())
-      .then(data => {
-          document.getElementById("loading").style.display = "none";
-          if(data.error) return alert("Gagal download: " + data.error);
+  // LANGSUNG REDIRECT KE BACKEND UNTUK DOWNLOAD
+  let backendURL = "https://downloader99.vercel.app/api/tiktok?url=" + encodeURIComponent(url);
+  if(selectedQuality === "hdnowm") backendURL += "&quality=hdnowm";
+  else if(selectedQuality === "sd") backendURL += "&quality=sd";
+  else backendURL += "&quality=hd";
 
-          // Pilih link video sesuai quality
-          let videoLink;
-          if(selectedQuality === "hdnowm") videoLink = data.video.hdplay || data.video.play;
-          else if(selectedQuality === "hd") videoLink = data.video.hdplay || data.video.play;
-          else videoLink = data.video.play;
+  // Redirect browser → backend akan handle video download
+  window.location.href = backendURL;
+}
 
-          document.getElementById("result").innerHTML = `
-            <video controls src="${videoLink}"></video><br>
-            <a href="${videoLink}" download>⬇ Download Video</a>
-            <a href="${data.music}" download>🎵 Download MP3</a>
-          `;
-      })
-      .catch(err => {
-          document.getElementById("loading").style.display = "none";
-          alert("Gagal fetch backend: " + err.message);
-          console.error(err);
-      });
+function startDownload(){
+  let link =
+    selectedQuality==="hdnowm"?videoData.hdplay||videoData.play:
+    selectedQuality==="hd"?videoData.hdplay||videoData.play:
+    videoData.play;
+
+  document.getElementById("loading").style.display="none";
+  document.getElementById("result").innerHTML=`
+    <video controls src="${link}"></video><br>
+    <a href="${link}" download>⬇ Download Video</a>
+    <a href="${videoData.music}" download>🎵 Download MP3</a>
+  `;
+
+  // AUTO DOWNLOAD FILE
+  const a = document.createElement("a");
+  a.href = link;
+  a.download = "";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 }
 </script>
 
