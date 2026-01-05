@@ -14,11 +14,10 @@
 <!-- MONETAG -->
 <script src="https://3nbf4.com/act/files/tag.min.js?z=10391874" data-cfasync="false" async></script>
 
-<!-- FONT AWESOME ICONS -->
+<!-- FONT AWESOME -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"/>
 
 <style>
-/* ================= CSS ASLI – TIDAK DIUBAH ================= */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
 :root{
   --neon1:#00ffff;--neon2:#b100ff;--neon3:#ff00ff;
@@ -133,12 +132,6 @@ footer{text-align:center;padding:20px;margin-top:30px;}
 
 <footer>© 2025 Virendra EL-Karim</footer>
 
-<div class="modal" id="adModal">
-  <div class="modal-content">
-    <h3>Memuat iklan…</h3>
-  </div>
-</div>
-
 <script>
 const clickSound = new Audio('https://freesound.org/data/previews/522/522178_861714-lq.mp3');
 let videoData=null;
@@ -159,18 +152,20 @@ async function prepareDownload(){
   clickSound.play();
   document.getElementById("loading").style.display="block";
 
-  const res=await fetch(
-    "https://downloader99.vercel.app/tiktok?url="+encodeURIComponent(url)
+  const res = await fetch(
+    "https://tiktok-downloader-57nb.vercel.app/api/tiktok?url=" +
+    encodeURIComponent(url)
   );
-  const data=await res.json();
-  if(!data?.play) return alert("Gagal mengambil video");
+  const data = await res.json();
+
+  if(!data?.play){
+    document.getElementById("loading").style.display="none";
+    return alert("Gagal mengambil video");
+  }
 
   videoData=data;
 
-  /* IKLAN LANGSUNG MUNCUL */
   window.open("https://otieu.com/4/10391957","_blank");
-
-  /* LANGSUNG DOWNLOAD */
   startDownload();
 }
 
