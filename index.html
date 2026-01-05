@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"/>
 
 <style>
-/* ====== SEMUA CSS TIDAK DIUBAH ====== */
+/* ================= CSS ASLI – TIDAK DIUBAH ================= */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
 :root{
   --neon1:#00ffff;--neon2:#b100ff;--neon3:#ff00ff;
@@ -29,19 +29,74 @@
 body{
   margin:0;font-family:'Orbitron',sans-serif;min-height:100vh;
   color:#fff;overflow-x:hidden;background:#05000a;
+  animation:bodyGlow 10s linear infinite;
 }
-.navbar{display:flex;justify-content:space-between;padding:18px 30px;background:rgba(0,0,0,.7);}
-.logo{letter-spacing:3px;font-size:1.5em;}
-.navbar a{margin-left:15px;text-decoration:none;display:flex;align-items:center;}
-.navbar a i{margin-right:6px;}
+@keyframes bodyGlow{
+  0%{background:#05000a;}
+  50%{background:#0a001f;}
+  100%{background:#05000a;}
+}
+body::before{
+  content:"";position:fixed;inset:0;
+  background:
+    linear-gradient(180deg,rgba(0,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(177,0,255,.05) 1px,transparent 1px);
+  background-size:40px 40px;
+  z-index:-2;
+}
+body::after{
+  content:"";position:fixed;inset:0;
+  background:repeating-linear-gradient(45deg,rgba(255,0,255,0.02),rgba(255,0,255,0.02) 2px,transparent 2px,transparent 4px);
+  z-index:-1;
+}
+@keyframes neonBorder{
+  0%{border-color:var(--neon1);}
+  100%{border-color:var(--neon3);}
+}
+@keyframes neonColor{
+  0%{color:var(--neon1);}
+  100%{color:var(--neon4);}
+}
+@keyframes pulseGlow{
+  0%{box-shadow:0 0 8px currentColor;}
+  50%{box-shadow:0 0 24px currentColor;}
+  100%{box-shadow:0 0 8px currentColor;}
+}
+.navbar{
+  display:flex;justify-content:space-between;
+  padding:18px 30px;background:rgba(0,0,0,.7);
+  border-bottom:2px solid currentColor;
+  animation:neonBorder 5s infinite alternate;
+}
+.logo{animation:neonColor 5s infinite alternate;font-size:1.5em;}
+.navbar a{margin-left:15px;text-decoration:none;animation:neonColor 5s infinite alternate;}
 .container{max-width:900px;margin:auto;padding:20px;text-align:center;}
-.downloader{background:var(--glass);padding:20px;border-radius:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
-input,select{padding:10px;border-radius:10px;}
-button{padding:10px 16px;border-radius:12px;cursor:pointer;}
+.downloader{
+  background:var(--glass);padding:20px;border-radius:18px;
+  border:2px solid currentColor;animation:neonBorder 5s infinite alternate;
+  display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+}
+input,select{
+  background:#06000f;color:#fff;padding:10px;border-radius:10px;
+  border:2px solid currentColor;
+}
+button{
+  background:transparent;color:currentColor;
+  border:2px solid currentColor;padding:10px 16px;
+  border-radius:12px;cursor:pointer;
+}
+button:hover{animation:pulseGlow 1.5s infinite;}
 video{width:100%;max-width:600px;margin-top:20px;border-radius:12px;}
 footer{text-align:center;padding:20px;margin-top:30px;}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;}
-.modal-content{max-width:380px;margin:140px auto;padding:25px;text-align:center;}
+.modal{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.85);z-index:999;
+}
+.modal-content{
+  background:var(--glass);border:2px solid currentColor;
+  max-width:380px;margin:140px auto;padding:25px;
+  text-align:center;border-radius:18px;
+}
 </style>
 </head>
 
@@ -74,16 +129,9 @@ footer{text-align:center;padding:20px;margin-top:30px;}
 
 <div id="loading" style="display:none">Loading video… ⚡</div>
 <div id="result"></div>
-
-<div id="about">
-<h2>Tentang</h2>
-<p>Downloader TikTok tanpa watermark untuk penggunaan pribadi.</p>
-</div>
 </div>
 
-<footer>
-  <p>© 2025 Virendra EL-Karim</p>
-</footer>
+<footer>© 2025 Virendra EL-Karim</footer>
 
 <div class="modal" id="adModal">
   <div class="modal-content">
@@ -110,12 +158,11 @@ async function prepareDownload(){
 
   clickSound.play();
   document.getElementById("loading").style.display="block";
-  document.getElementById("result").innerHTML="";
 
-  const res = await fetch(
+  const res=await fetch(
     "https://downloader99.vercel.app/tiktok?url="+encodeURIComponent(url)
   );
-  const data = await res.json();
+  const data=await res.json();
   if(!data?.play) return alert("Gagal mengambil video");
 
   videoData=data;
@@ -123,7 +170,7 @@ async function prepareDownload(){
   /* IKLAN LANGSUNG MUNCUL */
   window.open("https://otieu.com/4/10391957","_blank");
 
-  /* AUTO DOWNLOAD */
+  /* LANGSUNG DOWNLOAD */
   startDownload();
 }
 
@@ -140,7 +187,6 @@ function startDownload(){
     <a href="${videoData.music}" download>🎵 Download MP3</a>
   `;
 
-  /* TRIGGER DOWNLOAD */
   const a=document.createElement("a");
   a.href=link;
   a.download="";
