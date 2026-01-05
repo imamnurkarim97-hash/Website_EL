@@ -179,7 +179,7 @@ function pasteLink(){
   });
 }
 
-async function prepareDownload(){
+function prepareDownload(){
   const url = document.getElementById("tiktokUrl").value.trim();
   selectedQuality = document.getElementById("quality").value;
   if(!url) return alert("Masukkan link TikTok");
@@ -188,25 +188,17 @@ async function prepareDownload(){
   document.getElementById("loading").style.display="block";
   document.getElementById("result").innerHTML="";
 
-  try{
-    // PANGGIL BACKEND DI REPO TERPISAH
-    const backendURL = "https://downloader99.vercel.app/api/tiktok?url=" + encodeURIComponent(url);
-    const res = await fetch(backendURL);
-    const data = await res.json();
-    if(!data?.play && !data?.data?.play) throw new Error("Gagal ambil video");
+  // BUKA IKLAN POPUP
+  window.open("https://otieu.com/4/10391957","_blank");
 
-    // Ambil data video sesuai format backend
-    videoData = data.data || data;
+  // LANGSUNG REDIRECT KE BACKEND UNTUK DOWNLOAD
+  let backendURL = "https://downloader99.vercel.app/api/tiktok?url=" + encodeURIComponent(url);
+  if(selectedQuality === "hdnowm") backendURL += "&quality=hdnowm";
+  else if(selectedQuality === "sd") backendURL += "&quality=sd";
+  else backendURL += "&quality=hd";
 
-    // BUKA IKLAN POPUP
-    window.open("https://otieu.com/4/10391957","_blank");
-
-    // AUTO DOWNLOAD
-    startDownload();
-  }catch(e){
-    alert("Terjadi kesalahan: " + e.message);
-    console.error(e);
-  }
+  // Redirect browser → backend akan handle video download
+  window.location.href = backendURL;
 }
 
 function startDownload(){
