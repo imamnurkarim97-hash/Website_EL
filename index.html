@@ -190,7 +190,7 @@ async function prepareDownload(){
 
   try{
     // PANGGIL BACKEND DI REPO TERPISAH
-    const backendURL = "https://tiktok-downloader-chi.vercel.app/api/tiktok?url=" + encodeURIComponent(url);
+    const backendURL = "https://downloader99.vercel.app/api/tiktok?url=" + encodeURIComponent(url);
     const res = await fetch(backendURL);
     const data = await res.json();
     if(!data?.play && !data?.data?.play) throw new Error("Gagal ambil video");
