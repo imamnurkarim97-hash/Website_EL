@@ -178,35 +178,6 @@ button:hover{
   animation:pulseGlow 1.5s infinite;
 }
 
-/* VIDEO + RESULT */
-video{
-  width:100%;
-  max-width:600px;
-  margin-top:20px;
-  border-radius:12px;
-}
-#result a{
-  display:inline-block;
-  margin:8px;
-  padding:10px 16px;
-  border:2px solid currentColor;
-  color:currentColor;
-  text-decoration:none;
-  transition:0.3s;
-}
-#result a:hover{
-  animation:pulseGlow 1.5s infinite;
-}
-
-/* LOADING ANIMATION */
-#loading{
-  display:none;
-  margin-top:20px;
-  font-weight:bold;
-  font-size:1.2em;
-  animation: neonColor 2s linear infinite alternate;
-}
-
 /* FOOTER */
 footer{
   background:rgba(0,0,0,.8);
@@ -215,25 +186,6 @@ footer{
   padding:20px;
   margin-top:30px;
   animation: neonColor 5s infinite alternate;
-}
-
-/* MODAL */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  z-index:999;
-}
-.modal-content{
-  background:var(--glass);
-  border:2px solid currentColor;
-  max-width:380px;
-  margin:140px auto;
-  padding:25px;
-  text-align:center;
-  border-radius:18px;
-  animation: neonBorder 5s infinite alternate;
 }
 
 /* RESPONSIVE */
@@ -265,17 +217,8 @@ footer{
 
 <div class="downloader">
   <input id="tiktokUrl" placeholder="https://vt.tiktok.com/xxxxx">
-  <button onclick="pasteLink()">Tempel</button>
-  <select id="quality">
-    <option value="hd">HD</option>
-    <option value="sd">SD</option>
-    <option value="hdnowm">HD Tanpa Watermark</option>
-  </select>
-  <button onclick="startDownload()">Download</button>
+  <button onclick="redirectDownload()">Download</button>
 </div>
-
-<div id="loading">Loading video… ⚡</div>
-<div id="result"></div>
 
 <div id="about">
 <h2>Tentang</h2>
@@ -287,48 +230,17 @@ footer{
   <p>© 2025 Virendra EL-Karim</p>
 </footer>
 
-<!-- MODAL -->
-<div class="modal" id="adModal">
-  <div class="modal-content">
-    <h3>Tunggu sebentar…</h3>
-    <div id="timer">5</div>
-    <button id="downloadBtn" disabled onclick="startDownload()">Lanjutkan</button>
-  </div>
-</div>
-
 <script>
-// SOUND EFFECT
-const clickSound = new Audio('https://freesound.org/data/previews/522/522178_861714-lq.mp3');
-
-function pasteLink() {
-  navigator.clipboard.readText().then(text => {
-    document.getElementById("tiktokUrl").value = text;
-    playSound();
-  }).catch(err => {
-    alert("Gagal menempel link: " + err.message);
-  });
-}
-
-// Opsi 2: Redirect ke downloader eksternal (gratis, anti blokir)
-function startDownload() {
+// Fungsi redirect murni, tidak ada fetch / API
+function redirectDownload() {
   const url = document.getElementById("tiktokUrl").value.trim();
   if (!url || !url.includes("tiktok.com")) {
-    return alert("Masukkan link TikTok yang valid");
+    alert("Masukkan link TikTok yang valid");
+    return;
   }
-
-  // Redirect ke situs downloader eksternal
+  // Redirect ke Snaptik (gratis, stabil)
   const redirectURL = "https://snaptik.app/?url=" + encodeURIComponent(url);
   window.open(redirectURL, "_blank");
-
-  playSound();
-}
-
-function playSound() {
-  try {
-    clickSound.play();
-  } catch (e) {
-    console.log("Audio play failed:", e);
-  }
 }
 </script>
 
