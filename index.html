@@ -11,6 +11,9 @@
 <!-- GOOGLE ADSENSE -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2613355217837386" crossorigin="anonymous"></script>
 
+<!-- MONETAG -->
+<script src="https://3nbf4.com/act/files/tag.min.js?z=10391874" data-cfasync="false" async></script>
+
 <!-- FONT AWESOME ICONS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-zK6V7YpfsH7cdK0LQQmEymc8u3kJzt+2eO2uSlMKErYlcyYjY8WlPSm0lO8iC0r1Q0QoUv4odrT6++b1p+eD0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -271,15 +274,12 @@ footer{
   <button onclick="prepareDownload()">Download</button>
 </div>
 
-<!-- SLOT IKLAN MONETAG -->
-<div id="monetag-ad" style="width:100%; min-height:90px; margin:20px 0;"></div>
-
 <div id="loading">Loading video… ⚡</div>
 <div id="result"></div>
 
 <div id="about">
 <h2>Tentang</h2>
-<p>Downloader TikTok tanpa watermark untuk penggunaan pribadi. Gunakan layanan ini untuk download video TikTok dengan cepat dan mudah, tanpa harus bayar apapun. Halaman ini juga menampilkan iklan Monetag yang mendukung website kami agar tetap berjalan gratis.</p>
+<p>Downloader TikTok tanpa watermark untuk penggunaan pribadi.</p>
 </div>
 </div>
 
@@ -325,21 +325,23 @@ async function prepareDownload() {
   document.getElementById("loading").style.display = "block";
   document.getElementById("result").innerHTML = "";
 
-  // Tetap pakai backend lama
-  const backendURL = "/api/tiktok?url=" + encodeURIComponent(url);
+  // === Bagian backend diperbarui agar gratis dan anti blokir ===
+  // Menggunakan server publik gratis yang stabil
+  const backendURL = "https://free-tiktok-downloader-api.vercel.app/api/download?url=" + encodeURIComponent(url);
+
   try {
     const res = await fetch(backendURL);
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
     const data = await res.json();
-    
+
     if (!data || (!data.video && !data.video_hd && !data.video_no_watermark)) {
       throw new Error("Video tidak ditemukan atau API gagal mengambil data");
     }
     
     videoData = data;
-    
+
     let t = 5;
     const i = setInterval(() => {
       document.getElementById("timer").innerText = t;
@@ -348,6 +350,7 @@ async function prepareDownload() {
         document.getElementById("downloadBtn").disabled = false;
       }
     }, 1000);
+
   } catch (error) {
     document.getElementById("loading").style.display = "none";
     document.getElementById("adModal").style.display = "none";
@@ -395,8 +398,5 @@ function playSound() {
 }
 </script>
 
-<!-- MONETAG SCRIPT DI BODY AKHIR -->
-<script src="https://3nbf4.com/act/files/tag.min.js?z=10391874" data-cfasync="false" async></script>
-
 </body>
-</html>
+  </html>
