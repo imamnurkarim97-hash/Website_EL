@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="monetag" content="c65fdf7192ffdd78950cc719cbefe341">
+
 <title>Virendra EL-Karim | TikTok Downloader</title>
 <meta name="description" content="Download video TikTok tanpa watermark secara gratis.">
 
@@ -13,12 +14,13 @@
 <!-- MONETAG -->
 <script src="https://3nbf4.com/act/files/tag.min.js?z=10391874" data-cfasync="false" async></script>
 
-<!-- FONT AWESOME -->
+<!-- FONT AWESOME ICONS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style>
-/* --- SEMUA STYLE TAMPILAN KAMU TIDAK DIUBAH --- */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+
+/* ======= TAMPILAN ASLI WEBSITE ======= */
 :root{--neon1:#00ffff;--neon2:#b100ff;--neon3:#ff00ff;--neon4:#ffea00;--neon5:#00ff7f;--neon6:#ff4500;--glass:rgba(255,255,255,0.06);}
 *{box-sizing:border-box;}
 body{margin:0;font-family:'Orbitron',sans-serif;min-height:100vh;color:#fff;overflow-x:hidden;background:#05000a;position:relative;animation:bodyGlow 10s linear infinite;}
@@ -27,7 +29,6 @@ body::before{content:"";position:fixed;inset:0;background:linear-gradient(180deg
 @keyframes gridMove{0%{background-position:0 0,0 0,0 0;}100%{background-position:120px 120px,120px 120px,0 0;}}
 body::after{content:"";position:fixed;inset:0;background:repeating-linear-gradient(45deg,rgba(255,0,255,0.02),rgba(255,0,255,0.02) 2px,transparent 2px,transparent 4px);z-index:-1;animation:glitchMove 3s infinite linear;}
 @keyframes glitchMove{0%{transform:translate(0,0);}25%{transform:translate(-5px,2px);}50%{transform:translate(3px,-3px);}75%{transform:translate(-2px,1px);}100%{transform:translate(0,0);}}
-/* NEON TEXT & BORDER ANIMATION */
 @keyframes neonColor{0%{color:var(--neon1);}20%{color:var(--neon2);}40%{color:var(--neon3);}60%{color:var(--neon4);}80%{color:var(--neon5);}100%{color:var(--neon6);}}
 @keyframes neonBorder{0%{border-color:var(--neon1);}20%{border-color:var(--neon2);}40%{border-color:var(--neon3);}60%{border-color:var(--neon4);}80%{border-color:var(--neon5);}100%{border-color:var(--neon6);}}
 @keyframes pulseGlow{0%{box-shadow:0 0 8px currentColor,0 0 16px currentColor;}50%{box-shadow:0 0 18px currentColor,0 0 36px currentColor;}100%{box-shadow:0 0 8px currentColor,0 0 16px currentColor;}}
@@ -47,11 +48,12 @@ video{width:100%;max-width:600px;margin-top:20px;border-radius:12px;}
 footer{background:rgba(0,0,0,.8);color:currentColor;text-align:center;padding:20px;margin-top:30px;animation: neonColor 5s infinite alternate;}
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;}
 .modal-content{background:var(--glass);border:2px solid currentColor;max-width:380px;margin:140px auto;padding:25px;text-align:center;border-radius:18px;animation: neonBorder 5s infinite alternate;}
-@media screen and (max-width:600px){.navbar div{width:100%; display:flex; justify-content:center; flex-wrap:wrap;}.navbar a{margin:8px;}.downloader{flex-direction:column;}}
+@media screen and (max-width:600px){.navbar div{width:100%;display:flex;justify-content:center;flex-wrap:wrap;}.navbar a{margin:8px;}.downloader{flex-direction:column;}}
 </style>
 </head>
-
 <body>
+
+<!-- NAVBAR -->
 <div class="navbar">
   <div class="logo">VIRENDRA EL-KARIM</div>
   <div>
@@ -63,6 +65,7 @@ footer{background:rgba(0,0,0,.8);color:currentColor;text-align:center;padding:20
   </div>
 </div>
 
+<!-- CONTENT -->
 <div class="container" id="home">
 <h1>Download Video TikTok</h1>
 <div class="downloader">
@@ -77,7 +80,6 @@ footer{background:rgba(0,0,0,.8);color:currentColor;text-align:center;padding:20
 </div>
 <div id="loading">Loading video… ⚡</div>
 <div id="result"></div>
-
 <div id="about">
 <h2>Tentang</h2>
 <p>Downloader TikTok tanpa watermark untuk penggunaan pribadi.</p>
@@ -88,54 +90,66 @@ footer{background:rgba(0,0,0,.8);color:currentColor;text-align:center;padding:20
   <p>© 2025 Virendra EL-Karim</p>
 </footer>
 
-<!-- MODAL -->
+<!-- MODAL IKLAN SEBELUM REDIRECT -->
 <div class="modal" id="adModal">
   <div class="modal-content">
     <h3>Tunggu sebentar…</h3>
-    <div id="timer">3</div>
-    <button id="downloadBtn" disabled onclick="startDownload()">Lanjutkan</button>
+    <!-- Tempat script monetag / iklan video -->
+    <div style="margin:10px 0;">
+      <!-- Contoh banner iklan -->
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-2613355217837386"
+        data-ad-slot="1234567890"
+        data-ad-format="auto"></ins>
+    </div>
+    <div id="timer">5</div>
+    <button id="downloadBtn" disabled>Download</button>
   </div>
 </div>
 
 <script>
+// SOUND EFFECT
 const clickSound = new Audio('https://freesound.org/data/previews/522/522178_861714-lq.mp3');
-let videoData = null;
-let selectedQuality = "hd";
 
-function pasteLink() {
-  navigator.clipboard.readText().then(text => {
-    document.getElementById("tiktokUrl").value = text;
-    playSound();
-  }).catch(err => alert("Gagal menempel link: "+err.message));
+function pasteLink(){
+  navigator.clipboard.readText().then(text=>{
+    document.getElementById("tiktokUrl").value=text;
+    clickSound.play().catch(()=>{});
+  }).catch(err=>{alert("Gagal menempel link: "+err.message)});
 }
 
-async function prepareDownload() {
-  const url = document.getElementById("tiktokUrl").value.trim();
-  selectedQuality = document.getElementById("quality").value;
-  if(!url || !url.includes("tiktok.com")) return alert("Masukkan link TikTok yang valid");
-
-  playSound();
-  document.getElementById("adModal").style.display="block";
-  document.getElementById("loading").style.display="block";
-  document.getElementById("result").innerHTML="";
-
-  // FULL REDIRECT TANPA ERROR
-  let target = "https://snaptik.app/";
-  setTimeout(()=>{
-    window.open(target,"_blank");
-    document.getElementById("loading").style.display="none";
-    document.getElementById("adModal").style.display="none";
-  },3000);
-}
-
-function startDownload(){
-  playSound();
-  document.getElementById("adModal").style.display="none";
-}
-
-function playSound(){
-  try{clickSound.play();}catch(e){console.log(e);}
+function prepareDownload(){
+  const url=document.getElementById("tiktokUrl").value.trim();
+  if(!url){alert("Masukkan link TikTok yang valid");return;}
+  
+  clickSound.play().catch(()=>{});
+  const modal=document.getElementById("adModal");
+  const btn=document.getElementById("downloadBtn");
+  const timerEl=document.getElementById("timer");
+  modal.style.display="block";
+  btn.disabled=true;
+  
+  // Timer 5 detik sebelum tombol aktif
+  let t=5;
+  const i=setInterval(()=>{
+    timerEl.innerText=t;
+    if(--t<0){
+      clearInterval(i);
+      btn.disabled=false;
+    }
+  },1000);
+  
+  btn.onclick=function(){
+    modal.style.display="none";
+    // redirect ke link yang diinginkan
+    window.location.href=url;
+  };
+  
+  // Load iklan
+  try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}
 }
 </script>
+
 </body>
 </html>
