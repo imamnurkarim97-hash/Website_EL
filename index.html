@@ -11,17 +11,6 @@
 <!-- GOOGLE ADSENSE -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2613355217837386" crossorigin="anonymous"></script>
 
-<!-- MONETAG -->
-<script src="https://3nbf4.com/act/files/tag.min.js?z=10391874" data-cfasync="false" async></script>
-
-<!-- VIGNETTE BANNER / VIDEO -->
-<script>
-(function(s){
-  s.dataset.zone='10460882';
-  s.src='https://gizokraijaw.net/vignette.min.js';
-})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
-</script>
-
 <!-- FONT AWESOME ICONS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-zK6V7YpfsH7cdK0LQQmEymc8u3kJzt+2eO2uSlMKErYlcyYjY8WlPSm0lO8iC0r1Q0QoUv4odrT6++b1p+eD0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -282,12 +271,15 @@ footer{
   <button onclick="prepareDownload()">Download</button>
 </div>
 
+<!-- SLOT IKLAN MONETAG -->
+<div id="monetag-ad" style="width:100%; min-height:90px; margin:20px 0;"></div>
+
 <div id="loading">Loading video… ⚡</div>
 <div id="result"></div>
 
 <div id="about">
 <h2>Tentang</h2>
-<p>Downloader TikTok tanpa watermark untuk penggunaan pribadi.</p>
+<p>Downloader TikTok tanpa watermark untuk penggunaan pribadi. Gunakan layanan ini untuk download video TikTok dengan cepat dan mudah, tanpa harus bayar apapun. Halaman ini juga menampilkan iklan Monetag yang mendukung website kami agar tetap berjalan gratis.</p>
 </div>
 </div>
 
@@ -324,7 +316,6 @@ async function prepareDownload() {
   const url = document.getElementById("tiktokUrl").value.trim();
   selectedQuality = document.getElementById("quality").value;
   
-  // Validasi URL
   if (!url || !url.includes("tiktok.com")) {
     return alert("Masukkan link TikTok yang valid (misalnya: https://vt.tiktok.com/xxxxx)");
   }
@@ -334,7 +325,7 @@ async function prepareDownload() {
   document.getElementById("loading").style.display = "block";
   document.getElementById("result").innerHTML = "";
 
-  // Backend API baru (lebih reliable untuk no-watermark)
+  // Tetap pakai backend lama
   const backendURL = "/api/tiktok?url=" + encodeURIComponent(url);
   try {
     const res = await fetch(backendURL);
@@ -343,14 +334,12 @@ async function prepareDownload() {
     }
     const data = await res.json();
     
-    // Validasi data (sesuaikan dengan struktur API baru)
     if (!data || (!data.video && !data.video_hd && !data.video_no_watermark)) {
       throw new Error("Video tidak ditemukan atau API gagal mengambil data");
     }
     
-    videoData = data;  // Simpan data
+    videoData = data;
     
-    // Timer 5 detik
     let t = 5;
     const i = setInterval(() => {
       document.getElementById("timer").innerText = t;
@@ -371,7 +360,6 @@ function startDownload() {
   playSound();
   document.getElementById("adModal").style.display = "none";
 
-  // Tentukan link berdasarkan quality (sesuaikan dengan struktur API)
   let link = "";
   if (selectedQuality === "hdnowm") {
     link = videoData.video_no_watermark || videoData.video_hd || videoData.video;
@@ -386,10 +374,8 @@ function startDownload() {
     return;
   }
 
-  // Buka iklan di tab baru
   setTimeout(() => { window.open("https://otieu.com/4/10391957", "_blank"); }, 300);
 
-  // Tampilkan hasil setelah delay
   setTimeout(() => {
     document.getElementById("loading").style.display = "none";
     document.getElementById("result").innerHTML = `
@@ -404,18 +390,13 @@ function playSound() {
   try {
     clickSound.play();
   } catch (e) {
-    console.log("Audio play failed:", e);  // Tidak fatal, hanya log
+    console.log("Audio play failed:", e);
   }
 }
 </script>
 
-<!-- POPUNDER -->
-<script>
-(function(s){
-  s.dataset.zone='10460887';
-  s.src='https://al5sm.com/tag.min.js';
-})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
-</script>
+<!-- MONETAG SCRIPT DI BODY AKHIR -->
+<script src="https://3nbf4.com/act/files/tag.min.js?z=10391874" data-cfasync="false" async></script>
 
 </body>
 </html>
