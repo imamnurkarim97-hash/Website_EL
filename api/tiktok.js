@@ -1,34 +1,28 @@
 import fetch from "node-fetch";
 
 export default async function handler(req, res) {
-  const { url } = req.query;
-
-  if (!url) return res.status(400).json({ error: "URL TikTok tidak diberikan" });
+  const url = req.query.url;
+  if (!url) return res.status(400).json({ error: "Masukkan URL TikTok" });
 
   try {
-    // Contoh fetch TikTok (menggunakan scraping)
-    const apiURL = `https://api.tikwm.com/v1/video/info?url=${encodeURIComponent(url)}&hd=1`;
+    // Pakai API publik gratis anti blokir
+    const apiURL = `https://free-tiktok-downloader-api.vercel.app/api/download?url=${encodeURIComponent(url)}`;
+    
     const response = await fetch(apiURL);
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    
     const data = await response.json();
 
-    if (!data || !data.video || !data.video.no_watermark) {
+    // Pastikan minimal ada satu video
+    if (!data || (!data.video && !data.video_hd && !data.video_no_watermark)) {
       return res.status(404).json({ error: "Video tidak tersedia" });
     }
 
-    // Response JSON
-    res.status(200).json({
-      video: data.video.play_addr,               // SD
-      video_hd: data.video.download_addr,        // HD
-      video_no_watermark: data.video.no_watermark, // HD tanpa watermark
-      music: data.video.music,                   // Musik
-      title: data.video.title,
-      author: data.video.author_name
-    });
+    // Kirim data ke frontend
+    return res.status(200).json(data);
 
   } catch (err) {
-    console.error("API error:", err);
-    res.status(500).json({ error: "Server error", message: err.message });
+    console.error("Fetch error:", err.message);
+    return res.status(500).json({ error: "Server error", message: err.message });
   }
-                          }
+      }
