@@ -20,10 +20,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
 
-/* =========================== */
-/* SEMUA CSS ASLI TANPA DIUBAH */
-/* =========================== */
-
+/* VARIABLES NEON */
 :root{
   --neon1:#00ffff;
   --neon2:#b100ff;
@@ -33,6 +30,8 @@
   --neon6:#ff4500;
   --glass:rgba(255,255,255,0.06);
 }
+
+/* RESET & BODY */
 *{box-sizing:border-box;}
 body{
   margin:0;
@@ -44,6 +43,8 @@ body{
   position:relative;
   animation:bodyGlow 10s linear infinite;
 }
+
+/* BODY NEON GLOW ANIMATION */
 @keyframes bodyGlow{
   0%{background:#05000a;}
   20%{background:#0a001f;}
@@ -52,6 +53,8 @@ body{
   80%{background:#05000a;}
   100%{background:#0a000f;}
 }
+
+/* CYBER GRID BACKGROUND */
 body::before{
   content:"";
   position:fixed;
@@ -68,6 +71,8 @@ body::before{
   0%{background-position:0 0,0 0,0 0;}
   100%{background-position:120px 120px,120px 120px,0 0;}
 }
+
+/* GLITCH LAYER */
 body::after{
   content:"";
   position:fixed;
@@ -83,6 +88,8 @@ body::after{
   75%{transform:translate(-2px,1px);}
   100%{transform:translate(0,0);}
 }
+
+/* NEON TEXT & BORDER ANIMATION */
 @keyframes neonColor{
   0%{color:var(--neon1);}
   20%{color:var(--neon2);}
@@ -104,6 +111,8 @@ body::after{
   50%{box-shadow:0 0 18px currentColor,0 0 36px currentColor;}
   100%{box-shadow:0 0 8px currentColor,0 0 16px currentColor;}
 }
+
+/* NAVBAR */
 .navbar{
   display:flex;
   justify-content:space-between;
@@ -128,6 +137,8 @@ body::after{
   animation: neonColor 5s infinite alternate;
 }
 .navbar a i{margin-right:6px;}
+
+/* CONTAINER */
 .container{
   max-width:900px;
   margin:auto;
@@ -166,6 +177,8 @@ button{
 button:hover{
   animation:pulseGlow 1.5s infinite;
 }
+
+/* VIDEO + RESULT */
 video{
   width:100%;
   max-width:600px;
@@ -184,6 +197,8 @@ video{
 #result a:hover{
   animation:pulseGlow 1.5s infinite;
 }
+
+/* LOADING ANIMATION */
 #loading{
   display:none;
   margin-top:20px;
@@ -191,6 +206,8 @@ video{
   font-size:1.2em;
   animation: neonColor 2s linear infinite alternate;
 }
+
+/* FOOTER */
 footer{
   background:rgba(0,0,0,.8);
   color:currentColor;
@@ -199,44 +216,40 @@ footer{
   margin-top:30px;
   animation: neonColor 5s infinite alternate;
 }
-.modal{
+
+/* MODAL IKLAN SEBELUM REDIRECT */
+#adOverlay{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.85);
-  z-index:999;
+  background:rgba(0,0,0,0.85);
+  z-index:9999;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
 }
-.modal-content{
+#adOverlayContent{
   background:var(--glass);
   border:2px solid currentColor;
-  max-width:380px;
-  margin:140px auto;
   padding:25px;
-  text-align:center;
   border-radius:18px;
+  max-width:400px;
   animation: neonBorder 5s infinite alternate;
 }
+
+/* RESPONSIVE */
 @media screen and (max-width:600px){
   .navbar div{width:100%; display:flex; justify-content:center; flex-wrap:wrap;}
   .navbar a{margin:8px;}
   .downloader{flex-direction:column;}
 }
-
-/* ======= IKLAN BANNER DI MODAL ======= */
-#adBanner{
-  margin-top:15px;
-  width:100%;
-  height:90px;
-  background:#111;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  border-radius:12px;
-}
 </style>
 </head>
 
 <body>
+
+<!-- NAVBAR -->
 <div class="navbar">
   <div class="logo">VIRENDRA EL-KARIM</div>
   <div>
@@ -248,18 +261,13 @@ footer{
   </div>
 </div>
 
+<!-- CONTENT -->
 <div class="container" id="home">
 <h1>Download Video TikTok</h1>
 
 <div class="downloader">
   <input id="tiktokUrl" placeholder="https://vt.tiktok.com/xxxxx">
-  <button onclick="pasteLink()">Tempel</button>
-  <select id="quality">
-    <option value="hd">HD</option>
-    <option value="sd">SD</option>
-    <option value="hdnowm">HD Tanpa Watermark</option>
-  </select>
-  <button onclick="prepareDownload()">Download</button>
+  <button onclick="startAdRedirect()">Download</button>
 </div>
 
 <div id="loading">Loading video… ⚡</div>
@@ -275,97 +283,46 @@ footer{
   <p>© 2025 Virendra EL-Karim</p>
 </footer>
 
-<!-- MODAL -->
-<div class="modal" id="adModal">
-  <div class="modal-content">
+<!-- MODAL IKLAN SEBELUM REDIRECT -->
+<div id="adOverlay">
+  <div id="adOverlayContent">
     <h3>Tunggu sebentar…</h3>
-    <div id="timer">7</div>
-    
-    <!-- IKLAN BANNER -->
+    <div id="adTimer">5</div>
+    <!-- MONETAG / SCRIPT IKLAN DISINI -->
     <div id="adBanner">
-      <!-- Contoh Banner Monetag / AdSense -->
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:320px;height:90px"
-           data-ad-client="ca-pub-2613355217837386"
-           data-ad-slot="1234567890"></ins>
+      <script src="https://otieu.com/4/10461399"></script>
     </div>
-
-    <button id="downloadBtn" disabled onclick="startDownload()">Lanjutkan</button>
   </div>
 </div>
 
 <script>
+// SOUND EFFECT
 const clickSound = new Audio('https://freesound.org/data/previews/522/522178_861714-lq.mp3');
-let videoData = null;
-let selectedQuality = "hd";
 
-function pasteLink() {
-  navigator.clipboard.readText().then(text => {
-    document.getElementById("tiktokUrl").value = text;
-    playSound();
-  }).catch(err => {
-    alert("Gagal menempel link: " + err.message);
-  });
-}
+function playSound(){try{clickSound.play();}catch(e){console.log(e);}}
 
-async function prepareDownload() {
+// SIMULASI DOWNLOAD DENGAN IKLAN SEBELUM REDIRECT
+function startAdRedirect(){
+  playSound();
   const url = document.getElementById("tiktokUrl").value.trim();
-  selectedQuality = document.getElementById("quality").value;
-
-  if (!url || !url.includes("tiktok.com")) {
-    return alert("Masukkan link TikTok yang valid (misalnya: https://vt.tiktok.com/xxxxx)");
-  }
-
-  playSound();
-  document.getElementById("adModal").style.display = "block";
-  document.getElementById("loading").style.display = "block";
-  document.getElementById("result").innerHTML = "";
-
-  // Dummy link untuk test, ganti dengan API kamu nanti
-  videoData = { video: url, video_hd: url, video_no_watermark: url };
-
-  // Timer 7 detik untuk iklan
-  let t = 7;
-  const i = setInterval(() => {
-    document.getElementById("timer").innerText = t;
-    if (--t < 0) {
-      clearInterval(i);
-      document.getElementById("downloadBtn").disabled = false;
+  if(!url) return alert("Masukkan link TikTok valid");
+  
+  const adOverlay = document.getElementById("adOverlay");
+  const adTimerEl = document.getElementById("adTimer");
+  adOverlay.style.display = "flex";
+  
+  let t = 5; // durasi iklan 5 detik
+  const interval = setInterval(()=>{
+    adTimerEl.innerText = t;
+    if(--t<0){
+      clearInterval(interval);
+      adOverlay.style.display="none";
+      // redirect ke link eksternal
+      window.location.href = url; 
     }
-  }, 1000);
-}
-
-function startDownload() {
-  playSound();
-  document.getElementById("adModal").style.display = "none";
-
-  let link = "";
-  if (selectedQuality === "hdnowm") {
-    link = videoData.video_no_watermark || videoData.video_hd || videoData.video;
-  } else if (selectedQuality === "hd") {
-    link = videoData.video_hd || videoData.video;
-  } else {
-    link = videoData.video;
-  }
-
-  if (!link) {
-    alert("Link download tidak tersedia untuk quality ini.");
-    return;
-  }
-
-  window.location.href = link; // Redirect langsung
-
-  // Bisa juga buka tab iklan lain jika mau
-  setTimeout(() => { window.open("https://otieu.com/4/10391957", "_blank"); }, 300);
-}
-
-function playSound() {
-  try { clickSound.play(); } catch(e){ console.log(e); }
+  },1000);
 }
 </script>
 
 </body>
-</html>
+  </html>
