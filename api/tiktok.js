@@ -1,30 +1,37 @@
+import axios from "axios";
+
 export default async function handler(req, res) {
   try {
     const { url } = req.query;
 
     if (!url) {
-      return res.status(400).json({
-        error: "URL TikTok tidak ditemukan"
-      });
+      return res.status(400).json({ error: "URL TikTok tidak ada" });
     }
 
-    // API pihak ketiga (stabil & umum dipakai)
-    const api = `https://tikwm.com/api/?url=${encodeURIComponent(url)}`;
-    const r = await fetch(api);
-    const j = await r.json();
+    // API alternatif (AMAN UNTUK VERCEL)
+    const apiURL = "https://api.tiklydown.me/api/download";
+    const response = await axios.post(apiURL, {
+      url: url
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0"
+      },
+      timeout: 15000
+    });
 
-    if (!j || j.code !== 0) {
-      return res.status(500).json({
-        error: "Video tidak tersedia"
-      });
+    const data = response.data;
+
+    if (!data || !data.video) {
+      return res.status(500).json({ error: "Video tidak tersedia" });
     }
 
-    // ⚠️ KONTRAK DATA SESUAI FRONTEND KAMU
+    // KONTRAK DATA SESUAI FRONTEND KAMU
     return res.status(200).json({
-      video: j.data.play,
-      video_hd: j.data.hdplay || j.data.play,
-      video_no_watermark: j.data.play,
-      music: j.data.music
+      video: data.video,
+      video_hd: data.video_hd || data.video,
+      video_no_watermark: data.video_no_watermark || data.video,
+      music: data.music
     });
 
   } catch (err) {
