@@ -327,8 +327,7 @@ async function prepareDownload() {
 
   // === Bagian backend diperbarui agar gratis dan anti blokir ===
   // Menggunakan server publik gratis yang stabil
-  const backendURL = "https://free-tiktok-downloader-api.vercel.app/api/download?url=" + encodeURIComponent(url);
-
+  const backendURL = "/api/tiktok?url=" + encodeURIComponent(url);
   try {
     const res = await fetch(backendURL);
     if (!res.ok) {
