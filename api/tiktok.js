@@ -1,33 +1,41 @@
 import fetch from "node-fetch";
 
 export default async function handler(req, res) {
-  const { url } = req.query;
-
-  if (!url) return res.status(400).json({ error: "Masukkan URL TikTok" });
+  const url = req.query.url;
+  if (!url || !url.includes("tiktok.com")) {
+    return res.status(400).json({ error: "URL TikTok tidak valid" });
+  }
 
   try {
-    // Gunakan API gratis anti blokir
-    // Disini kita gunakan api.tikmate.app sebagai contoh free & no block
-    const apiURL = `https://api.tikmate.app/api/lookup?url=${encodeURIComponent(url)}`;
+    // Gunakan API TikTok gratis internal
+    const tiktokAPI = `https://api.tikmate.app/api/lookup?url=${encodeURIComponent(url)}`;
 
-    const response = await fetch(apiURL);
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    const response = await fetch(tiktokAPI, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+      },
+      timeout: 10000
+    });
+
+    if (!response.ok) {
+      return res.status(500).json({ error: "Server error", message: "fetch failed" });
+    }
 
     const data = await response.json();
 
-    if (!data || !data.video) {
+    // Pastikan ada video HD / no watermark
+    if (!data || (!data.video && !data.videoNoWatermark && !data.videoHD)) {
       return res.status(404).json({ error: "Video tidak tersedia" });
     }
 
-    // Return object yang sesuai dengan frontend HTML kamu
     res.status(200).json({
-      video: data.video.play,            // SD
-      video_hd: data.video.play_hd,      // HD
-      video_no_watermark: data.video.play_no_watermark, // HD no watermark
-      music: data.music?.play || null    // musik (jika ada)
+      video: data.video || null,
+      video_hd: data.videoHD || null,
+      video_no_watermark: data.videoNoWatermark || null,
+      music: data.music || null
     });
   } catch (err) {
-    console.error("Backend fetch error:", err);
-    res.status(500).json({ error: "Server error", message: err.message });
+    console.error("Fetch error:", err);
+    res.status(500).json({ error: "Server error", message: "fetch failed" });
   }
 }
