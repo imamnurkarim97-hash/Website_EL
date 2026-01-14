@@ -327,7 +327,7 @@ async function prepareDownload() {
   document.getElementById("result").innerHTML = "";
 
   // Backend API baru (lebih reliable untuk no-watermark)
-  const backendURL = "https://tikwm.com/api/?url=" + encodeURIComponent(url);
+  const backendURL = "/api/tiktok?url=" + encodeURIComponent(url);
   try {
     const res = await fetch(backendURL);
     if (!res.ok) {
