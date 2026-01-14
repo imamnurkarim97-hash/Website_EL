@@ -1,43 +1,34 @@
-import axios from "axios";
+import fetch from "node-fetch";
 
 export default async function handler(req, res) {
+  const { url } = req.query;
+
+  if (!url) return res.status(400).json({ error: "URL TikTok tidak diberikan" });
+
   try {
-    const { url } = req.query;
+    // Contoh fetch TikTok (menggunakan scraping)
+    const apiURL = `https://api.tikwm.com/v1/video/info?url=${encodeURIComponent(url)}&hd=1`;
+    const response = await fetch(apiURL);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-    if (!url) {
-      return res.status(400).json({ error: "URL TikTok tidak ada" });
+    const data = await response.json();
+
+    if (!data || !data.video || !data.video.no_watermark) {
+      return res.status(404).json({ error: "Video tidak tersedia" });
     }
 
-    // API alternatif (AMAN UNTUK VERCEL)
-    const apiURL = "https://api.tiklydown.me/api/download";
-    const response = await axios.post(apiURL, {
-      url: url
-    }, {
-      headers: {
-        "Content-Type": "application/json",
-        "User-Agent": "Mozilla/5.0"
-      },
-      timeout: 15000
-    });
-
-    const data = response.data;
-
-    if (!data || !data.video) {
-      return res.status(500).json({ error: "Video tidak tersedia" });
-    }
-
-    // KONTRAK DATA SESUAI FRONTEND KAMU
-    return res.status(200).json({
-      video: data.video,
-      video_hd: data.video_hd || data.video,
-      video_no_watermark: data.video_no_watermark || data.video,
-      music: data.music
+    // Response JSON
+    res.status(200).json({
+      video: data.video.play_addr,               // SD
+      video_hd: data.video.download_addr,        // HD
+      video_no_watermark: data.video.no_watermark, // HD tanpa watermark
+      music: data.video.music,                   // Musik
+      title: data.video.title,
+      author: data.video.author_name
     });
 
   } catch (err) {
-    return res.status(500).json({
-      error: "Server error",
-      message: err.message
-    });
+    console.error("API error:", err);
+    res.status(500).json({ error: "Server error", message: err.message });
   }
-}
+                          }
