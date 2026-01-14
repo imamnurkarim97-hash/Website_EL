@@ -46,10 +46,16 @@ footer{background:rgba(0,0,0,.8);color:currentColor;text-align:center;padding:20
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;}
 .modal-content{background:var(--glass);border:2px solid currentColor;max-width:380px;margin:140px auto;padding:25px;text-align:center;border-radius:18px;animation: neonBorder 5s infinite alternate;}
 @media screen and (max-width:600px){.navbar div{width:100%; display:flex; justify-content:center; flex-wrap:wrap;}.navbar a{margin:8px;}.downloader{flex-direction:column;}}
+
+/* Konten tambahan untuk AdSense */
+#adense-content{margin-top:30px; text-align:left; color:#fff; font-family:sans-serif; line-height:1.6;}
+#adense-content h2{color:#00ffff; margin-bottom:10px;}
+#adense-content p{margin-bottom:12px;}
 </style>
 </head>
 <body>
 
+<!-- NAVBAR -->
 <div class="navbar">
   <div class="logo">VIRENDRA EL-KARIM</div>
   <div>
@@ -61,6 +67,32 @@ footer{background:rgba(0,0,0,.8);color:currentColor;text-align:center;padding:20
   </div>
 </div>
 
+<!-- ===== KONTEN UNTUK ADENSE DULU ===== -->
+<div class="container" id="adense-content">
+
+<h2>Tentang Layanan Downloader TikTok</h2>
+<p>Layanan ini memungkinkan kamu mendownload video TikTok dengan cepat dan mudah, baik untuk menyimpan video favorit atau menonton offline. Semua proses dilakukan melalui browser tanpa perlu aplikasi tambahan.</p>
+<p>Kamu bisa memilih kualitas video HD, SD, atau HD tanpa watermark. Fitur ini membantu menghemat ruang penyimpanan karena kamu bisa menyesuaikan resolusi sesuai kebutuhan perangkat. Layanan ini aman, gratis, dan bisa digunakan di perangkat apa saja.</p>
+<p>Selain download video, kamu juga bisa mendownload musik dari video TikTok secara langsung. Ini berguna jika ingin mendengarkan audio favorit tanpa menonton videonya berulang-ulang. Semua link yang digunakan aman dan langsung terhubung ke server resmi TikTok.</p>
+<p>Layanan ini mendukung semua jenis perangkat, termasuk smartphone, tablet, dan desktop. Interface yang intuitif memudahkan siapa saja untuk menggunakan fitur download. Tidak ada iklan berbahaya atau virus, sehingga perangkat tetap aman.</p>
+<p>Kamu juga bisa memanfaatkan tips berikut: selalu pilih kualitas video sesuai kebutuhan, simpan di folder khusus, dan pastikan koneksi internet stabil. Dengan cara ini, proses download lebih cepat dan tidak mengalami gangguan.</p>
+
+<h2>Tutorial Menggunakan Downloader</h2>
+<p>1. Salin link video TikTok yang ingin di-download.</p>
+<p>2. Tempel link di kolom input di bawah, pilih kualitas video.</p>
+<p>3. Tekan tombol Download, tunggu modal selesai, lalu video akan tersedia untuk disimpan.</p>
+<p>4. Jika ingin download musik saja, pilih opsi MP3 (jika tersedia).</p>
+<p>5. Semua proses berlangsung cepat dan mudah, tanpa login atau registrasi.</p>
+
+<h2>FAQ - Pertanyaan Umum</h2>
+<p><strong>Apakah layanan ini gratis?</strong> Ya, layanan ini sepenuhnya gratis untuk semua pengguna.</p>
+<p><strong>Apakah aman untuk perangkat saya?</strong> Ya, tidak ada virus, malware, atau iklan pop-up berbahaya yang memengaruhi perangkat.</p>
+<p><strong>Apakah video akan memiliki watermark?</strong> Kamu bisa memilih HD tanpa watermark untuk mendapatkan video bersih.</p>
+<p><strong>Apakah perlu aplikasi tambahan?</strong> Tidak, semua proses dilakukan melalui browser dan tidak memerlukan aplikasi pihak ketiga.</p>
+
+</div>
+
+<!-- ===== DOWNLOAD TOMBOL / MODAL ===== -->
 <div class="container" id="home">
 <h1>Download Video TikTok</h1>
 
@@ -81,8 +113,9 @@ footer{background:rgba(0,0,0,.8);color:currentColor;text-align:center;padding:20
 </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
-  <p>© 2025 Virendra EL-Karim</p>
+  <p>© 2025 Virendra EL-KARIM</p>
 </footer>
 
 <!-- MODAL IKLAN -->
@@ -133,6 +166,5 @@ document.getElementById("downloadBtn").addEventListener("click", function(){
   },1000);
 });
 </script>
-
 </body>
-</html>
+     </html>
