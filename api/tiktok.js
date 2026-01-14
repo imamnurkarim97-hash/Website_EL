@@ -1,41 +1,43 @@
 import fetch from "node-fetch";
 
 export default async function handler(req, res) {
-  const url = req.query.url;
-  if (!url || !url.includes("tiktok.com")) {
-    return res.status(400).json({ error: "URL TikTok tidak valid" });
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
+  const url = req.query.url;
+  if (!url) return res.status(400).json({ error: "Missing URL" });
+
+  // Ambil ID dari URL TikTok
+  const match = url.match(/video\/(\d+)/);
+  if (!match) return res.status(400).json({ error: "Missing ID" });
+
+  const videoID = match[1];
+
   try {
-    // Gunakan API TikTok gratis internal
-    const tiktokAPI = `https://api.tikmate.app/api/lookup?url=${encodeURIComponent(url)}`;
+    // API gratis TikMate (contoh)
+    const apiURL = `https://api.tikmate.app/api/download?video_id=${videoID}`;
 
-    const response = await fetch(tiktokAPI, {
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-      },
-      timeout: 10000
-    });
-
+    const response = await fetch(apiURL);
     if (!response.ok) {
       return res.status(500).json({ error: "Server error", message: "fetch failed" });
     }
 
     const data = await response.json();
 
-    // Pastikan ada video HD / no watermark
-    if (!data || (!data.video && !data.videoNoWatermark && !data.videoHD)) {
+    // Pastikan ada video
+    if (!data || !data.video || !data.video_no_watermark) {
       return res.status(404).json({ error: "Video tidak tersedia" });
     }
 
-    res.status(200).json({
-      video: data.video || null,
-      video_hd: data.videoHD || null,
-      video_no_watermark: data.videoNoWatermark || null,
+    return res.status(200).json({
+      video: data.video,
+      video_hd: data.video_hd,
+      video_no_watermark: data.video_no_watermark,
       music: data.music || null
     });
   } catch (err) {
-    console.error("Fetch error:", err);
-    res.status(500).json({ error: "Server error", message: "fetch failed" });
+    console.error(err);
+    return res.status(500).json({ error: "Server error", message: err.message });
   }
 }
